@@ -1,0 +1,281 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Linguagens Regulares} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{16 de outubro de 2017} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+	
+	\section{Revisão}	
+	\subsection{Revisão (cont.)}
+	\begin{frame}{Conceitos Básicos} 
+		\begin{block}{Sequência}
+			\begin{itemize}
+				\item Definição;
+				\item Representação;
+				\item $k$-upla;
+				\item Produto cartesiano.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Conceitos Básicos} 
+		\begin{block}{Funções e Relações}
+			\begin{itemize}
+				\item Definição;
+				\item Domínio;
+				\item Contradomínio;
+				\item Imagem;
+				\item Aridade;
+				\item Predicado;
+				\item Propriedades de relações.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Conceitos Básicos} 
+		\begin{block}{Grafos}
+			\begin{itemize}
+				\item Definição;
+				\item Nó (ou Vértice);
+				\item Aresta;
+				\item Representação;
+				\item Grau de um nó;
+				\item Grafo rotulado;
+				\item Subgrafo;
+				\item Caminhos, Circuitos e Árvores;
+				\item Grafo direcionado.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+		\section{Linguagens Regulares}	
+	\begin{frame}{Linguagens Regulares}
+		\begin{block}{O que é um computador?}
+			\begin{itemize}
+				\item A Teoria da Computação utiliza {\bf modelos computacionais}; \pause
+				\item Modelos computacionais são úteis para a construção de teorias matemáticas a respeito de computadores; \pause
+				\item {\bf Autômato finito} (ou {\bf máquina de estados finito}) é um dos modelos mais simples; \pause
+				\item Os autômatos finitos são bons modelos para computadores com uma quantidade extremamente limitada de memória.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Exemplo: Porta Automática de Entrada}
+		\begin{center}
+			\includegraphics[width=9cm]{images/visao-superior.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Exemplo: Porta Automática de Entrada}
+		\begin{center}
+			\includegraphics[width=4cm]{images/porta.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Exemplo: Porta Automática de Entrada}
+		\begin{center}
+			\includegraphics[width=6cm]{images/automatos.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Exemplo: Porta Automática de Entrada}
+		\begin{center}
+			\includegraphics[width=11cm]{images/fig1-3.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Exemplo: Porta Automática de Entrada}
+		\begin{block}{Estado Inicial}
+			FECHADO.
+		\end{block}	\pause
+		\begin{block}{Sequência de sinais}
+			(FRENTE, ATRÁS, NENHUM, FRENTE, AMBOS, NENHUM, ATRÁS, NENHUM)
+		\end{block} \pause
+		\begin{block}{Sequência de estados}
+			(ABERTO, ABERTO, FECHADO, ABERTO, ABERTO, FECHADO, FECHADO, FECHADO)
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Exemplo: Porta Automática de Entrada}
+		\begin{block}{Capacidade de memória}
+			\begin{itemize}
+				\item 1 bit.
+			\end{itemize}
+		\end{block} \pause
+		\begin{block}{Outros exemplos...}
+			\begin{itemize}
+				\item Controlador de um elevador.
+			\end{itemize}
+		\end{block} \pause
+		\begin{exampleblock}{Mais detalhes...}
+			Vamos conhecer os pormenores de um autômato finito!
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Autômato Finito}
+		\begin{center}
+			\includegraphics[width=11cm]{images/fig1-4.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Autômato Finito}
+		\begin{center}
+			\includegraphics[width=8cm]{images/fig1-4-1.png}
+		\end{center}
+		\begin{block}{Notações}
+			\begin{itemize}
+				\item {\bf Diagrama de estado}: $M_1$; \pause
+				\item {\bf Estados:} $q_1$, $q_2$ e $q_3$; \pause
+				\item {\bf Estado inicial:} $q_1$; \pause
+				\item {\bf Estados de aceitação:} $q_2$; \pause
+				\item {\bf Transições:} são as setas saindo de um estado para outro.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Autômato Finito}
+		\begin{center}
+			\includegraphics[width=8cm]{images/fig1-4-1.png}
+		\end{center}
+		\begin{block}{Funcionamento}
+			Para uma dada cadeia de entrada $\omega$, o autômato pode {\bf aceitar} ou {\bf rejeitar} a cadeia.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}[shrink]{Autômato Finito}
+		\begin{center}
+			\includegraphics[width=8cm]{images/fig1-4-1.png}
+		\end{center}
+		\begin{block}{Exemplo: cadeia de entrada {\tt 1101}}
+			\begin{enumerate} \pause
+				\item Começa no estado $q_1$; \pause 
+				\item Lê $1$, segue a transição de $q_1$ para $q_2$; \pause
+				\item Lê $1$, segue a transição de $q_2$ para $q_2$; \pause
+				\item Lê $0$, segue a transição de $q_2$ para $q_3$; \pause
+				\item Lê $1$, segue a transição de $q_3$ para $q_2$; \pause
+				\item {\it Aceita}, porque $M_1$ está no estado de aceitação $q_2$ no final da entrada.
+			\end{enumerate}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Autômato Finito}
+		\begin{center}
+			\includegraphics[width=8cm]{images/fig1-4-1.png}
+		\end{center}
+		\begin{block}{Exemplos}
+			\begin{itemize}
+				\item $M_1$ aceita cadeias como: {\tt 1}, {\tt 01}, {\tt 11}, {\tt 010101}; \pause
+				\item $M_1$ aceita cadeias como: {\tt 100}, {\tt 0100}, {\tt 110000}, {\tt 0101000000}; \pause
+				\item $M_1$ rejeita cadeias como: {\tt 0}, {\tt 010}, {\tt 101000}.
+			\end{itemize}
+		\end{block} \pause
+		\begin{exampleblock}{Pergunta}
+			Qual é a linguagem constituída de todas as cadeias que $M_1$ aceita?
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Definição formal}
+		\begin{block}{Por que é importante?}
+			\begin{itemize}
+				\item Uma definição formal é precisa: \pause
+				\begin{itemize}
+					\item Os autômatos finitos podem ou não ter 0 estados de aceitação? \pause
+					\item Eles devem ter exatamente uma transição saindo de cada estado para cada símbolo de entrada possível? \pause
+				\end{itemize}
+				\item Uma definição formal provê notação.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Definição formal}
+		Um {\bf autômato finito determinístico} (AFD) é uma 5-upla $(Q, \Sigma, \delta, q_0, F)$, de forma que
+		
+		\begin{enumerate}
+			\item $Q$ é um conjunto finito conhecido como os {\bf estados},
+			\item $\Sigma$ é um conjunto finito chamado o {\bf alfabeto},
+			\item $\delta : Q \times \Sigma \rightarrow Q$ é a {\bf função de transição},
+			\item $q_0 \in Q$ é o {\bf estado inicial}, e
+			\item $F \subseteq Q$ é o {\bf conjunto de estados de aceitação}.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
