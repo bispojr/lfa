@@ -1,0 +1,250 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+\usepackage{slashbox}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Definição de Computação e Linguagem Regular} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{06 de novembro de 2017} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+	
+	\section{Revisão}	
+	\subsection{Notações e Exemplos de autômatos}	
+	\begin{frame}{Definição formal}
+		\begin{center}
+			\includegraphics[width=8cm]{images/fig1-4-1.png}
+		\end{center}
+		\begin{block}{Descrição formal de $M_1$}
+			\begin{itemize}      
+				\item $Q = \{ q_1, q_2, q_3 \}$;      
+				\item $\Sigma = \{ 0,1 \} $;      
+				\item $\delta$ é descrita como
+				\begin{tabular}{c|cc}
+					\backslashbox{$Q$}{$\Sigma$}	&	0		&	1		\\
+					\hline
+					$q_1$	&	$q_1$	& 	$q_2$	\\
+					$q_2$	&	$q_3$	&	$q_2$	\\
+					$q_3$	&	$q_2$	& 	$q_2$
+				\end{tabular}
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Definição formal}
+		\begin{center}
+			\includegraphics[width=8cm]{images/fig1-4-1.png}
+		\end{center}
+		\begin{block}{Descrição formal de $M_1$}
+			\begin{itemize}      
+				\item $q_1$ é o estado inicial, e      
+				\item $F = \{ q_2 \}$.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Notações importantes}
+		\begin{block}{Linguagem da máquina $M$}      
+			\begin{itemize}
+				\item Se $A$ é o conjunto de todas as cadeias que a máquina $M$ aceita, dizemos que $A$ é a {\bf linguagem da máquina $M$};      
+				\item $L(M) = A$;      
+				\item {\bf $M$ reconhece $A$}.
+			\end{itemize}						
+		\end{block}      
+		\begin{alertblock}{Para evitar mal-entendidos...}
+			O termo {\bf aceita} será utilizado para cadeias.\\
+			E o termo {\bf reconhece} será utilizado para linguagens.
+		\end{alertblock} 
+	\end{frame}
+	
+	\begin{frame}{Notações importantes}
+		\begin{exampleblock}{Algo importante...}
+			\begin{itemize}
+				\item Uma máquina pode aceitar várias cadeias, mas ela sempre reconhece uma {\bf única} linguagem;      
+				\item Mesmo se a máquina não aceitar nenhuma cadeia, ela reconhece ainda uma linguagem: $\emptyset$.
+			\end{itemize}
+		\end{exampleblock}      
+		\begin{block}{Em relação a $M_1$...}
+			\begin{itemize}
+				\item $A = \{ \omega \mbox{ | } \omega$ contém pelo menos um {\tt 1} e um número par de {\tt 0}s segue o último {\tt 1} $\}$;      
+				\item $L(M_1) = A$;      
+				\item $M_1$ reconhece $A$.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Exemplos de autômatos finitos}
+		\begin{center}
+			\includegraphics[width=11cm]{images/fig1-8.png}
+		\end{center}     
+		\begin{block}{Linguagem da máquina}
+			$L(M_2) = \{ \omega \mbox{ | } \omega$ termina com um {\tt 1} $\}$
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Exemplos de autômatos finitos}
+		\begin{center}
+			\includegraphics[width=11cm]{images/fig1-10.png}
+		\end{center}     
+		\begin{block}{Linguagem da máquina}
+			$L(M_3) = \{ \omega \mbox{ | } \omega$ é a cadeia vazia $\epsilon$ ou termina em um {\tt 0} $\}$
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Exemplos de autômatos finitos}
+		\begin{center}
+			\includegraphics[width=6cm]{images/fig1-12.png}
+		\end{center}     
+		\begin{block}{Linguagem da máquina}
+			$L(M_4) = \{ \omega \mbox{ | } \omega$ começa e termina com o mesmo símbolo $\}$
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Exemplos de autômatos finitos}
+		\begin{center}
+			\includegraphics[width=9cm]{images/fig1-14.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Exemplos de autômatos finitos}
+		\begin{block}{Linguagem da máquina (Versão 1)}
+			 $L(M_5) = \{ \omega$ | a soma dos símbolos em $\omega$ é {\tt 0} módulo {\tt 3}, exceto que {\tt $\langle$RESET$\rangle$} retorna o contador para {\tt 0}$\}$
+		\end{block}      
+		\begin{block}{Linguagem da máquina (Versão Alternativa)}
+			$$			
+			L(M_5) = \{ \omega \mbox{ | } \left\{ \begin{array}{rl}
+			\left(  \sum\limits_{i=1}^{n} \omega_i \right) \equiv_3 0, 	
+			& \mbox{em que } \langle RESET \rangle \not= \omega_j\\
+			& \mbox{para } 1 \leq j \leq n, \\			
+			\left(  \sum\limits_{i=j+1}^{n} \omega_i \right) \equiv_3 0, 	
+			& \mbox{em que } \omega_j \mbox{ é o último }\\
+			& \langle RESET \rangle \mbox{ em } \omega \\
+			\end{array}	
+			\right. \}
+			$$
+		\end{block}
+	\end{frame}
+
+	\section{Definição de Computação e Linguagem Regular}
+	\begin{frame}{Computação em um AFD}
+		\begin{block}{Definição}
+			Seja $M = (Q,\Sigma,\delta, q_0, F)$ um autômato finito e \pause \\
+			suponha que $\omega = \omega_1 \omega_2 \ldots, \omega_n$ seja uma cadeia \pause \\
+			em que cada $\omega_i$ é um membro do alfabeto $\Sigma$ ($1 \leq i \leq n$). \pause \\Então $M$ {\bf aceita} $\omega$ se uma sequência de estados $r_0, r_1, \ldots, r_n$ em $Q$ existe satisfazendo três condições: \pause
+			\begin{enumerate}
+				\item $r_0 = q_0$;
+				\item $\delta(r_{i+1}, \omega_{i+1}) = r_{i+1}$;
+				\item $r_n \in F$.
+			\end{enumerate}
+		\end{block} \pause
+		\begin{block}{Corolário}
+			$M$ reconhece a linguagem $A$, se $A = \{ \omega$  | $M$ aceita $\omega \}$.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Linguagem regular}
+		\begin{block}{Definição 1.16}
+			Uma linguagem é chamada de uma {\bf linguagem regular} se algum autômato finito a reconhece.
+		\end{block} \pause
+		\begin{block}{Exemplos de computação}
+			Máquina $M_5$ e a cadeia $\omega =$ {\tt 10$\langle$RESET$\rangle$22$\langle$RESET$\rangle$012}:
+			\begin{itemize}
+				\item $q_0, q_1, q_1, q_0, q_2, q_1, q_0, q_0, q_1, q_0$ \pause
+				\item $L(M_5) = \{ \omega$ | a soma dos símbolos em $\omega$ é {\tt 0} módulo {\tt 3}, exceto que {\tt $\langle$RESET$\rangle$} retorna o contador para {\tt 0}$\}$
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Projetando Autômatos Finitos}
+		\begin{block}{Sugestões...}
+			\begin{itemize}
+				\item Ponha-se no lugar da máquina a ser projetada; \pause
+				\item Perceba que você, como máquina, não sabe quando a cadeia acaba; \pause
+				\item Lembre-se de que a sua memória é finita.
+			\end{itemize}
+		\end{block} \pause
+		\begin{block}{Exemplos}
+			\begin{itemize}
+				\item Suponha que o alfabeto seja $\{ 0,1 \}$ e que a linguagem consista de todas as cadeias com um número ímpar de {\tt 1}s; \pause
+				\item Suponha que o alfabeto seja $\{ 0,1 \}$ e que a linguagem consista de todas as cadeias que contêm {\tt 001} como subcadeia.				
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
