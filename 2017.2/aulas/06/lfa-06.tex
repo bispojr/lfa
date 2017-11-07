@@ -1,0 +1,168 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+\usepackage{slashbox}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Operações Regulares e Fecho} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{07 de novembro de 2017} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+	
+	\section{Revisão}	
+	\subsection{Definição de Computação e Linguagem Regular}
+	\begin{frame}{Computação em um AFD}
+		\begin{block}{Definição}
+			Seja $M = (Q,\Sigma,\delta, q_0, F)$ um autômato finito e  \\
+			suponha que $\omega = \omega_1 \omega_2 \ldots \omega_n$ seja uma cadeia  \\
+			em que cada $\omega_i$ é um membro do alfabeto $\Sigma$ ($1 \leq i \leq n$).  \\Então $M$ {\bf aceita} $\omega$ se uma sequência de estados $r_0, r_1, \ldots, r_n$ em $Q$ existe satisfazendo três condições: 
+			\begin{enumerate}
+				\item $r_0 = q_0$;
+				\item $\delta(r_{i}, \omega_{i+1}) = r_{i+1}$;
+				\item $r_n \in F$.
+			\end{enumerate}
+		\end{block} 
+		\begin{block}{Corolário}
+			$M$ reconhece a linguagem $A$, se $A = \{ \omega$  | $M$ aceita $\omega \}$.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Linguagem regular}
+		\begin{block}{Definição 1.16}
+			Uma linguagem é chamada de uma {\bf linguagem regular} se algum autômato finito a reconhece.
+		\end{block} 
+		\begin{block}{Exemplos de computação}
+			Máquina $M_5$ e a cadeia $\omega =$ {\tt 10$\langle$RESET$\rangle$22$\langle$RESET$\rangle$012}:
+			\begin{itemize}
+				\item $q_0, q_1, q_1, q_0, q_2, q_1, q_0, q_0, q_1, q_0$ 
+				\item $L(M_5) = \{ \omega$ | a soma dos símbolos em $\omega$ é {\tt 0} módulo {\tt 3}, exceto que {\tt $\langle$RESET$\rangle$} retorna o contador para {\tt 0}$\}$
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Projetando Autômatos Finitos}
+		\begin{block}{Sugestões...}
+			\begin{itemize}
+				\item Ponha-se no lugar da máquina a ser projetada;      
+				\item Perceba que você, como máquina, não sabe quando a cadeia acaba;
+				\item Lembre-se de que a sua memória é finita.
+			\end{itemize}
+		\end{block}
+		\begin{block}{Exemplos}
+			\begin{itemize}
+				\item Suponha que o alfabeto seja $\{ 0,1 \}$ e que a linguagem consista de todas as cadeias com um número ímpar de {\tt 1}s;
+				\item Suponha que o alfabeto seja $\{ 0,1 \}$ e que a linguagem consista de todas as cadeias que contêm {\tt 001} como subcadeia.				
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\section{Operações Regulares}
+	\begin{frame}{Operações Regulares}
+		\begin{block}{Definição 1.23}
+			Sejam $A$ e $B$ linguagens. Definimos as operações regulares {\bf união}, {\bf concatenação} e {\bf estrela} da seguinte forma:
+			\begin{itemize} \pause
+				\item {\bf União:} $A \cup B = \{ x \mbox{ | } x \in A$ ou $x \in B \}$; \pause
+				\item {\bf Concatenação:} $A \circ B = \{ xy \mbox{ | } x \in A$ e $y \in B \}$; \pause
+				\item {\bf Estrela:} \begin{eqnarray*}
+					A^* & = & \{ x_1 x_2 \ldots x_k \mbox{ | } \\
+					&	& k \in \mathbb{Z}_+ \mbox{ e } \\
+					&	& \mbox{cada } x_i \in A \mbox{ (em que } 1 \leq i \leq k)\}
+				\end{eqnarray*}
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Operações regulares}
+		\begin{block}{Exemplo}
+			Suponha que o alfabeto $\Sigma$ seja o alfabeto padrão de 26 letras $\{a, b, c, \ldots, z \}$. \\Se $A = \{$ {\tt legal, ruim} $\}$ e $B = \{$ {\tt garoto, garota} $\}$, então \pause
+			\begin{itemize}
+				\item $A \cup B = \{$ {\tt legal, ruim, garoto, garota} $\}$ \pause
+				\item $A \circ B = \{$ {\tt legalgaroto, legalgarota, ruimgaroto, ruimgarota} $\}$ \pause
+				\item $A^* = \{ \epsilon,$ {\tt legal, ruim, legallegal, legalruim, ruimlegal, ruimruim, legallegallegal, legallegalruim, legalruimlegal, legalruimruim} $\ldots \}$
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Operações regulares}
+		\begin{block}{Teorema 1.25}
+			A classe de linguagens regulares é fechada sob a operação de união.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
