@@ -201,11 +201,11 @@
 	\begin{frame}{Computação em um AFD}
 		\begin{block}{Definição}
 			Seja $M = (Q,\Sigma,\delta, q_0, F)$ um autômato finito e \pause \\
-			suponha que $\omega = \omega_1 \omega_2 \ldots, \omega_n$ seja uma cadeia \pause \\
+			suponha que $\omega = \omega_1 \omega_2 \ldots \omega_n$ seja uma cadeia \pause \\
 			em que cada $\omega_i$ é um membro do alfabeto $\Sigma$ ($1 \leq i \leq n$). \pause \\Então $M$ {\bf aceita} $\omega$ se uma sequência de estados $r_0, r_1, \ldots, r_n$ em $Q$ existe satisfazendo três condições: \pause
 			\begin{enumerate}
 				\item $r_0 = q_0$;
-				\item $\delta(r_{i+1}, \omega_{i+1}) = r_{i+1}$;
+				\item $\delta(r_{i}, \omega_{i+1}) = r_{i+1}$;
 				\item $r_n \in F$.
 			\end{enumerate}
 		\end{block} \pause
