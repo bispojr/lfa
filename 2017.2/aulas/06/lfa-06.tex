@@ -155,9 +155,21 @@
 		\end{block}
 	\end{frame}
 	
-	\begin{frame}{Operações regulares}
+	\begin{frame}[shrink]{Operações regulares}
 		\begin{block}{Teorema 1.25}
 			A classe de linguagens regulares é fechada sob a operação de união.
+		\end{block}
+		\begin{block}{Prova}
+			Sejam $A$ e $B$ duas linguagens regulares. Se $A$ e $B$ são regulares, então existem dois AFDs $M_A = (Q_A, \Sigma_A, \delta_A, q_A, F_A)$ e $M_B = (Q_B, \Sigma_B, \delta_B, q_B, F_B)$ que as reconhecem, respectivamente. Iremos construir o AFD $M_{A \cup B} = (Q, \Sigma, \delta, q_0, F)$ que reconhece $A \cup B$, a partir de $M_A$ e $M_B$.
+			
+			Elementos de $M_{A \cup B}$:
+				\begin{itemize}
+					\item $Q = Q_A \times Q_B$;
+					\item $\Sigma = \Sigma_A \cup \Sigma_B$;
+					\item $q_0 = (q_A, q_B)$;
+					\item $F = \{ (x, y) \in Q$ | $x \in F_A$ ou $y \in F_B \}$;
+					\item $\delta$ = ???.
+				\end{itemize}
 		\end{block}
 	\end{frame}
 	
