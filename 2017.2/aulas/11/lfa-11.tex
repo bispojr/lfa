@@ -1,0 +1,202 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+\usepackage{slashbox}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Não-determinismo} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{14 de novembro de 2017} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+	
+	\section{Revisão}	
+	\subsection{Operações Regulares}
+	\begin{frame}{Operações Regulares}
+		\begin{block}{Definição 1.23}
+			Sejam $A$ e $B$ linguagens. Definimos as operações regulares {\bf união}, {\bf concatenação} e {\bf estrela} da seguinte forma:
+			\begin{itemize}        
+				\item {\bf União:} $A \cup B = \{ x \mbox{ | } x \in A$ ou $x \in B \}$;        
+				\item {\bf Concatenação:} $A \circ B = \{ xy \mbox{ | } x \in A$ e $y \in B \}$;        
+				\item {\bf Estrela:} \begin{eqnarray*}
+					A^* & = & \{ x_1 x_2 \ldots x_k \mbox{ | } \\
+					&	& k \in \mathbb{Z}_+ \mbox{ e } \\
+					&	& \mbox{cada } x_i \in A \mbox{ (em que } 1 \leq i \leq k)\}
+				\end{eqnarray*}
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Operações regulares}
+		\begin{block}{Exemplo}
+			Suponha que o alfabeto $\Sigma$ seja o alfabeto padrão de 26 letras $\{a, b, c, \ldots, z \}$. \\Se $A = \{$ {\tt legal, ruim} $\}$ e $B = \{$ {\tt garoto, garota} $\}$, então        
+			\begin{itemize}
+				\item $A \cup B = \{$ {\tt legal, ruim, garoto, garota} $\}$        
+				\item $A \circ B = \{$ {\tt legalgaroto, legalgarota, ruimgaroto, ruimgarota} $\}$        
+				\item $A^* = \{ \epsilon,$ {\tt legal, ruim, legallegal, legalruim, ruimlegal, ruimruim, legallegallegal, legallegalruim, legalruimlegal, legalruimruim} $\ldots \}$
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}[shrink]{Operações regulares}
+		\begin{block}{Teorema 1.25}
+			A classe de linguagens regulares é fechada sob a operação de união.
+		\end{block}
+		\begin{block}{Prova}
+			Sejam $A$ e $B$ duas linguagens regulares. Se $A$ e $B$ são regulares, então existem dois AFDs $M_A = (Q_A, \Sigma_A, \delta_A, q_A, F_A)$ e $M_B = (Q_B, \Sigma_B, \delta_B, q_B, F_B)$ que as reconhecem, respectivamente. Iremos construir o AFD $M_{A \cup B} = (Q, \Sigma, \delta, q_0, F)$ que reconhece $A \cup B$, a partir de $M_A$ e $M_B$.
+			
+			Elementos de $M_{A \cup B}$:
+				\begin{itemize}
+					\item $Q = Q_A \times Q_B$;
+					\item $\Sigma = \Sigma_A \cup \Sigma_B$;
+					\item $q_0 = (q_A, q_B)$;
+					\item $F = \{ (x, y) \in Q$ | $x \in F_A$ ou $y \in F_B \}$;
+					\item $\delta$ = ???.
+				\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\section{Fecho em Linguagens Regulares (cont.)}
+	\begin{frame}[shrink]{Operações regulares}
+		\begin{block}{Teorema 1.25}
+			A classe de linguagens regulares é fechada sob a operação de união.
+		\end{block}
+		\begin{block}{Prova}
+			Sejam $A$ e $B$ duas linguagens regulares. Se $A$ e $B$ são regulares, então existem dois AFDs $M_A = (Q_A, \Sigma_A, \delta_A, q_A, F_A)$ e $M_B = (Q_B, \Sigma_B, \delta_B, q_B, F_B)$ que as reconhecem, respectivamente. Iremos construir o AFD $M_{A \cup B} = (Q, \Sigma, \delta, q_0, F)$ que reconhece $A \cup B$, a partir de $M_A$ e $M_B$.
+			
+			Elementos de $M_{A \cup B}$:
+			\begin{itemize}
+				\item $Q = Q_A \times Q_B$;
+				\item $\Sigma = \Sigma_A \cup \Sigma_B$;
+				\item $q_0 = (q_A, q_B)$;
+				\item $F = \{ (x, y) \in Q$ | $x \in F_A$ ou $y \in F_B \}$;
+				\item $\delta$ = ???.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\section{Não-determinismo}
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=\textwidth]{images/fig1-27.png}
+		\end{center}
+	\end{frame}	
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=.9\textwidth]{images/fig1-28.png}
+		\end{center}
+	\end{frame}	
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=.6\textwidth]{images/fig1-29.png}
+		\end{center}
+	\end{frame}	
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=\textwidth]{images/fig1-31.png}
+		\end{center}
+	\end{frame}	
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=\textwidth]{images/fig1-32.png}
+		\end{center}
+	\end{frame}	
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=.6\textwidth]{images/fig1-34.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=.5\textwidth]{images/fig1-36.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=\textwidth]{images/def1-37.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
