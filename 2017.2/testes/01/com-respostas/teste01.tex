@@ -1,0 +1,180 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Goiás (UFG) - Regional  Jataí\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{13 de novembro de 2017}
+
+\title{\sc \huge Primeiro Teste}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro testes, uma prova e exercícios-bônus;
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & (\sum_{i=1}^{4} 0,2.T_i ) + 0,2.P  + EB\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações,
+		\item $T_i$ é a pontuação obtida no teste $i$,
+		\item $P$ é a pontuação obtida na prova, e
+		\item $EB$ é a pontuação total dos exercícios-bônus.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (1) Revisão de Fundamentos e (2) Autômatos Finitos Determinísticos.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Primeiro Teste}
+	
+	\item (5,0 pt) {\bf [Sipser 0.6]} Seja $X$ o conjunto $\{1,2,3,4,5\}$ e $Y$ o conjunto $\{6,7,8,9,10\}$. A função unária
+	$f : X \rightarrow Y$ e a função binária $g: X \times Y \rightarrow Y$ são descritas nas tabelas seguintes.
+	
+	\begin{multicols}{2}
+		
+		\begin{tabular}{c|c}
+			$n$	&	$f(n)$	\\
+			\hline
+			1 	&	6	\\			
+			2 	&	7	\\
+			3 	&	6	\\
+			4 	&	7	\\
+			5 	&	6	\\
+			\hline
+		\end{tabular}
+	
+		\columnbreak
+		
+		\begin{tabular}{c|ccccc}
+			$g$	& 	6	& 	7	& 	8	& 	9	&	10 \\
+			\hline
+			1	&	10	&	10	&	10	&	10	&	10 \\
+			2	& 	7	& 	8	& 	9	& 	10	& 	6 \\	
+			3	& 	7	& 	7	& 	8	& 	8	& 	9 \\
+			4	& 	9	& 	8	& 	7	& 	6	& 	10 \\
+			5	& 	6	& 	6	& 	6	& 	6	& 	6 \\
+			\hline
+		\end{tabular}
+	
+	\end{multicols}
+	
+	\begin{enumerate}
+		\item (1,0 pt) Qual é o valor de $f(2)$? \\
+						{\color{blue} {\bf R:} 7.}
+		\item (1,0 pt) Quais são o contradomínio e o domínio de $f$?\\
+						{\color{blue} {\bf R:} $Y$ e $X$, nesta ordem.}
+		\item (1,0 pt) Qual é o valor de $g(2,10)$?\\
+						{\color{blue} {\bf R:} 6.}
+		\item (1,0 pt) Quais são o contradomínio e o domínio de $g$?\\
+						{\color{blue} {\bf R:} $Y$ e $X \times Y$, nesta ordem.}
+		\item (1,0 pt) Qual é o valor de $g(4,f(4))$?\\
+						{\color{blue} {\bf R:} Como $f(4) =7$, temos que $g(4,f(4)) = g(4,7) = 8$.}
+	\end{enumerate}
+	
+	\newpage
+	
+	\item (5,0 pt) Dê o diagrama de estados dos AFDs que reconhecem as seguintes linguagens. Admita em todos os itens que o alfabeto é  $\{a,b\}$.
+		\begin{enumerate}
+			\item {\bf [Sipser 1.4 (e)]} (2,0 pt) \\$\{\omega$ | $\omega$ começa com um {\sf a} e tem no máximo um {\sf b}$\}$
+			
+			\vspace*{0.3cm}
+			
+			{\color{blue}
+			
+		\begin{tikzpicture}
+		[shorten >=1pt,node distance=2cm,on grid,auto] 
+			\node[state,initial] (q_0)   {$q_0$}; 
+			\node[state, accepting] (q_1) [right=of q_0] {$q_1$}; 
+			\node[state, accepting] (q_2) [right=of q_1] {$q_2$}; 
+			\node[state](q_3) [below=of q_1] {$q_3$};
+			\path[->] 
+			(q_0) 	edge  node {a} (q_1)
+			 		edge  node  {b} (q_3)
+			(q_1)	edge [loop above] node {a} ()
+					edge  node  {b} (q_2)
+			(q_2) 	edge  [loop above] node {a} ()
+					edge node {b} (q_3)
+			(q_3)	edge [loop below] node {a,b} ();
+		\end{tikzpicture}
+	}
+
+			\item {\bf [Sipser 1.5 (c)]} (2,0 pt) $\{\omega$ | $\omega$ não contém a subcadeia {\sf ab} nem {\sf ba}$\}$
+			
+			\vspace*{0.3cm}
+			
+			{\color{blue}
+				\begin{tikzpicture}
+				[shorten >=1pt,node distance=2cm,on grid,auto] 
+					\node[state,initial,accepting] (q_0)   {$q_0$}; 
+					\node[state, accepting] (q_1) [above right=of q_0] {$q_1$}; 
+					\node[state, accepting] (q_2) [below right=of q_0] {$q_2$}; 
+					\node[state](q_3) [above right=of q_2] {$q_3$};
+					\path[->] 
+					(q_0) 	edge  node {a} (q_1)
+							edge  node  {b} (q_2)
+					(q_1)	edge [loop above] node {a} ()
+							edge  node  {b} (q_3)
+					(q_2)	edge  node  {a} (q_3)
+							edge [loop below] node {b} ()
+					(q_3)	edge [loop right] node {a,b} ();
+				\end{tikzpicture}
+			}
+				
+			\item {\bf [Sipser 1.6 (g)]} (1,0 pt) $\{\omega$ | o comprimento de $\omega$ é no máximo 5$\}$
+			
+			\vspace*{0.3cm}
+			
+			{\color{blue}
+				\begin{tikzpicture}
+					[shorten >=1pt,node distance=2cm,on grid,auto] 
+					\node[state,initial,accepting] (q_0)   {$q_0$}; 
+					\node[state, accepting] (q_1) [right=of q_0] {$q_1$}; 
+					\node[state, accepting] (q_2) [right=of q_1] {$q_2$};
+					\node[state, accepting] (q_3) [right=of q_2] {$q_3$};
+					\node[state, accepting] (q_4) [below=of q_3] {$q_4$};
+					\node[state, accepting] (q_5) [left=of q_4] {$q_5$};
+					\node[state] (q_6) [left=of q_5] {$q_6$};
+					\path[->] 
+					(q_0) 	edge  node {a,b} (q_1)
+					(q_1) 	edge  node {a,b} (q_2)
+					(q_2) 	edge  node {a,b} (q_3)
+					(q_3) 	edge  node {a,b} (q_4)
+					(q_4) 	edge  node {a,b} (q_5)
+					(q_5) 	edge  node {a,b} (q_6)
+					(q_6)	edge [loop left] node {a,b} ();
+				\end{tikzpicture}
+			}
+		\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
