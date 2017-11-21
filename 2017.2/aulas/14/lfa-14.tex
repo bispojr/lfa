@@ -1,0 +1,385 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+\usepackage{slashbox}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Equivalência entre AFDs e AFNs\\ Fecho sob as operações regulares} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{21 de novembro de 2017} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+	
+	\section{Revisão}	
+	\subsection{Fecho em Linguagens Regulares (cont.)}
+	\begin{frame}[shrink]{Operações regulares}
+		\begin{block}{Teorema 1.25}
+			A classe de linguagens regulares é fechada sob a operação de união.
+		\end{block}
+		\begin{block}{Prova}
+			Sejam $A$ e $B$ duas linguagens regulares. Se $A$ e $B$ são regulares, então existem dois AFDs $M_A = (Q_A, \Sigma_A, \delta_A, q_A, F_A)$ e $M_B = (Q_B, \Sigma_B, \delta_B, q_B, F_B)$ que as reconhecem, respectivamente. Como passo auxiliar, iremos construir o AFDs estendidos $M_A' = (Q_A', \Sigma_A', \delta_A', q_A', F_A')$ e $M_B' = (Q_B', \Sigma_B', \delta_B', q_B', F_B')$ dos AFDs $M_A$ e $M_B$, respectivamente. Um AFD estendido $O$ é um AFD equivalente a um dado AFD $P$ de forma que $\Sigma_P \subset \Sigma O$. Desta forma, temos:
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Operações regulares}
+		\begin{block}{Prova (cont.)}
+			Elementos de $M_A'$:
+			\begin{itemize}
+				\item $Q_A' = Q_A \cup \{ q_{fugaA}\}$;
+				\item $\Sigma_A' = \Sigma_A \cup \Sigma_B$;
+				\item $\delta_A'(q,a) = \left\{\begin{array}{rl}
+					\delta_A(q,a), & \text{se } a \in \Sigma_A\\
+					q_{fugaA}, & \text{caso contrário}
+				\end{array} \right.$\\
+				em que $q \in Q_B'$ e $a \in \Sigma_B'$;
+				\item $q_A' = q_A$;
+				\item $F_A' = F_A$.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Operações regulares}
+		\begin{block}{Prova (cont.)}
+			Elementos de $M_B'$:
+			\begin{itemize}
+				\item $Q_B' = Q_B \cup \{ q_{fugaB}\}$;
+				\item $\Sigma_B' = \Sigma_A \cup \Sigma_B$;
+				\item $\delta_B'(q,a) = \left\{\begin{array}{rl}
+				\delta_B(q,a), & \text{se } a \in \Sigma_B\\
+				q_{fugaB}, & \text{caso contrário}
+				\end{array} \right.$\\
+				em que $q \in Q_B'$ e $a \in \Sigma_B'$;
+				\item $q_B' = q_B$;
+				\item $F_B' = F_B$.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}[shrink]{Operações regulares}
+		\begin{block}{Prova (cont.)}
+			De posse de $M_A'$ e $M_B'$, será construído o AFD $M_{A \cup B} = (Q, \Sigma, \delta, q_0, F)$ que reconhece $A \cup B$:
+			
+			Elementos de $M_{A \cup B}$:
+			\begin{itemize}
+				\item $Q = Q_A' \times Q_B'$;
+				\item $\Sigma = \Sigma_A'$;
+				\item \begin{center}
+				 		$\delta((x,y),a) = (\delta_A'(x,a), \delta_B'(y,a))$\\
+				 		em que $(x,y) \in Q$ e $a \in \Sigma$;
+					  \end{center}
+				
+				\item $q_0 = (q_A', q_B')$;
+				\item $F = \{ (x, y) \in Q$ | $x \in F_A'$ ou $y \in F_B' \}$.	
+			\end{itemize}
+			Assim, como foi possível construir $M_{A \cup B}$, podemos dizer que a classe de linguagens regulares é fechada sob a operação de união $\blacksquare$
+		\end{block}
+	\end{frame}
+
+	\subsection{Não-determinismo}
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=\textwidth]{images/fig1-27.png}
+		\end{center}
+	\end{frame}	
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=.9\textwidth]{images/fig1-28.png}
+		\end{center}
+	\end{frame}	
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=.6\textwidth]{images/fig1-29.png}
+		\end{center}
+	\end{frame}	
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=\textwidth]{images/fig1-31.png}
+		\end{center}
+	\end{frame}	
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=\textwidth]{images/fig1-32.png}
+		\end{center}
+	\end{frame}	
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=.6\textwidth]{images/fig1-34.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=.5\textwidth]{images/fig1-36.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Não-determinismo}
+		\begin{center}
+			\includegraphics[width=\textwidth]{images/def1-37.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Descrição Formal}
+		\begin{center}
+			\includegraphics[width=\textwidth]{images/fig1-27.png}
+		\end{center}
+	\end{frame}	
+	
+	\begin{frame}{Descrição Formal}
+		\begin{center}
+			\includegraphics[width=\textwidth]{images/fig1-31.png}
+		\end{center}
+	\end{frame}
+	
+	\section{Equivalência de AFNs e AFDs}
+	\begin{frame}{Computação em um AFN}
+		\begin{block}{Definição}
+			Seja $N = (Q,\Sigma,\delta, q_0, F)$ um AFN e \pause \\
+			suponha que $\omega = \omega_1 \omega_2 \ldots, \omega_n$ seja uma cadeia \pause \\
+			em que cada $\omega_i$ é um membro do alfabeto $\Sigma_{\epsilon}$ ($1 \leq i \leq n$). \pause \\Então $N$ {\bf aceita} $\omega$ se uma sequência de estados $r_0, r_1, \ldots, r_n$ em $Q$ existe satisfazendo três condições: \pause
+			\begin{enumerate}
+				\item $r_0 = q_0$;
+				\item $r_{i+1} \in \delta(r_i, \omega_{i+1})$ (para $i=0, \ldots , n-1$); e
+				\item $r_n \in F$.
+			\end{enumerate}
+		\end{block} \pause
+		\begin{block}{Corolário}
+			$N$ reconhece a linguagem $A$, se $A = \{ \omega$  | $N$ aceita $\omega \}$.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Equivalência de AFNs e AFDs}
+		\begin{block}{Teorema 1.39}
+			Todo autômato finito não-determinístico tem um autômato finito determinístico equivalente.
+		\end{block} \pause
+		\begin{block}{Ideia da prova}
+			\begin{itemize}
+				\item Se uma linguagem é reconhecida por um AFN, então temos de mostrar a existência de um AFD que também a reconhece; \pause
+				\item Converter um AFN num AFD equivalente que o simule; \pause
+				\item Se $k$ é o número de estados do AFN, então ele tem $2^k$ subconjuntos de estados; \pause
+				\item Portanto o AFD equivalente terá $2^k$ estados.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Descrição Formal}
+		\begin{center}
+			\includegraphics[width=.7\textwidth]{images/fig1-42.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Descrição Formal}
+		\begin{center}
+			\includegraphics[width=.9\textwidth]{images/fig1-43.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Equivalência de AFNs e AFDs}
+		\begin{block}{Teorema 1.39}
+			Todo autômato finito não-determinístico tem um autômato finito determinístico equivalente.
+		\end{block} 
+		\begin{exampleblock}{Corolário 1.40}
+			Uma linguagem é regular se e somente se algum autômato finito não-determinístico a reconhece.
+		\end{exampleblock}
+	\end{frame}
+
+	\section{Fecho sob as operações regulares}
+	\subsection{Fecho sob união}
+	\begin{frame}{Fecho sob união}
+		\begin{block}{Teorema 1.45}
+			A classe de linguagens regulares é fechada sob a operação de união.
+		\end{block} \pause
+		\begin{center}
+			\includegraphics[width=.7\textwidth]{images/fig1-46}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Fecho sob união}
+		\begin{block}{Estrutura básica da prova}
+			Suponha que $N_1 = (Q_1, \Sigma, \delta_1, q_1, F_1)$ reconheça $A_1$ e que \\
+			$N_2 = (Q_2, \Sigma, \delta_2, q_2, F_2)$ reconheça $A_2$. \\ \pause
+			Construa $N = (Q, \Sigma, \delta, q_0, F)$ para reconhecer $A_1 \cup A_2$. \pause
+			\begin{itemize}
+				\item $Q = Q_1 \cup Q_2 \cup \{q_0\}$; \pause
+				\item $\Sigma$ é o alfabeto da linguagem; \pause
+				\item $\delta(q,a) = \left\{\begin{array}{cl} \pause
+				
+					\delta_1(q,a), & 
+					\text{se } q \in Q_1\\ \pause
+					
+					\delta_2(q,a), & 
+					\text{se } q \in Q_2\\ \pause
+					
+					\{q_1, q_2\}, & 
+					\text{se } q = q_0 \text{ e } a = \epsilon\\ \pause
+				
+					\emptyset, & 
+					\text{se } q=q_0 \text{ e } a \not= \epsilon.
+				\end{array} \right.$\\ \pause
+				em que $q \in Q$ e $a \in \Sigma$; \pause
+				\item $q_0$ é o estado inicial; \pause
+				\item $F = F_1 \cup F_2$. 
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\subsection{Fecho sob concatenação}
+	\begin{frame}{Fecho sob concatenação}
+		\begin{block}{Teorema 1.47}
+			A classe de linguagens regulares é fechada sob operação de concatenação.
+		\end{block} \pause
+		\begin{center}
+			\includegraphics[width=.7\textwidth]{images/fig1-48}
+		\end{center}
+	\end{frame}
+	\begin{frame}{Fecho sob concatenação}
+		\begin{block}{Estrutura básica da prova}
+			Suponha que $N_1 = (Q_1, \Sigma, \delta_1, q_1, F_1)$ reconheça $A_1$ e que \\
+			$N_2 = (Q_2, \Sigma, \delta_2, q_2, F_2)$ reconheça $A_2$. \\ \pause
+			Construa $N = (Q, \Sigma, \delta, q_1, F_2)$ para reconhecer $A_1 \circ A_2$. \pause
+			\begin{itemize}
+				\item $Q = Q_1 \cup Q_2$; \pause
+				\item $\Sigma$ é o alfabeto da linguagem; \pause
+				\item $\delta(q,a) = \left\{\begin{array}{cl} \pause
+				
+					\delta_1(q,a), & 
+					\text{se } q \in Q_1 \text{ e } q \not\in F_1\\ \pause
+					
+					\delta_1(q,a), & 
+					\text{se } q \in F_1 \text{ e } a \not= \epsilon\\ \pause
+					
+					\delta_1(q,a) \cup \{q_2\}, & 
+					\text{se } q \in F_1 \text{ e } a = \epsilon\\ \pause
+					
+					\delta_2(q,a), & 
+					\text{se } q\in Q_2.
+				\end{array} \right.$\\ \pause
+				em que $q \in Q$ e $a \in \Sigma$; \pause
+				\item $q_1$ é o estado inicial; \pause
+				\item $F_2$ é o conjunto de estados finais. 
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\subsection{Fecho sob estrela}
+	\begin{frame}{Fecho sob estrela}
+		\begin{block}{Teorema 1.49}
+			A classe de linguagens regulares é fechada sob operação de estrela.
+		\end{block} \pause
+		\begin{center}
+			\includegraphics[width=.9\textwidth]{images/fig1-50}
+		\end{center}
+	\end{frame}	
+
+	\begin{frame}{Fecho sob estrela}
+		\begin{block}{Estrutura básica da prova}
+			Suponha que $N_1 = (Q_1, \Sigma, \delta_1, q_1, F_1)$ reconheça $A_1$. \\ \pause
+			Construa $N = (Q, \Sigma, \delta, q_0, F)$ para reconhecer $A_1^*$. \pause
+			\begin{itemize}
+				\item $Q = Q_1 \cup \{q_0\}$; \pause
+				\item $\Sigma$ é o alfabeto da linguagem; \pause
+				\item $\delta(q,a) = \left\{\begin{array}{cl} \pause
+				
+					\delta_1(q,a), & 
+					\text{se } q \in Q_1 \text{ e } q \not\in F_1\\ \pause
+					
+					\delta_1(q,a), & 
+					\text{se } q \in F_1 \text{ e } a \not= \epsilon\\ \pause
+					
+					\delta_1(q,a) \cup \{q_1\}, & 
+					\text{se } q \in F_1 \text{ e } a = \epsilon\\ \pause
+					
+					\{q_1\}, & 
+					\text{se } q = q_0 \text{ e } a = \epsilon\\ \pause
+					
+					\emptyset, & 
+					\text{se } q=q_0 \text{ e } a \not= \epsilon.
+				\end{array} \right.$\\ \pause
+				em que $q \in Q$ e $a \in \Sigma$; \pause
+				\item $q_0$ é o estado inicial; \pause
+				\item $F = F_1 \cup \{q_0\}$. 
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
