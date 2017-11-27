@@ -1,0 +1,69 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Goiás (UFG) - Regional  Jataí\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{27 de novembro de 2017}
+
+\title{\sc \huge Segundo Teste}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro testes, uma prova e exercícios-bônus;
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & (\sum_{i=1}^{4} 0,2.T_i ) + 0,2.P  + EB\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações,
+		\item $T_i$ é a pontuação obtida no teste $i$,
+		\item $P$ é a pontuação obtida na prova, e
+		\item $EB$ é a pontuação total dos exercícios-bônus.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (2) Autômatos Finitos Determinísticos, e (3) Autômatos Finitos Não-Determinísticos.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Segundo Teste}
+	
+	\item (5,0 pt) Dê o diagrama de estados dos {\bf AFNs} que reconhecem as seguintes linguagens. Admita em todos os itens que o alfabeto é  $\{0,1\}$.
+		\begin{enumerate}
+			\item {\bf [Sipser 1.7 (c)]} (1,5 pt) \\$\{\omega$ | $\omega$ contém um número par de {\sf 0}s, ou contém exatamente dois {\sf 1}s$\}$.
+			\item {\bf [Sipser 1.9 (a)]} (2,0 pt) $A \circ B$, em que \\$A = \{\omega$ | o comprimento de $\omega$ é no máximo 5$\}$ e
+			\\$B = \{\omega$ | toda posição ímpar de $\omega$ é um {\sf 1}$\}$.
+			\item {\bf [Sipser 1.10 (b)]} (1,5 pt) $A^*$, em que \\$A = \{\omega$ | $\omega$ contém ao menos dois {\sf 0}s e no máximo um {\sf 1}s$\}$.
+		\end{enumerate}
+	
+	\item (5,0 pt) {\bf [Sipser 1.31]} Para qualquer cadeia $\omega = \omega_1 \omega_2 \ldots \omega_n$, o reverso de $\omega$, chamado de $\omega^{\mathcal{R}}$, é a cadeia $\omega$ em ordem reversa, $\omega_n \ldots \omega_2 \omega_1$. Para qualquer linguagem $A$, faça que $A^{\mathcal{R}} = \{ \omega^{\mathcal{R}}$ | $\omega \in A\}$. Mostre que se $A$ é regular, então $A^{\mathcal{R}}$ também é regular.
+
+\end{enumerate}
+
+\end{document}
