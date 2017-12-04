@@ -1,0 +1,408 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+\usepackage{slashbox}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Expressão Regular} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{04 de dezembro de 2017} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+	
+	\section{Revisão}	
+	\subsection{Equivalência de AFNs e AFDs}
+	\begin{frame}{Computação em um AFN}
+		\begin{block}{Definição}
+			Seja $N = (Q,\Sigma,\delta, q_0, F)$ um AFN e   \\
+			suponha que $\omega = \omega_1 \omega_2 \ldots, \omega_n$ seja uma cadeia   \\
+			em que cada $\omega_i$ é um membro do alfabeto $\Sigma_{\epsilon}$ ($1 \leq i \leq n$).   \\Então $N$ {\bf aceita} $\omega$ se uma sequência de estados $r_0, r_1, \ldots, r_n$ em $Q$ existe satisfazendo três condições:  
+			\begin{enumerate}
+				\item $r_0 = q_0$;
+				\item $r_{i+1} \in \delta(r_i, \omega_{i+1})$ (para $i=0, \ldots , n-1$); e
+				\item $r_n \in F$.
+			\end{enumerate}
+		\end{block}  
+		\begin{block}{Corolário}
+			$N$ reconhece a linguagem $A$, se $A = \{ \omega$  | $N$ aceita $\omega \}$.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Equivalência de AFNs e AFDs}
+		\begin{block}{Teorema 1.39}
+			Todo autômato finito não-determinístico tem um autômato finito determinístico equivalente.
+		\end{block}  
+		\begin{block}{Ideia da prova}
+			\begin{itemize}
+				\item Se uma linguagem é reconhecida por um AFN, então temos de mostrar a existência de um AFD que também a reconhece;  
+				\item Converter um AFN num AFD equivalente que o simule;  
+				\item Se $k$ é o número de estados do AFN, então ele tem $2^k$ subconjuntos de estados;  
+				\item Portanto o AFD equivalente terá $2^k$ estados.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Descrição Formal}
+		\begin{center}
+			\includegraphics[width=.7\textwidth]{images/fig1-42.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Descrição Formal}
+		\begin{center}
+			\includegraphics[width=.9\textwidth]{images/fig1-43.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Equivalência de AFNs e AFDs}
+		\begin{block}{Teorema 1.39}
+			Todo autômato finito não-determinístico tem um autômato finito determinístico equivalente.
+		\end{block} 
+		\begin{exampleblock}{Corolário 1.40}
+			Uma linguagem é regular se e somente se algum autômato finito não-determinístico a reconhece.
+		\end{exampleblock}
+	\end{frame}
+
+	\subsection{Fecho sob as operações regulares}
+	\begin{frame}{Fecho sob união}
+		\begin{block}{Teorema 1.45}
+			A classe de linguagens regulares é fechada sob a operação de união.
+		\end{block}  
+		\begin{center}
+			\includegraphics[width=.7\textwidth]{images/fig1-46}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Fecho sob união}
+		\begin{block}{Estrutura básica da prova}
+			Suponha que $N_1 = (Q_1, \Sigma, \delta_1, q_1, F_1)$ reconheça $A_1$ e que \\
+			$N_2 = (Q_2, \Sigma, \delta_2, q_2, F_2)$ reconheça $A_2$. \\  
+			Construa $N = (Q, \Sigma, \delta, q_0, F)$ para reconhecer $A_1 \cup A_2$.  
+			\begin{itemize}
+				\item $Q = Q_1 \cup Q_2 \cup \{q_0\}$;  
+				\item $\Sigma$ é o alfabeto da linguagem;  
+				\item $\delta(q,a) = \left\{\begin{array}{cl}  
+				
+					\delta_1(q,a), & 
+					\text{se } q \in Q_1\\  
+					
+					\delta_2(q,a), & 
+					\text{se } q \in Q_2\\  
+					
+					\{q_1, q_2\}, & 
+					\text{se } q = q_0 \text{ e } a = \epsilon\\  
+				
+					\emptyset, & 
+					\text{se } q=q_0 \text{ e } a \not= \epsilon.
+				\end{array} \right.$\\  
+				em que $q \in Q$ e $a \in \Sigma_{\epsilon}$;  
+				\item $q_0$ é o estado inicial;  
+				\item $F = F_1 \cup F_2$. 
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Fecho sob concatenação}
+		\begin{block}{Teorema 1.47}
+			A classe de linguagens regulares é fechada sob operação de concatenação.
+		\end{block}  
+		\begin{center}
+			\includegraphics[width=.7\textwidth]{images/fig1-48}
+		\end{center}
+	\end{frame}
+	\begin{frame}{Fecho sob concatenação}
+		\begin{block}{Estrutura básica da prova}
+			Suponha que $N_1 = (Q_1, \Sigma, \delta_1, q_1, F_1)$ reconheça $A_1$ e que \\
+			$N_2 = (Q_2, \Sigma, \delta_2, q_2, F_2)$ reconheça $A_2$. \\  
+			Construa $N = (Q, \Sigma, \delta, q_1, F_2)$ para reconhecer $A_1 \circ A_2$.  
+			\begin{itemize}
+				\item $Q = Q_1 \cup Q_2$;  
+				\item $\Sigma$ é o alfabeto da linguagem;  
+				\item $\delta(q,a) = \left\{\begin{array}{cl}  
+				
+					\delta_1(q,a), & 
+					\text{se } q \in Q_1 \text{ e } q \not\in F_1\\  
+					
+					\delta_1(q,a), & 
+					\text{se } q \in F_1 \text{ e } a \not= \epsilon\\  
+					
+					\delta_1(q,a) \cup \{q_2\}, & 
+					\text{se } q \in F_1 \text{ e } a = \epsilon\\  
+					
+					\delta_2(q,a), & 
+					\text{se } q\in Q_2.
+				\end{array} \right.$\\  
+				em que $q \in Q$ e $a \in \Sigma$;  
+				\item $q_1$ é o estado inicial;  
+				\item $F_2$ é o conjunto de estados finais. 
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Fecho sob estrela}
+		\begin{block}{Teorema 1.49}
+			A classe de linguagens regulares é fechada sob operação de estrela.
+		\end{block}  
+		\begin{center}
+			\includegraphics[width=.9\textwidth]{images/fig1-50}
+		\end{center}
+	\end{frame}	
+
+	\begin{frame}{Fecho sob estrela}
+		\begin{block}{Estrutura básica da prova}
+			Suponha que $N_1 = (Q_1, \Sigma, \delta_1, q_1, F_1)$ reconheça $A_1$. \\  
+			Construa $N = (Q, \Sigma, \delta, q_0, F)$ para reconhecer $A_1^*$.  
+			\begin{itemize}
+				\item $Q = Q_1 \cup \{q_0\}$;  
+				\item $\Sigma$ é o alfabeto da linguagem;  
+				\item $\delta(q,a) = \left\{\begin{array}{cl}  
+				
+					\delta_1(q,a), & 
+					\text{se } q \in Q_1 \text{ e } q \not\in F_1\\  
+					
+					\delta_1(q,a), & 
+					\text{se } q \in F_1 \text{ e } a \not= \epsilon\\  
+					
+					\delta_1(q,a) \cup \{q_1\}, & 
+					\text{se } q \in F_1 \text{ e } a = \epsilon\\  
+					
+					\{q_1\}, & 
+					\text{se } q = q_0 \text{ e } a = \epsilon\\  
+					
+					\emptyset, & 
+					\text{se } q=q_0 \text{ e } a \not= \epsilon.
+				\end{array} \right.$\\  
+				em que $q \in Q$ e $a \in \Sigma_{\epsilon}$;  
+				\item $q_0$ é o estado inicial;  
+				\item $F = F_1 \cup \{q_0\}$. 
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\section{Expressão Regular}	
+	\begin{frame}{Exemplos}
+		\begin{block}{Exemplo 1.51}
+			$(0 \cup 1)^{*}$
+		\end{block} \pause
+		\begin{block}{Outro exemplo...}
+			$\Sigma^{*}$
+		\end{block} \pause
+		\begin{block}{Outro exemplo...}
+			$\Sigma^{*}1$
+		\end{block} \pause
+		\begin{block}{Outro exemplo...}
+			$(0\Sigma^{*}) \cup (\Sigma^{*}1)$
+		\end{block}
+	\end{frame}		
+	
+	\begin{frame}{Definição de ER}
+		\begin{block}{Definição}
+			Dizemos que $R$ é uma {\bf expressão regular} se $R$ for
+			\begin{enumerate}
+				\item $a$ para algum $a \in \Sigma$; \pause
+				\item $\epsilon$; \pause
+				\item $\emptyset$; \pause
+				\item $(R_1 \cup R_2)$, em que $R_1$ e $R_2$ são expressões regulares; \pause
+				\item $(R_1 \circ R_2)$, em que $R_1$ e $R_2$ são expressões regulares; ou \pause
+				\item $(R_1)^{*}$, em que $R_1$ é expressão regular.
+			\end{enumerate}
+		\end{block} \pause
+		\begin{alertblock}{Cuidado!!!}
+			Não confunda $\epsilon$ com $\emptyset$!!!
+		\end{alertblock}
+	\end{frame}
+
+	\begin{frame}[shrink]{Exemplos}
+		\begin{block}{Exemplo 1.53}
+			\begin{itemize}			
+				\item $0^* 1 0^*$ \pause
+				\item $\Sigma^* 1 \Sigma^*$ \pause
+				\item $\Sigma^* 001 \Sigma^*$ \pause
+				\item $1^* (01^+)^*$ \pause
+				\item $(\Sigma \Sigma)^*$ \pause
+				\item $(\Sigma \Sigma \Sigma)^*$ \pause
+				\item $01 \cup 10$ \pause
+				\item $0\Sigma^* \cup 1\Sigma^* 1 \cup 0 \cup 1$ \pause
+				\item $(0 \cup \epsilon) 1^*$ \pause
+				\item $(0 \cup \epsilon) (1 \cup \epsilon)$ \pause
+				\item $1^* \emptyset$ \pause
+				\item $\emptyset^*$
+			\end{itemize}
+		\end{block} 
+	\end{frame}	
+	
+	\begin{frame}{Teorema}
+		\begin{block}{Teorema 1.54}
+			Uma linguagem é regular se e somente se alguma expressão regular a descreve. \pause	
+			\begin{itemize}
+				\item {\bf Lema 1.55: } Uma linguagem é descrita por uma expressão regular, então ela é regular. \pause
+				\item {\bf Lema 1.60:} Se uma linguagem é regular, então ela é descrita por uma expressão regular.
+			\end{itemize}	
+		\end{block} 
+	\end{frame}
+	
+	\begin{frame}{Prova do Lema}
+		\begin{block}{Lema 1.55}
+			Uma linguagem é descrita por uma expressão regular, então ela é regular.
+		\end{block} \pause
+		\begin{block}{Prova}
+			Vamos converter $R$ num AFN $N$. Consideramos os seis casos na descrição formal de expressões regulares:
+			\begin{itemize} \pause
+				\item Três casos básicos;
+				\item Três casos gerais.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Prova do Lema}
+		\begin{block}{Prova do Lema 1.55}
+			\begin{enumerate}
+				\item $R = a$ para algum $a$ em $\Sigma$.\\ \pause
+				Então $L(R) = \{ a \}$, e o seguinte AFN reconhece $L(R)$. \pause
+				\begin{center}
+					\includegraphics[width=.3\textwidth]{images/fig-lema-01.png}
+				\end{center} \pause
+				Formalmente, $N = (\{ q_1, q_2 \}, \Sigma, \delta, q_1, \{ q_2 \})$, em que $\delta$ se divide em dois casos: \pause
+				\begin{enumerate}
+					\item $\delta(q_1, a) = \{ q_2 \}$
+					\item $\delta(r, b) = \emptyset$ (para $r \not= q_1$ ou $b \not= a$)
+				\end{enumerate}
+			\end{enumerate}		
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Prova do Lema}
+		\begin{block}{Prova do Lema 1.55}
+			\begin{enumerate}
+				\setcounter{enumi}{1}
+				\item $R = \epsilon$.\\ \pause
+				Então $L(R) = \{ \epsilon \}$, e o seguinte AFN reconhece $L(R)$. \pause
+				\begin{center}
+					\includegraphics[width=.2\textwidth]{images/fig-lema-02.png}
+				\end{center} \pause
+				Formalmente, $N = (\{ q_1 \}, \Sigma, \delta, q_1, \{ q_1 \})$, \\em que $\delta(r, b) = \emptyset$ para quaisquer $r$ e $b$.
+			\end{enumerate}		
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}[shrink]{Prova do Lema}
+		\begin{block}{Prova do Lema 1.55}
+			\begin{enumerate}
+				\setcounter{enumi}{2}
+				\item $R = \emptyset$.\\ \pause
+				Então $L(R) = \emptyset$, e o seguinte AFN reconhece $L(R)$. \pause
+				\begin{center}
+					\includegraphics[width=.2\textwidth]{images/fig-lema-03.png}
+				\end{center} \pause
+				Formalmente, $N = (\{ q_1 \}, \Sigma, \delta, q_1, \emptyset)$, \\em que $\delta(r, b) = \emptyset$ para quaisquer $r$ e $b$.
+			\end{enumerate}		
+		\end{block} \pause
+		\begin{block}{Casos gerais}
+			\begin{enumerate}
+				\setcounter{enumi}{3}
+				\item $R = R_1 \cup R_2$
+				\item $R = R_1 \circ R_2$
+				\item $R = R_1^{*}$
+			\end{enumerate}
+			Para os três casos gerais, utilizamos as provas de que as linguagens regulares são fechadas sob as operações de regulares $\blacksquare$
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Prova do Lema 1.55}
+		\begin{block}{Casos gerais}
+			\begin{enumerate}
+				\setcounter{enumi}{3}
+				\item $R = R_1 \cup R_2$
+				\item $R = R_1 \circ R_2$
+				\item $R = R_1^{*}$ \pause
+			\end{enumerate}
+			Para os três casos gerais, utilizamos as provas de que as linguagens regulares são fechadas sob as operações de regulares $\blacksquare$
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Teorema}
+		\begin{block}{Teorema 1.54}
+			Uma linguagem é regular se e somente se alguma expressão regular a descreve. 
+			\begin{itemize}
+				\item {\bf Lema 1.55: } Uma linguagem é descrita por uma expressão regular, então ela é regular. {\color{blue} $\surd$}
+				\item {\bf Lema 1.60:} Se uma linguagem é regular, então ela é descrita por uma expressão regular. {\color{red} ???}
+			\end{itemize}	
+		\end{block} 
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
