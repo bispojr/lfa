@@ -1,0 +1,334 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+\usepackage{slashbox}
+\usepackage{enumerate}
+
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Fecho em Expressões Regulares} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{11 de dezembro de 2017} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+	
+	\section{Revisão}
+	\begin{frame}
+		\begin{block}{Pergunta 1}
+			Seja a expressão regular $R = 0$. $L(R)$ é igual a
+		\end{block}
+		\begin{enumerate}[(A)]
+			\item 0
+			\item $\emptyset$
+			\item $\{0\}$
+			\item $\epsilon$
+		\end{enumerate}
+	\end{frame}	
+
+	\begin{frame}
+		\begin{block}{Pergunta 2}
+			Seja a expressão regular $R = ( +\cup - \cup \epsilon)(D^+ \cup D^+ .D^* \cup D^*.D^+)$ em que $D = \{0,1, 2,3,4,5,6,7,8,9\}$. R pode gerar a cadeia...
+		\end{block}
+		\begin{enumerate}[(A)]
+			\item 5.47
+			\item 6.000.000
+			\item - 5.6 + 6.78
+			\item -$\epsilon$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}
+		\begin{block}{Pergunta 3}
+			Seja a expressão regular $R = ( +\cup - \cup \epsilon)(D^+ \cup D^+ .D^* \cup D^*.D^+)$ em que $D = \{0,1, 2,3,4,5,6,7,8,9\}$. R pode gerar a cadeia...
+		\end{block}
+		\begin{enumerate}[(A)]
+			\item 192.168.0.1
+			\item 045.
+			\item .47 +
+			\item $\emptyset$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}
+		\begin{block}{Pergunta 4}
+			Qual expressão regular gera a linguagem reconhecida por este AFN
+			\begin{center}
+				\includegraphics[width=.4\textwidth]{images/fig-lema-01.png}
+			\end{center}
+		\end{block}
+		\begin{enumerate}[(A)]
+			\item $a$
+			\item $a^*$
+			\item $a^+$
+			\item $a\Sigma^*$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}
+		\begin{block}{Pergunta 5}
+			Qual expressão regular gera a linguagem reconhecida por este AFN
+			\begin{center}
+				\includegraphics[width=.2\textwidth]{images/fig-lema-02.png}
+			\end{center}
+		\end{block}
+		\begin{enumerate}[(A)]
+			\item $a$
+			\item $\emptyset$
+			\item $\{\epsilon\}$
+			\item $\epsilon$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}
+		\begin{block}{Pergunta 6}
+			Qual expressão regular gera a linguagem reconhecida por este AFN
+			\begin{center}
+				\includegraphics[width=.2\textwidth]{images/fig-lema-03.png}
+			\end{center}
+		\end{block}
+		\begin{enumerate}[(A)]
+			\item $a$
+			\item $\emptyset$
+			\item $\{\epsilon\}$
+			\item $\epsilon$
+		\end{enumerate}
+	\end{frame}
+	
+	\section{Equivalência entre ERs e AFNs}
+	\begin{frame}{Teorema}
+		\begin{block}{Teorema 1.54}
+			Uma linguagem é regular se e somente se alguma expressão regular a descreve.  	
+			\begin{itemize}
+				\item {\bf Lema 1.55: } Uma linguagem é descrita por uma expressão regular, então ela é regular.  
+				\item {\bf Lema 1.60:} Se uma linguagem é regular, então ela é descrita por uma expressão regular.
+			\end{itemize}	
+		\end{block} 
+	\end{frame}
+	
+	\begin{frame}{Prova do Lema}
+		\begin{block}{Lema 1.55}
+			Uma linguagem é descrita por uma expressão regular, então ela é regular.
+		\end{block}  
+		\begin{block}{Prova}
+			Vamos converter $R$ num AFN $N$. Consideramos os seis casos na descrição formal de expressões regulares:
+			\begin{itemize}  
+				\item Três casos básicos;
+				\item Três casos gerais.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Prova do Lema}
+		\begin{block}{Prova do Lema 1.55}
+			\begin{enumerate}
+				\item $R = a$ para algum $a$ em $\Sigma$.\\  
+				Então $L(R) = \{ a \}$, e o seguinte AFN reconhece $L(R)$.  
+				\begin{center}
+					\includegraphics[width=.3\textwidth]{images/fig-lema-01.png}
+				\end{center}  
+				Formalmente, $N = (\{ q_1, q_2 \}, \Sigma, \delta, q_1, \{ q_2 \})$, em que $\delta$ se divide em dois casos:  
+				\begin{enumerate}
+					\item $\delta(q_1, a) = \{ q_2 \}$
+					\item $\delta(r, b) = \emptyset$ (para $r \not= q_1$ ou $b \not= a$)
+				\end{enumerate}
+			\end{enumerate}		
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Prova do Lema}
+		\begin{block}{Prova do Lema 1.55}
+			\begin{enumerate}
+				\setcounter{enumi}{1}
+				\item $R = \epsilon$.\\  
+				Então $L(R) = \{ \epsilon \}$, e o seguinte AFN reconhece $L(R)$.  
+				\begin{center}
+					\includegraphics[width=.2\textwidth]{images/fig-lema-02.png}
+				\end{center}  
+				Formalmente, $N = (\{ q_1 \}, \Sigma, \delta, q_1, \{ q_1 \})$, \\em que $\delta(r, b) = \emptyset$ para quaisquer $r$ e $b$.
+			\end{enumerate}		
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}[shrink]{Prova do Lema}
+		\begin{block}{Prova do Lema 1.55}
+			\begin{enumerate}
+				\setcounter{enumi}{2}
+				\item $R = \emptyset$.\\  
+				Então $L(R) = \emptyset$, e o seguinte AFN reconhece $L(R)$.  
+				\begin{center}
+					\includegraphics[width=.2\textwidth]{images/fig-lema-03.png}
+				\end{center}  
+				Formalmente, $N = (\{ q_1 \}, \Sigma, \delta, q_1, \emptyset)$, \\em que $\delta(r, b) = \emptyset$ para quaisquer $r$ e $b$.
+			\end{enumerate}		
+		\end{block}  
+		\begin{block}{Casos gerais}
+			\begin{enumerate}
+				\setcounter{enumi}{3}
+				\item $R = R_1 \cup R_2$
+				\item $R = R_1 \circ R_2$
+				\item $R = R_1^{*}$
+			\end{enumerate}
+			Para os três casos gerais, utilizamos as provas de que as linguagens regulares são fechadas sob as operações de regulares $\blacksquare$
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Prova do Lema 1.55}
+		\begin{block}{Casos gerais}
+			\begin{enumerate}
+				\setcounter{enumi}{3}
+				\item $R = R_1 \cup R_2$
+				\item $R = R_1 \circ R_2$
+				\item $R = R_1^{*}$  
+			\end{enumerate}
+			Para os três casos gerais, utilizamos as provas de que as linguagens regulares são fechadas sob as operações de regulares $\blacksquare$
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Teorema}
+		\begin{block}{Teorema 1.54}
+			Uma linguagem é regular se e somente se alguma expressão regular a descreve. 
+			\begin{itemize}
+				\item {\bf Lema 1.55: } Uma linguagem é descrita por uma expressão regular, então ela é regular. {\color{blue} $\surd$}
+				\item {\bf Lema 1.60:} Se uma linguagem é regular, então ela é descrita por uma expressão regular. {\color{red} ???}
+			\end{itemize}	
+		\end{block} 
+	\end{frame}
+
+	\section{Instrução pelos Colegas}
+	\begin{frame}
+		\begin{block}{Pergunta 18.1}
+			Se $\Sigma$ é o alfabeto da linguagem, a expressão regular simplificada $\Sigma^k$ gera a linguagem composta por...
+		\end{block}
+		\begin{enumerate}[(A)]
+			\item todas as $k$ cadeias com símbolos de $\Sigma$
+			\item todas as cadeias com símbolos $k$ em $\Sigma$
+			\item todas as cadeias de comprimento $k$ em $\Sigma$
+			\item todas as cadeias de comprimento até $k$ em $\Sigma$
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{block}{Pergunta 18.2}
+			Indique a afirmação \underline{\bf incorreta} sobre os autômatos finitos não-determinísticos generalizado (AFNG).
+		\end{block}
+		\begin{enumerate}[(A)]
+			\item o seu estado inicial deve ter setas de transição indo para todos os demais estados.
+			\item tem um único estado final que recebe setas de transição vindo de todos os demais estados.
+			\item as suas setas de transição podem ser uma expressão regular, lendo assim blocos de símbolos da entrada dada.
+			\item deve existir sempre setas de transição indo de qualquer estado para qualquer outro estado, incluindo laços.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}
+		\begin{block}{Pergunta 18.3}
+			Um dos processos possíveis de converter um AFN em uma expressão regular equivalente é através do uso de um AFNG. \\ \underline{\bf Não} faz parte deste processo...
+		\end{block}
+		\begin{enumerate}[(A)]
+			\item transformar o AFN em um AFNG equivalente
+			\item garantir que cada AFNG tem setas de transições $\epsilon$ \\saindo do estado inicial para todos os outros demais estados.
+			\item converter cada AFNG gerado de $k$ estados em \\um outro AFNG equivalente com $k-1$ estados (sendo $k > 2$).
+			\item obter a expressão regular através da única seta de transição do AFNG, quando houver apenas dois estados.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}
+		\begin{block}{Pergunta 18.4}
+			Qual a expressão regular que gera a linguagem reconhecida por este AFN
+			\begin{center}
+				\includegraphics[width=.2\textwidth]{images/ex-afn}
+			\end{center}
+		\end{block}
+		\begin{enumerate}[(A)]
+			\item $a^*b(a \cup b)^*$
+			\item $a^*(ba \cup b)^*$
+			\item $a^*(b \cup ab)^*$
+			\item $ab^*(a \cup b)^*$
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{block}{Pergunta 18.5}
+			Quantos AFNGs são criados para realizar o processo de conversão de um AFN, com cinco estados, em uma ER?			
+		\end{block}
+		\begin{enumerate}[(A)]
+			\item 5
+			\item 6
+			\item 3
+			\item 1
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
