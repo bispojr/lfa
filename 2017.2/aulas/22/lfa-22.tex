@@ -1,0 +1,492 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+\usepackage{slashbox}
+\usepackage{enumerate}
+
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Gramática Livre-de-Contexto} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{22 de janeiro de 2018} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+	
+	\section{Revisão}
+	\subsection{Gramáticas Livre-de-Contexto}
+	\begin{frame}{O que são as GLCs?}
+		\begin{itemize}
+			\item Método mais poderoso de descrição de linguagens; \pause
+			\item Linguagens como $\{ 0^n 1^n | n \geq 0 \}$ podem agora ser descritas; \pause
+			\item Descrição de linguagens com estruturas recursivas; \pause
+			\item GLCs geram {\it Linguagens Livres-de-Contexto} (LLCs).
+		\end{itemize} \pause
+		\begin{block}{Aplicações...}
+			\begin{itemize}
+				\item Especificação e compilação de linguagens de programação.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Exemplos...}
+		\begin{block}{}
+			\begin{itemize}
+				\item[] $A \rightarrow 0 A 1$
+				\item[] $A \rightarrow B$
+				\item[] $B \rightarrow \#$ 
+			\end{itemize} 
+		\end{block} \pause
+		\begin{block}{Uma gramática consiste de...}
+			\begin{itemize}
+				\item Regras de substituição (também chamadas de {\bf produções}); \pause
+				\item Símbolos que são chamados de {\bf variáveis}; \pause
+				\item Símbolos que são chamados de {\bf terminais}; \pause
+				\item Uma variável é designada como {\bf variável inicial}.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Como utilizar uma gramática?}	
+		\begin{itemize}
+			\item {\bf Escreva a variável inicial.} Ela é a variável no lado esquerdo da primeira regra, a menos que especificado em contrário; \pause
+			\item {\bf Encontre uma variável que esteja escrita e uma regra que comece com essa variável.} Substitua a variável escrita pelo lado direito dessa regra; \pause
+			\item Repita o passo 2 até que não reste nenhuma variável.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{$G_1$ gera a cadeia $000\# 111$}
+			\begin{eqnarray*}
+				&	A 			&		\\ \pause
+				0 		&	A 			& 1 	\\ \pause
+				00 		&	A 			& 11 	\\ \pause
+				000 	&	A 			& 111 	\\ \pause
+				000 	&	B 			& 111 	\\ \pause
+				000 	&	\# 			& 111 	\\ \pause
+				&	000\#111 	&  		\\ \pause
+			\end{eqnarray*}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{center}
+			\includegraphics[height=.7\textheight]{images/fig2-1.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Outras características importantes}
+		\begin{itemize}
+			\item O conjunto de todas as cadeias geradas por uma GLC constitui a {\bf linguagem da gramática}; \pause
+			\item $L(G_1) = \{ 0^n \# 1^n | n \geq 0 \}$ \pause
+			\item Qualquer linguagem que possa ser gerada por uma GLC é chamada de {\bf linguagem livre-do-contexto (LLC)}; \pause
+			\item Podemos abreviar várias regras em apenas uma só como $A \rightarrow 0 A 1$ e $A \rightarrow B$ em \\
+			$A \rightarrow 0 A 1 | B$.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{$G_2$: fragmento da língua inglesa}
+		\begin{center}
+			\includegraphics[height=.55\textheight]{images/gramEng.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{$G_2$: fragmento da língua inglesa}
+		\begin{block}{Cadeias em $L(G_2)$}
+			\begin{itemize}
+				\item a boy sees
+				\item the boy sees a flower
+				\item a girl with a flower likes the boy
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Derivação de ``a boy sees''}
+		\begin{center}
+			\includegraphics[height=.55\textheight]{images/derivacao.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{center}
+			\includegraphics[height=.55\textheight]{images/definicao.png}
+		\end{center}
+	\end{frame}
+
+	\section{Gramáticas Livre-de-Contexto}
+	\begin{frame}{Exemplo}
+		\begin{block}{$G_1$}
+			\begin{itemize}
+				\item[] $A \rightarrow 0 A 1$
+				\item[] $A \rightarrow B$
+				\item[] $B \rightarrow \#$ 
+			\end{itemize} 
+		\end{block} \pause
+		\begin{block}{Descrição formal}
+			$G_1 = ( V, \Sigma, R, S )$ de forma que:
+			\begin{itemize}
+				\item $V = \{ A, B \}$;
+				\item $\Sigma = \{ 0, 1, \# \}$;
+				\item $R = \{ A \rightarrow 0 A 1, \mbox{ } A \rightarrow B, \mbox{ } B \rightarrow \# \}$;
+				\item $S = A$.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{$G_3$}
+			$G_3 = ( \{ S \}, \{ a, b \}, R, S )$. O conjunto de regras $R$ é:
+			\begin{itemize}
+				\item[] $S \rightarrow a S b \mbox{ | } SS \mbox{ | } \epsilon$
+			\end{itemize} 
+		\end{block} \pause
+		\begin{block}{$G_4$}
+			$G_4 = ( V, \Sigma, R, S)$, de forma que:
+			\begin{itemize}
+				\item[] $V = \{ \langle EXPR \rangle, \langle TERM \rangle, \langle FACTOR \rangle \}$;
+				\item[] $\Sigma = \{ a, +, \times, (, ) \}$;
+				\item[] $R$ é o conjunto de regras:
+				\begin{itemize}
+					\item[] $ \langle EXPR \rangle \rightarrow \langle EXPR \rangle + \langle TERM \rangle \mbox{ | } \langle TERM \rangle$
+					\item[] $ \langle TERM \rangle \rightarrow \langle TERM \rangle \times \langle FACTOR \rangle \mbox{ | } \langle FACTOR \rangle$
+					\item[] $ \langle FACTOR \rangle \rightarrow ( \langle EXPR \rangle ) \mbox{ | } a $
+				\end{itemize} 
+				\item[] $S = \langle EXPR \rangle$.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Árvores Sintáticas}
+		\begin{center}
+			\includegraphics[height=.65\textheight]{images/fig2-5.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Projetando GLCs}
+		\begin{itemize}
+			\item Considere a união de GLCs; \pause
+			\item Se a linguagem for regular, construa a GLC a partir do AFD correspondente; \pause
+			\item Considere subcadeias ``ligadas''; \pause
+			\item Considere estruturas recursivas.
+		\end{itemize}
+	\end{frame}
+
+	\section{Ambiguidade}
+	\begin{frame}{Ambiguidade}
+		\begin{block}{Gramática $G_5$}
+			$\langle$ EXPR $\rangle$ $\rightarrow$ 
+			$\langle$ EXPR $\rangle$ $+$ $\langle$ EXPR $\rangle$ $|$
+			$\langle$ EXPR $\rangle$ $\times$ $\langle$ EXPR $\rangle$
+			
+			$\langle$ EXPR $\rangle$ $\rightarrow$ ($\langle$ EXPR $\rangle$) $|$ $a$
+		\end{block} \pause
+		\begin{block}{Cadeia {\tt a + a $\times$ a } }
+			Esta gramática gera {\tt a + a $\times$ a} ambiguamente.
+		\end{block}	
+	\end{frame}
+	
+	\begin{frame}{Ambiguidade}
+		\begin{center}
+			\includegraphics[height=.5\textheight]{images/fig2-6.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Ambiguidade}
+		\begin{block}{$G_4$}
+			\begin{itemize}
+				\item[] $ \langle EXPR \rangle \rightarrow \langle EXPR \rangle + \langle TERM \rangle \mbox{ | } \langle TERM \rangle$
+				\item[] $ \langle TERM \rangle \rightarrow \langle TERM \rangle \times \langle FACTOR \rangle \mbox{ | } \langle FACTOR \rangle$
+				\item[] $ \langle FACTOR \rangle \rightarrow ( \langle EXPR \rangle ) \mbox{ | } a $
+			\end{itemize} 
+		\end{block} \pause
+		\begin{exampleblock}{Porém...}
+			$G_4$ não é ambígua!
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Ambiguidade}
+		\begin{block}{$G_2$}
+			\begin{center}
+				\includegraphics[height=.4\textheight]{images/gramEng.png}
+			\end{center}
+		\end{block} \pause
+		\begin{alertblock}{Porém...}
+			$G_2$ é ambígua! \\(e.g. a cadeia ``{\tt the girl touches the boy with the flower}'')
+		\end{alertblock}
+	\end{frame}
+	
+	\begin{frame}{Ambiguidade}
+		\begin{block}{Definição 2.7}
+			Uma cadeia $\omega$ é derivada {\bf ambiguamente} na gramática livre-do-contexto $G$ se ela tem duas ou mais derivações mais à esquerda diferentes. A gramática $G$ é {\bf ambígua} se ela gera alguma cadeia ambiguamente.
+		\end{block} \pause
+		\begin{block}{}
+			Existem linguagens que são {\bf inerentemente ambíguas}!
+		\end{block}
+	\end{frame}
+	
+	\subsection{Forma Normal de Chomsky}
+	\begin{frame}[shrink]{Forma Normal de Chomsky}
+		\begin{block}{Por quê utilizá-la?}
+			\begin{itemize}
+				\item É uma forma simplificada de escrever uma GLC;
+				\item Facilita a construção de algoritmos para GLC.
+			\end{itemize}
+		\end{block} \pause
+		\begin{block}{Definição 2.8}
+			Uma gramática livre-do-contexto está na {\bf forma normal de Chomsky} se toda regra é da forma
+			\begin{itemize}
+				\item[] $A \rightarrow BC$
+				\item[] $A \rightarrow a$
+			\end{itemize}
+			em que $a$ é qualquer terminal e $A$, $B$ e $C$ são quaisquer variáveis - exceto que $B$ e $C$ não podem ser a variável inicial.
+		\end{block} \pause
+		\begin{exampleblock}{Adicionalmente...}
+			Permite-se a regra $S \rightarrow \epsilon$, em que $S$ é a variável inicial.
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Forma Normal de Chomsky}
+		\begin{block}{Teorema 2.9}
+			Qualquer linguagem livre-de-contexto é gerada por uma gramática livre-do-contexto na forma normal de Chomsky.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{$G_6$}
+			\begin{itemize}
+				\item[] $S \rightarrow ASA$ $|$ $aB$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$ $|$ $\epsilon$
+			\end{itemize}
+		\end{block} \pause
+		\begin{alertblock}{???}
+			Como converter $G_6$ para a forma normal de Chomsky?
+		\end{alertblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{1. Introduzir uma nova variável inicial}
+			\begin{itemize}
+				\item[] $S \rightarrow ASA$ $|$ $aB$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$ $|$ $\epsilon$
+			\end{itemize}
+		\end{block} \pause
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] {\color{blue} $S_0 \rightarrow S$}
+				\item[] $S \rightarrow ASA$ $|$ $aB$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$ $|$ $\epsilon$
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{2. Remover regras $\epsilon$ ($B$)}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow S$
+				\item[] $S \rightarrow ASA$ $|$ $aB$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$ $|$ {\color{red} $\epsilon$}
+			\end{itemize}
+		\end{block} \pause
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow S$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ {\color{blue} $|$ $a$}
+				\item[] $A \rightarrow B$ $|$ $S$ {\color{blue} $|$ $\epsilon$}
+				\item[] $B \rightarrow b$ 
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{2. Remover regras $\epsilon$ ($A$)}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow S$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$
+				\item[] $A \rightarrow B$ $|$ $S$ {\color{red} $|$ $\epsilon$}
+				\item[] $B \rightarrow b$ 
+			\end{itemize}
+		\end{block} \pause
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow S$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ {\color{blue} $|$ $SA$ $|$ $AS$ $|$ $S$}
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$ 
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{2. Remover regras unitárias ($S$)}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow S$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$ $|$ {\color{red} $S$}
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$  
+			\end{itemize}
+		\end{block} \pause
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow S$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$  
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{3. Remover regras unitárias ($S_0$)}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ {\color{red} $S$}
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$  
+			\end{itemize}
+		\end{block} \pause
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ {\color{blue} $ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$}
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$    
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{4. Remover regras unitárias ($A$)}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ $ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow$ {\color{red} $B$} $|$ $S$
+				\item[] $B \rightarrow b$  
+			\end{itemize}
+		\end{block} \pause
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ $ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow$ $S$ {\color{blue} $|$ $b$}
+				\item[] $B \rightarrow b$   
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{5. Remover regras unitárias ($A$)}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ $ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow$ {\color{red} $S$} $|$ $b$
+				\item[] $B \rightarrow b$  
+			\end{itemize}
+		\end{block} \pause
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ $ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow$ $b$ {\color{blue} $|$ $ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$}
+				\item[] $B \rightarrow b$    
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}{Exemplo}
+		\begin{block}{6. Acrescentar variáveis e regras adicionais}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ {\color{red} $AS$}$A$ $|$ {\color{red} $a$}$B$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $S \rightarrow$ {\color{red} $AS$}$A$ $|$ {\color{red} $a$}$B$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow$ $b$ $|$ {\color{red} $AS$}$A$ $|$ {\color{red} $a$}$B$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $B \rightarrow b$    
+			\end{itemize}
+		\end{block} \pause
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ {\color{blue} $C$}$A$ $|$ {\color{blue} $D$}$B$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $S \rightarrow$ {\color{blue} $C$}$A$ $|$ {\color{blue} $D$}$B$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow$ $b$ $|$ {\color{blue} $C$}$A$ $|$ {\color{blue} $D$}$B$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $B \rightarrow b$
+				\item[] {\color{blue} $C  \rightarrow AS$}
+				\item[] {\color{blue} $D \rightarrow a$}  
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
