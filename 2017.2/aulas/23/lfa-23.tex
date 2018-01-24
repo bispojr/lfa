@@ -1,0 +1,455 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+\usepackage{slashbox}
+\usepackage{enumerate}
+
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Autômato com Pilha} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{23 de janeiro de 2018} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+	
+	\section{Revisão}
+	\begin{frame}{Exemplo}
+		\begin{block}{$G_1$}
+			\begin{itemize}
+				\item[] $A \rightarrow 0 A 1$
+				\item[] $A \rightarrow B$
+				\item[] $B \rightarrow \#$ 
+			\end{itemize} 
+		\end{block}  
+		\begin{block}{Descrição formal}
+			$G_1 = ( V, \Sigma, R, S )$ de forma que:
+			\begin{itemize}
+				\item $V = \{ A, B \}$;
+				\item $\Sigma = \{ 0, 1, \# \}$;
+				\item $R = \{ A \rightarrow 0 A 1, \mbox{ } A \rightarrow B, \mbox{ } B \rightarrow \# \}$;
+				\item $S = A$.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{$G_3$}
+			$G_3 = ( \{ S \}, \{ a, b \}, R, S )$. O conjunto de regras $R$ é:
+			\begin{itemize}
+				\item[] $S \rightarrow a S b \mbox{ | } SS \mbox{ | } \epsilon$
+			\end{itemize} 
+		\end{block}  
+		\begin{block}{$G_4$}
+			$G_4 = ( V, \Sigma, R, S)$, de forma que:
+			\begin{itemize}
+				\item[] $V = \{ \langle EXPR \rangle, \langle TERM \rangle, \langle FACTOR \rangle \}$;
+				\item[] $\Sigma = \{ a, +, \times, (, ) \}$;
+				\item[] $R$ é o conjunto de regras:
+				\begin{itemize}
+					\item[] $ \langle EXPR \rangle \rightarrow \langle EXPR \rangle + \langle TERM \rangle \mbox{ | } \langle TERM \rangle$
+					\item[] $ \langle TERM \rangle \rightarrow \langle TERM \rangle \times \langle FACTOR \rangle \mbox{ | } \langle FACTOR \rangle$
+					\item[] $ \langle FACTOR \rangle \rightarrow ( \langle EXPR \rangle ) \mbox{ | } a $
+				\end{itemize} 
+				\item[] $S = \langle EXPR \rangle$.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Árvores Sintáticas}
+		\begin{center}
+			\includegraphics[height=.65\textheight]{images/fig2-5.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Projetando GLCs}
+		\begin{itemize}
+			\item Considere a união de GLCs;  
+			\item Se a linguagem for regular, construa a GLC a partir do AFD correspondente;  
+			\item Considere subcadeias ``ligadas'';  
+			\item Considere estruturas recursivas.
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Ambiguidade}
+	\begin{frame}{Ambiguidade}
+		\begin{block}{Gramática $G_5$}
+			$\langle$ EXPR $\rangle$ $\rightarrow$ 
+			$\langle$ EXPR $\rangle$ $+$ $\langle$ EXPR $\rangle$ $|$
+			$\langle$ EXPR $\rangle$ $\times$ $\langle$ EXPR $\rangle$
+			
+			$\langle$ EXPR $\rangle$ $\rightarrow$ ($\langle$ EXPR $\rangle$) $|$ $a$
+		\end{block}  
+		\begin{block}{Cadeia {\tt a + a $\times$ a } }
+			Esta gramática gera {\tt a + a $\times$ a} ambiguamente.
+		\end{block}	
+	\end{frame}
+	
+	\begin{frame}{Ambiguidade}
+		\begin{center}
+			\includegraphics[height=.5\textheight]{images/fig2-6.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Ambiguidade}
+		\begin{block}{$G_4$}
+			\begin{itemize}
+				\item[] $ \langle EXPR \rangle \rightarrow \langle EXPR \rangle + \langle TERM \rangle \mbox{ | } \langle TERM \rangle$
+				\item[] $ \langle TERM \rangle \rightarrow \langle TERM \rangle \times \langle FACTOR \rangle \mbox{ | } \langle FACTOR \rangle$
+				\item[] $ \langle FACTOR \rangle \rightarrow ( \langle EXPR \rangle ) \mbox{ | } a $
+			\end{itemize} 
+		\end{block}  
+		\begin{exampleblock}{Porém...}
+			$G_4$ não é ambígua!
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Ambiguidade}
+		\begin{block}{$G_2$}
+			\begin{center}
+				\includegraphics[height=.4\textheight]{images/gramEng.png}
+			\end{center}
+		\end{block}  
+		\begin{alertblock}{Porém...}
+			$G_2$ é ambígua! \\(e.g. a cadeia ``{\tt the girl touches the boy with the flower}'')
+		\end{alertblock}
+	\end{frame}
+	
+	\begin{frame}{Ambiguidade}
+		\begin{block}{Definição 2.7}
+			Uma cadeia $\omega$ é derivada {\bf ambiguamente} na gramática livre-do-contexto $G$ se ela tem duas ou mais derivações mais à esquerda diferentes. A gramática $G$ é {\bf ambígua} se ela gera alguma cadeia ambiguamente.
+		\end{block}  
+		\begin{block}{}
+			Existem linguagens que são {\bf inerentemente ambíguas}!
+		\end{block}
+	\end{frame}
+	
+	\subsection{Forma Normal de Chomsky}
+	\begin{frame}[shrink]{Forma Normal de Chomsky}
+		\begin{block}{Por quê utilizá-la?}
+			\begin{itemize}
+				\item É uma forma simplificada de escrever uma GLC;
+				\item Facilita a construção de algoritmos para GLC.
+			\end{itemize}
+		\end{block}  
+		\begin{block}{Definição 2.8}
+			Uma gramática livre-do-contexto está na {\bf forma normal de Chomsky} se toda regra é da forma
+			\begin{itemize}
+				\item[] $A \rightarrow BC$
+				\item[] $A \rightarrow a$
+			\end{itemize}
+			em que $a$ é qualquer terminal e $A$, $B$ e $C$ são quaisquer variáveis - exceto que $B$ e $C$ não podem ser a variável inicial.
+		\end{block}  
+		\begin{exampleblock}{Adicionalmente...}
+			Permite-se a regra $S \rightarrow \epsilon$, em que $S$ é a variável inicial.
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Forma Normal de Chomsky}
+		\begin{block}{Teorema 2.9}
+			Qualquer linguagem livre-de-contexto é gerada por uma gramática livre-do-contexto na forma normal de Chomsky.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{$G_6$}
+			\begin{itemize}
+				\item[] $S \rightarrow ASA$ $|$ $aB$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$ $|$ $\epsilon$
+			\end{itemize}
+		\end{block}  
+		\begin{alertblock}{???}
+			Como converter $G_6$ para a forma normal de Chomsky?
+		\end{alertblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{1. Introduzir uma nova variável inicial}
+			\begin{itemize}
+				\item[] $S \rightarrow ASA$ $|$ $aB$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$ $|$ $\epsilon$
+			\end{itemize}
+		\end{block}  
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] {\color{blue} $S_0 \rightarrow S$}
+				\item[] $S \rightarrow ASA$ $|$ $aB$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$ $|$ $\epsilon$
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{2. Remover regras $\epsilon$ ($B$)}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow S$
+				\item[] $S \rightarrow ASA$ $|$ $aB$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$ $|$ {\color{red} $\epsilon$}
+			\end{itemize}
+		\end{block}  
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow S$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ {\color{blue} $|$ $a$}
+				\item[] $A \rightarrow B$ $|$ $S$ {\color{blue} $|$ $\epsilon$}
+				\item[] $B \rightarrow b$ 
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{2. Remover regras $\epsilon$ ($A$)}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow S$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$
+				\item[] $A \rightarrow B$ $|$ $S$ {\color{red} $|$ $\epsilon$}
+				\item[] $B \rightarrow b$ 
+			\end{itemize}
+		\end{block}  
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow S$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ {\color{blue} $|$ $SA$ $|$ $AS$ $|$ $S$}
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$ 
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{2. Remover regras unitárias ($S$)}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow S$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$ $|$ {\color{red} $S$}
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$  
+			\end{itemize}
+		\end{block}  
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow S$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$  
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{3. Remover regras unitárias ($S_0$)}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ {\color{red} $S$}
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$  
+			\end{itemize}
+		\end{block}  
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ {\color{blue} $ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$}
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow B$ $|$ $S$
+				\item[] $B \rightarrow b$    
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{4. Remover regras unitárias ($A$)}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ $ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow$ {\color{red} $B$} $|$ $S$
+				\item[] $B \rightarrow b$  
+			\end{itemize}
+		\end{block}  
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ $ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow$ $S$ {\color{blue} $|$ $b$}
+				\item[] $B \rightarrow b$   
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Exemplo}
+		\begin{block}{5. Remover regras unitárias ($A$)}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ $ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow$ {\color{red} $S$} $|$ $b$
+				\item[] $B \rightarrow b$  
+			\end{itemize}
+		\end{block}  
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ $ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $S \rightarrow ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow$ $b$ {\color{blue} $|$ $ASA$ $|$ $aB$ $|$ $a$ $|$ $SA$ $|$ $AS$}
+				\item[] $B \rightarrow b$    
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}{Exemplo}
+		\begin{block}{6. Acrescentar variáveis e regras adicionais}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ {\color{red} $AS$}$A$ $|$ {\color{red} $a$}$B$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $S \rightarrow$ {\color{red} $AS$}$A$ $|$ {\color{red} $a$}$B$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow$ $b$ $|$ {\color{red} $AS$}$A$ $|$ {\color{red} $a$}$B$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $B \rightarrow b$    
+			\end{itemize}
+		\end{block}  
+		\begin{exampleblock}{}
+			\begin{itemize}
+				\item[] $S_0 \rightarrow$ {\color{blue} $C$}$A$ $|$ {\color{blue} $D$}$B$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $S \rightarrow$ {\color{blue} $C$}$A$ $|$ {\color{blue} $D$}$B$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $A \rightarrow$ $b$ $|$ {\color{blue} $C$}$A$ $|$ {\color{blue} $D$}$B$ $|$ $a$ $|$ $SA$ $|$ $AS$
+				\item[] $B \rightarrow b$
+				\item[] {\color{blue} $C  \rightarrow AS$}
+				\item[] {\color{blue} $D \rightarrow a$}  
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+
+	\section{Autômato com Pilha}
+	\begin{frame}{Autômato com Pilha}
+		\begin{block}{Características...}
+			\begin{itemize} \pause
+				\item AFN + Pilha = Autômato com Pilha; \pause
+				\item AFD + Pilha $\not=$ AFN + Pilha; \pause
+				\item Pilha com memória infinita; \pause
+				\item Pode escrever e ler símbolos na pilha; \pause
+				\item Equivalentes em poder às GLCs.
+			\end{itemize}
+		\end{block} \pause
+		\begin{center}
+			\includegraphics[height=.25\textheight]{images/esquema-afn-2} 
+			\includegraphics[height=.35\textheight]{images/esquema-ap-2}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Autômato com Pilha}
+		\begin{center}
+			\includegraphics[height=.6\textheight]{images/definicao-ap} 
+		\end{center}
+	\end{frame}
+
+	\subsection{Exemplos}
+	\begin{frame}{Autômato com Pilha}
+		\begin{block}{AP $M_1$}
+			$L(M_1) = \{0^n1^n$ | $n\geq 0 \}$
+		\end{block} \pause
+		\begin{center}
+			\includegraphics[height=.6\textheight]{images/ap-m1}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Autômato com Pilha}
+		\begin{center}
+			\includegraphics[height=.6\textheight]{images/ap-m1-formal-1}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Autômato com Pilha}
+		\begin{center}
+			\includegraphics[height=.5\textheight]{images/ap-m1-formal-2}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Autômato com Pilha}
+		\begin{block}{AP $M_2$}
+			$L(M_2) = \{a^i b^j c^k$ | $i=j$ ou $i=k \}$
+		\end{block} \pause
+		\begin{center}
+			\includegraphics[height=.6\textheight]{images/ap-m2}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Autômato com Pilha}
+		\begin{block}{AP $M_3$}
+			$L(M_3) = \{\omega \omega^{\mathcal{R}}$ | $\omega \in \{0,1\}^* \}$
+		\end{block} \pause
+		\begin{center}
+			\includegraphics[height=.6\textheight]{images/ap-m3}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
