@@ -1,0 +1,111 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Goiás (UFG) - Regional  Jataí\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{29 de janeiro de 2018}
+
+\title{\sc \huge Quarto Teste}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro testes, uma prova e exercícios-bônus;
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & (\sum_{i=1}^{4} 0,2.T_i ) + 0,2.P  + EB\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações,
+		\item $T_i$ é a pontuação obtida no teste $i$,
+		\item $P$ é a pontuação obtida na prova, e
+		\item $EB$ é a pontuação total dos exercícios-bônus.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (5) Autômatos com Pilha, e (6) Linguagens Livre-de-Contexto.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Quarto Teste}
+	
+	\item (5,0 pt) {\bf [Sipser 2.4 / 2.6]}  Dê gramáticas livres-do-contexto que gerem as seguintes linguagens. Em todos os itens o alfabeto $\Sigma$ é $\{0,1\}$.
+		\begin{enumerate}
+			\item $\{\omega$ | o comprimento de $\omega$ é ímpar $\}$
+			
+			\vspace*{0.3cm}
+			
+			{\color{blue} {\bf Resposta:} Como esta linguagem é regular, pode-se construir o AFD que a reconhece e, a partir dele, construir a gramática correspondente. Esta gramática é dada abaixo.
+				\begin{itemize}
+					\item[] $A \rightarrow 0B$ | $1B$
+					\item[] $B \rightarrow 0A$ | $1A$ | $\epsilon$
+				\end{itemize}
+			}
+			\item  O complemento da linguagem $\{0^n 1^n$ | $n \geq 0 \}$
+			
+			\vspace*{0.3cm}
+			
+			{\color{blue} {\bf Resposta:} Esta linguagem pode ser composta pela união de três outras linguagens: 
+				\begin{enumerate}
+					\item todas as cadeias que têm mais 0s do que 1s \\(representada pela variável $S$);
+					\item todas as cadeias que têm mais 1s do que 0s \\(representada pela variável $U$); e
+					\item todas as cadeias que contêm 01 como subcadeia \\(representada pela variável $X$).
+				\end{enumerate}
+			Assim, a gramática construída, dada abaixo, é a união das três linguagens dadas acima.
+			
+				\begin{itemize}
+					\item[] $R \rightarrow S$ | $U$ | $X$
+					\item[] $S \rightarrow T0T$
+					\item[] $T \rightarrow  TT$ | $0T1$ | $1T0$ | $0$ | $\epsilon$
+					\item[] $U \rightarrow V1V$
+					\item[] $V \rightarrow  VV$ | $0V1$ | $1V0$ | $1$ | $\epsilon$
+					\item[] $X \rightarrow Z10Z$
+					\item[] $Z \rightarrow 0Z$ | $1Z$ | $\epsilon$
+				\end{itemize}
+			}
+		\end{enumerate}
+	
+	\newpage
+	
+	\item (5,0 pt) {\bf [Sipser 2.16]}  Mostre que a classe de linguagens livres-do-contexto é fechada sob a operação de união.
+	
+	\vspace*{0.3cm}
+	
+	{\color{blue} {\bf Resposta:} Sejam duas linguagens livres-de-contexto quaisquer $A$ e $B$. Se $A$ e $B$ são livres-de-contexto, então existem gramáticas que a geram (e.g. $G_A = (V_A, \Sigma_A, R_A, S_A)$ e $G_B = (V_A, \Sigma_A, R_A, S_A)$, respectivamente). Iremos construir uma gramática $G_{A\cup B} = (V, \Sigma, R, S)$, a partir de $G_A$ e $G_B$, que gera a linguagem $A \cup B$. Os elementos de $G_{A \cup B}$ são descritos a seguir:
+		\begin{itemize}
+			\item $V = V_A \cup V_B \cup S$;
+			\item $\Sigma = \Sigma_A \cup \Sigma_B$;
+			\item $R = R_A \cup R_B \cup \{S \rightarrow S_A$ | $S_B\}$;
+			\item $S$ é a variável inicial.
+		\end{itemize}
+	Como foi possível construir $G_{A \cup B}$, logo a classe de linguagens livres-de-contexto é fechada sob a operação de união $\blacksquare$
+	}
+
+\end{enumerate}
+
+\end{document}
