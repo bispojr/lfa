@@ -1,0 +1,85 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Goiás (UFG) - Regional  Jataí\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{20 de fevereiro de 2018}
+
+\title{\sc \huge Prova (Parte 1)}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro testes, uma prova e exercícios-bônus;
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & (\sum_{i=1}^{4} 0,2.T_i ) + 0,2.P  + EB\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações,
+		\item $T_i$ é a pontuação obtida no teste $i$,
+		\item $P$ é a pontuação obtida na prova, e
+		\item $EB$ é a pontuação total dos exercícios-bônus.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (1) Revisão de Fundamentos, (2) Autômatos Finitos Determinísticos, e (3) Autômatos Finitos Não-Determinísticos.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Primeiro Teste}
+	
+	\item (5,0 pt) {\bf [Sipser 0.5]} Se $C$ é um conjunto com $n$ elementos, quantos elementos estão no conjunto das partes de $C$? Explique sua resposta.
+	
+	\item (5,0 pt) {\bf [Sipser 1.3]} A descrição formal de um AFD $M$ é \\
+	$(\{q_1, q_2, q_3, q_4, q_5\}, \{u,d\}, \delta, q_3, \{q_3\})$ em que $\delta$ é dada pela tabela a seguir.
+	
+	\begin{center}
+		\begin{tabular}{c|cc}
+					&	$u$		&	$d$	\\
+			\hline
+			$q_1$	&	$q_1$ 	&	$q_2$	\\
+			$q_2$	&	$q_1$ 	&	$q_3$	\\
+			$q_3$	&	$q_2$ 	&	$q_4$	\\
+			$q_4$	&	$q_3$ 	&	$q_5$	\\
+			$q_5$	&	$q_4$ 	&	$q_5$	\\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	Dê o diagrama de estados desta máquina.
+	
+	\section*{Segundo Teste}
+	
+	\item (5,0 pt) {\bf [Sipser 1.11]}  Prove que todo AFN pode ser convertido em um AFN equivalente que tenha apenas um único estado final.
+	
+	\item (5,0 pt) {\bf [Sipser 1.14 (b)]} Mostre através de um exemplo que, se $M$ é um AFN que reconhece a linguagem $C$, trocar os seus estados simples pelos finais (e vice-versa) não garante necessariamente que o novo AFN reconhece o complemento de $C$. A classe de linguagens reconhecidas por AFNs é fechada sob a operação de complemento? Justifique as suas respostas.
+
+\end{enumerate}
+
+\end{document}
