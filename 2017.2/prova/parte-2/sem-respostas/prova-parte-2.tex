@@ -1,0 +1,78 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Goiás (UFG) - Regional  Jataí\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{05 de março de 2018}
+
+\title{\sc \huge Prova (Parte 2)}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro testes, uma prova e exercícios-bônus;
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & (\sum_{i=1}^{4} 0,2.T_i ) + 0,2.P  + EB\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações,
+		\item $T_i$ é a pontuação obtida no teste $i$,
+		\item $P$ é a pontuação obtida na prova, e
+		\item $EB$ é a pontuação total dos exercícios-bônus.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (2) Autômatos Finitos Determinísticos, (3) Autômatos Finitos Não-Determinísticos, (4) Expressões Regulares, (5) Autômatos com Pilha, e (6) Linguagens Livre-de-Contexto.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Terceiro Teste}
+	
+	\item (5,0 pt) {\bf [Sipser 1.22]} Em algumas linguagens de programação, os comentários aparecem entre delimitadores tais como {\tt /\#} e {\tt \#/} . Seja $C$ a linguagem de todas as cadeias válidas de comentários delimitados. Um membro de $C$ deve começar com {\tt /\#} e terminar com {\tt \#/}. Por questões de simplicidade, diremos que os comentários propriamente ditos serão escritos apenas com os símbolos {\tt a} e {\tt b}. Logo, o alfabeto de $C$ é $\Sigma = \{${\tt a}, {\tt b}, {\tt /}, {\tt \#}$\}$. 
+	\begin{enumerate}
+		\item Dê um AFD que reconhece $C$.
+		\item Dê uma expressão regular que gera $C$.
+	\end{enumerate}
+	
+	\item (5,0 pt) Utilizando expressão regular, mostre que a classe de linguagens regulares é fechada sobre a operação de estrela.
+	
+	\section*{Quarto Teste}
+	
+	\item {\bf [Sipser 2.14]}  Converta a seguinte GLC numa GLC equivalente na forma normal de Chomsky,
+	usando o procedimento apresentado em sala de aula.
+	\begin{itemize}
+		\item[] $A \rightarrow BAB$ | $B$ | $\epsilon$
+		\item[] $B \rightarrow 00$ | $\epsilon$
+	\end{itemize}
+	
+	\item (5,0 pt) {\bf [Sipser 2.16]}  Mostre que a classe de linguagens livres-do-contexto é fechada sob a operação de concatenação.
+
+\end{enumerate}
+
+\end{document}

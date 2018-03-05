@@ -1,0 +1,168 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Goiás (UFG) - Regional  Jataí\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{05 de março de 2018}
+
+\title{\sc \huge Prova (Parte 2)}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro testes, uma prova e exercícios-bônus;
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & (\sum_{i=1}^{4} 0,2.T_i ) + 0,2.P  + EB\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações,
+		\item $T_i$ é a pontuação obtida no teste $i$,
+		\item $P$ é a pontuação obtida na prova, e
+		\item $EB$ é a pontuação total dos exercícios-bônus.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (2) Autômatos Finitos Determinísticos, (3) Autômatos Finitos Não-Determinísticos, (4) Expressões Regulares, (5) Autômatos com Pilha, e (6) Linguagens Livre-de-Contexto.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Terceiro Teste}
+	
+	\item (5,0 pt) {\bf [Sipser 1.22]} Em algumas linguagens de programação, os comentários aparecem entre delimitadores tais como {\tt /\#} e {\tt \#/} . Seja $C$ a linguagem de todas as cadeias válidas de comentários delimitados. Um membro de $C$ deve começar com {\tt /\#} e terminar com {\tt \#/}. Por questões de simplicidade, diremos que os comentários propriamente ditos serão escritos apenas com os símbolos {\tt a} e {\tt b}. Logo, o alfabeto de $C$ é $\Sigma = \{${\tt a}, {\tt b}, {\tt /}, {\tt \#}$\}$. 
+	\begin{enumerate}
+		\item Dê um AFD que reconhece $C$.
+		
+		\vspace*{0.3cm}
+		
+		{\color{blue}
+			
+			\begin{tikzpicture}[->,>=stealth,shorten >=1pt,auto,node distance=2cm,
+			semithick]
+			\node[state,initial] 	(q1)   						{$q_1$}; 
+			\node[state] 			(q2)	[above=of q1]		{$q_2$};
+			\node[state] 			(q3)	[right=of q2]		{$q_3$};
+			\node[state] 			(q4)	[right=of q3]		{$q_4$};
+			\node[state, accepting]	(q5)	[below=of q4]		{$q_5$};
+			\node[state] 			(q6)	[below=of q3]		{$q_6$};
+			\path[->] 
+			(q1) 	edge [bend left]	node {\tt /} (q2)
+					edge [bend right]	node {\tt \#, a, b} (q6)
+			(q2) 	edge [bend left] 	node {\tt \#} (q3)
+					edge [bend right]	node {\tt /, a, b} (q6)
+			(q3) 	edge [loop above] 	node {\tt a, b} ()
+					edge [bend left]	node {\tt \#} (q4)
+					edge node {\tt /} (q6)
+			(q4) 	edge [bend left] 	node {\tt /} (q5)
+					edge [bend right]	node {\tt \#, a, b} (q6)
+			(q5) 	edge [bend left] 	node {$\Sigma$} (q6)
+			(q6) edge [loop below] 	node {$\Sigma$} ();
+			\end{tikzpicture}
+		}
+		\item Dê uma expressão regular que gera $C$.
+		
+		\vspace*{0.3cm}
+		
+		{\color{blue} {\bf R - }  {\tt /\#(a $\cup$ b)$^*$\#/} }
+	\end{enumerate}
+	
+	\item (5,0 pt) Utilizando expressão regular, mostre que a classe de linguagens regulares é fechada sobre a operação de estrela.	
+	
+	\vspace*{0.3cm}
+	
+	{\color{blue}
+		{\bf Prova:} Seja $A$ uma linguagem regular qualquer. Como $A$ é  regular, então existe a expressão regular (ER) $R_A$ que a gera. Pela definição indutiva de ER, se $R_A$ é ER, então $R_A ^ *$ é uma ER. Como toda ER gera uma linguagem regular, $R_A ^ *$ é regular. Logo, a classe de linguagens regulares é fechada sob a operação de estrela $\blacksquare$
+	}
+
+\newpage
+	
+	\section*{Quarto Teste}
+	
+	\item {\bf [Sipser 2.14]}  Converta a seguinte GLC numa GLC equivalente na forma normal de Chomsky,
+	usando o procedimento apresentado em sala de aula.
+	\begin{itemize}
+		\item[] $A \rightarrow BAB$ | $B$ | $\epsilon$
+		\item[] $B \rightarrow 00$ | $\epsilon$
+	\end{itemize}
+
+	\vspace*{0.3cm}
+	
+	{\color{blue}
+		{\bf Passo 1:} Introdução de nova variável inicial.
+		\begin{itemize}
+			\item[] $S \rightarrow A$
+			\item[] $A \rightarrow BAB$ | $B$ | $\epsilon$
+			\item[] $B \rightarrow 00$ | $\epsilon$
+		\end{itemize}
+	
+		{\bf Passo 2:} Remoção de regras $\epsilon$.
+		\begin{itemize}
+			\item[] $S \rightarrow A$ | $\epsilon$
+			\item[] $A \rightarrow BAB$ | $B$ | $BA$ | $AB$ | $BB$
+			\item[] $B \rightarrow 00$
+		\end{itemize}
+	
+		{\bf Passo 3:} Remoção de regras unitárias.
+		\begin{itemize}
+			\item[] $S \rightarrow BAB$ | $00$ | $BA$ | $AB$ | $BB$ | $\epsilon$
+			\item[] $A \rightarrow BAB$ | $00$ | $BA$ | $AB$ | $BB$
+			\item[] $B \rightarrow 00$
+		\end{itemize}
+	
+		{\bf Passo 4:} Inclusão de regras adicionais.
+		\begin{itemize}
+			\item[] $S \rightarrow CB$ | $DD$ | $BA$ | $AB$ | $BB$ | $\epsilon$
+			\item[] $A \rightarrow CB$ | $DD$ | $BA$ | $AB$ | $BB$
+			\item[] $B \rightarrow DD$
+			\item[] $C \rightarrow BA$
+			\item[] $D \rightarrow 0$
+		\end{itemize}
+	}
+	
+	\newpage
+	
+	\item (5,0 pt) {\bf [Sipser 2.16]}  Mostre que a classe de linguagens livres-do-contexto é fechada sob a operação de concatenação.
+	
+	\vspace*{0.3cm}
+	
+	{\color{blue} {\bf Resposta:} Sejam duas linguagens livres-de-contexto quaisquer $A$ e $B$. Se $A$ e $B$ são livres-de-contexto, então existem gramáticas que a geram (e.g. $G_A = (V_A, \Sigma_A, R_A, S_A)$ e $G_B = (V_A, \Sigma_A, R_A, S_A)$, respectivamente). Iremos construir uma gramática $G_{A \circ B} = (V, \Sigma, R, S)$, a partir de $G_A$ e $G_B$, que gera a linguagem $A \circ B$. Os elementos de $G_{A \circ B}$ são descritos a seguir:
+		\begin{itemize}
+			\item $V = V_A \cup V_B \cup S$;
+			\item $\Sigma = \Sigma_A \cup \Sigma_B$;
+			\item $R = R_A \cup R_B \cup \{S \rightarrow S_A S_B\}$;
+			\item $S$ é a variável inicial.
+		\end{itemize}
+		Como foi possível construir $G_{A \circ B}$, logo a classe de linguagens livres-de-contexto é fechada sob a operação de concatenação $\blacksquare$
+	}
+
+\end{enumerate}
+
+\end{document}
