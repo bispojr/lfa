@@ -1,0 +1,389 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Apresentação da disciplina} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{09 de agosto de 2018} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+	
+	\section{Sobre a Disciplina}
+	\subsection{Sobre o Professor}
+	\begin{frame}{Professor / Facilitador}
+		\begin{columns}
+			\column{.4\textwidth}  		
+		  		\begin{center}
+		    		\includegraphics[height=.5\textheight]{images/esdras.png}
+		  		\end{center}
+			\column{.6 \textwidth}  		
+				\begin{block}{Formação}
+					\begin{center}
+						{\normalsize {\bf Bacharel} em Sistemas de Informação\\
+						{\bf Mestre} em Representação Conhecimento (IA)}
+					\end{center}
+				\end{block}		  		
+		  		\begin{block}{Quem?}
+		  			\begin{center}
+						{\bf Esdras Lins Bispo Junior} \\ Recife, Pernambuco.
+					\end{center}
+				\end{block}
+		\end{columns}
+	\end{frame}	
+
+	\begin{frame}{Informações Importantes}
+		\begin{block}{Professor}
+			\begin{itemize}
+				\item Esdras Lins Bispo Jr.
+				\item \url{bispojr@ufg.br}
+				\item Sala 18, 1º Andar (Bloco Novo dos Professores)
+			\end{itemize}
+		\end{block}
+	\end{frame}	
+	
+	\begin{frame}{Informações Importantes}
+		\begin{block}{Disciplina}
+			\begin{itemize}
+				\item Linguagens Formais e Autômatos
+				\item 07h30-09h10 (Quinta, [CA2, Sala 07])\\
+				07h30-09h10 (Sexta, [CA2, Sala 07])
+				\item Dúvidas: 09h30 - 11h10 (Quinta)\\
+				{\color{red}[é necessário confirmação comigo]}
+				\item Grupo: \url{facebook.com/groups/lfa.ufj.2018.2/}
+				\item Repositório: \url{github.com/bispojr/lfa}
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Informações Importantes}
+		\begin{block}{Metodologia}
+			\begin{itemize}
+				\item Metodologia de Instrução pelos Colegas \\(CROUCH e MAZUR, 2001);
+				\item Utilização de quadro negro (ou branco) e DataShow;
+				\item Atendimento individual ou em grupos;
+				\item Aplicação de listas de exercícios;
+				\item Aplicação de atividades em um AVA  (Ambiente Virtual de Aprendizagem);
+				\item Tempo de Aula: 50 minutos.
+				
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Metodologia IpC}
+		\begin{center}
+			\includegraphics[height=.7\textheight]{images/fluxo-ipc}
+		\end{center}
+	\end{frame}
+	
+	\subsection{Instrumentos de Avaliação}
+	\begin{frame}{Instrumentos de Avaliação}
+		\begin{block}{Questões Conceituais IpC (QC)}
+			Toda aula haverá questões conceituais abordadas em sala.
+		\end{block}
+		
+		\begin{block}{Mini-Testes}
+			\begin{itemize}
+				\item MT$_1$ $\Rightarrow$ 20\% da pontuação total;
+				\item MT$_2$ $\Rightarrow$ 20\% da pontuação total;
+				\item MT$_3$ $\Rightarrow$ 20\% da pontuação total;
+				\item MT$_4$ $\Rightarrow$  20\% da pontuação total.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Instrumentos de Avaliação}
+		\begin{block}{Prova Final (PF) - 20\% da pontuação total}
+			A PF é composta por duas etapas: a PF$_1$ e a PF$_2$. 
+			A PF$_1$ é composta por dois mini-testes de caráter substitutivo: \pause 
+			\begin{itemize}
+				\item o SMT$_1$ (referente ao MT$_1$), e 
+				\item o SMT$_2$ (referente ao MT$_2$).
+			\end{itemize} \pause
+			Por sua vez, a PF$_2$ é composta pelos outros dois mini-testes também de caráter substitutivo:  \pause
+			\begin{itemize}
+				\item o SMT$_3$ (referente ao MT$_3$), e 
+				\item o SMT$_4$ (referente ao MT$_4$).
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Avaliação}
+		\begin{block}{Média Final}
+			O cálculo da média final será dada da seguinte forma:
+			\begin{itemize}
+				\item MF = MIN(10, PONT)
+			\end{itemize}
+			em que MIN representa o mínimo entre dois valores e PONT representa a pontuação total obtida em toda a disciplina, dada da seguinte forma:
+			\begin{center}
+				PONT = $\left[ \sum\limits_{i=1}^{4} \mbox{max}(MT_i, SMT_i) + PF \right] \times 0,2 + QC$
+			\end{center}
+		\end{block} \pause
+		\begin{exampleblock}{Previsão de Término das Atividades}
+			14 de dezembro de 2018
+		\end{exampleblock}
+	\end{frame}
+	
+	\subsection{Distintivos Digitais}
+	\begin{frame}{Distintivos Digitais}
+		\begin{block}{Como será?}
+			Os alunos que estiverem entre as 5 melhores notas de cada avaliação receberão um distintivo digital.
+		\end{block} \pause
+		\begin{block}{Quantos distintivos existem?}
+			\begin{itemize}
+				\item {\sc Top One}
+				\item {\sc Top Two}
+				\item {\sc Top Five}
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Distintivos Digitais}
+		\begin{block}{}
+			\begin{center}
+				\includegraphics[height=.65\textheight]{images/badges/top-five.png}
+			\end{center}		
+			Obter entre a 3ª e a 5ª melhor nota da turma em uma avaliação. 
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Distintivos Digitais}
+		\begin{block}{}
+			\begin{center}
+				\includegraphics[height=.65\textheight]{images/badges/top-two.png}
+			\end{center}		
+			Obter a 2ª melhor nota da turma em uma avaliação. 
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Distintivos Digitais}
+		\begin{block}{}
+			\begin{center}
+				\includegraphics[height=.65\textheight]{images/badges/top-one.png}
+			\end{center}		
+			Obter a melhor nota da turma em uma avaliação. 
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Distintivos Digitais}
+		\begin{block}{Pontuação}
+			\begin{itemize}
+				\item Obter um {\sc Top One}: 10 pontos;
+				\item Obter um {\sc Top Two}: 8 pontos;
+				\item Obter um {\sc Top Five}: 6 pontos.
+			\end{itemize}
+		\end{block} \pause
+		\begin{exampleblock}{Na Prova Final...}
+			Os cinco primeiros que obtiverem maior pontuação, nos quatro testes, ganharão medalhas.
+		\end{exampleblock} \pause
+		\begin{block}{Por que estamos usando distintivos digitais?}
+			\begin{itemize}
+				\item Pode aumentar a motivação dos alunos; \\ \pause
+				{\color{blue} (Estou pesquisando para saber se isto é verdade...)}
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Informações Importantes}
+		\begin{block}{Conteúdo do Curso}
+			\begin{enumerate}
+				\item Revisão de Fundamentos
+				\item Autômatos Finitos Determinísticos
+				\item Autômatos Finitos Não-Determinísticos
+				\item Expressões Regulares
+				\item Autômatos com Pilha
+				\item Gramáticas Livre-de-Contexto
+				\item Tópicos Avançados
+			\end{enumerate}
+		\end{block}
+	\end{frame}
+
+	%------------------------------------------
+	\section{Pensamento}
+	\begin{frame}{Pensamento}
+		\begin{center}
+			\includegraphics[width=7cm]{images/pensamento.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Pensamento}
+		\begin{columns}
+			\column{.4\textwidth}  		
+			\begin{center}
+				\includegraphics[height=.5\textheight]{images/bachelard.jpg}
+			\end{center}
+			\column{.6\textwidth}  		
+			\begin{block}{Frase}
+				\begin{center}
+					{\large Para ensinarmos um aluno a inventar, precisamos mostrar-lhe que ele já possui a capacidade de descobrir.}
+				\end{center}
+			\end{block}		  		
+			\begin{block}{Quem?}
+				\begin{center}
+					{\bf Gaston Bachelard (1884-1962)} \\ Filósofo e poeta francês.
+				\end{center}
+			\end{block}
+		\end{columns}
+	\end{frame}
+	%------------------------------------------
+	\section{Introdução}
+	\subsection{O que é Teoria da Computação?}
+	\begin{frame}{O que é Teoria da Computação?}
+		Pode ser dividida em três grandes áreas:
+		\begin{itemize}
+			\item Teoria dos Autômatos;
+			\item Teoria da Computabilidade;
+			\item Teoria da Complexidade.	
+		\end{itemize}\pause
+		São interligadas pela pergunta:
+		\begin{block}{}
+			Quais são as capacidades e limitações fundamentais dos computadores?
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{O que é Teoria da Computação?}
+		\begin{block}{Teoria dos Autômatos}
+			Quais são as definições e propriedades dos modelos matemáticos de computação?
+		\end{block} \pause
+		\begin{block}{Teoria da Computabilidade}
+			O que faz alguns problemas serem solúveis e outros não?		
+		\end{block} \pause
+		\begin{block}{Teoria da Complexidade}
+			O que faz alguns problemas serem computacionalmente difíceis e outros fáceis?
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Linguagens Formais e Autômatos}
+		\begin{block}{Linguagens Formais}
+			É o estudo de modelos matemáticos que possibilitam a especificação e o reconhecimento de linguagens, incluindo suas propriedades.
+		\end{block} \pause
+		\begin{block}{Autômatos}
+			São modelos computacionais normalmente utilizados para reconhecimento e especificação de linguagens.
+		\end{block}
+	\end{frame}
+	
+	\subsection{Revisão}
+	\begin{frame}{Conceitos Básicos} 
+		\begin{block}{Conjuntos}
+			\begin{itemize}
+				\item Definição;
+				\item Pertinência;
+				\item Continência;
+				\item Conjuntos infinitos;
+				\item Operações entre conjuntos;
+				\item Conjunto das partes;
+				\item Diagramas de Venn.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Conceitos Básicos}
+		\begin{center}
+			\includegraphics[width=11cm]{images/fig01.png}
+		\end{center}
+	\end{frame}		
+	
+	\begin{frame}{Conceitos Básicos}
+		\begin{center}
+			\includegraphics[width=11cm]{images/fig02.png}
+		\end{center}
+	\end{frame}	
+	
+	\begin{frame}{Conceitos Básicos}
+		\begin{center}
+			\includegraphics[width=10cm]{images/fig03.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Conceitos Básicos}
+		\begin{center}
+			\includegraphics[width=10cm]{images/fig04.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Estudo Prévio}
+		\begin{block}{Leitura 01}
+			Capítulo 0: Seção 0.1 e 0.2.
+		\end{block}
+		\begin{block}{Livro}
+			SIPSER, M. {\color{blue} Capítulo 0: Introdução}. {\bf Introdução à Teoria da Computação}, 2a Edição, Editora Thomson Learning, 2011. \color{blue}{\bf Código Bib.: [004 SIP/int]}.
+		\end{block}
+	\end{frame}
+
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
