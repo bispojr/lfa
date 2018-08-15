@@ -1,0 +1,217 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage{enumitem}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Revisão de Fundamentos} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{10 de agosto de 2018} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\begin{frame}{Questão 001}	
+		\begin{alertblock}{[Q001] Questão Cancelada}
+			Se dermos como entrada dois parâmetros para um processo de verificação da corretude de programas:
+			\begin{itemize}
+				\item (i) um programa, e 
+				\item (ii) a especificação formal da tarefa para a qual foi projetado
+			\end{itemize}
+		Sabe-se que não é possível automatizar este processo. 
+		
+		 \vspace*{0.3cm}
+		 
+		Este fato pode ser melhor estudado em que \\área da Teoria da Computação?
+		\end{alertblock}
+		\begin{enumerate}[label=(\Alph*)]
+			\item Teoria dos Autômatos
+			\item Teoria da Computabilidade
+			\item Teoria da Complexidade
+			\item Nenhuma das anteriores	
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 002}	
+		\begin{block}{[Q002]}
+			Suponha que um novo modelo computacional foi proposto. Deseja-se conhecer melhor as suas características e potencialidades.
+			
+			\vspace*{0.3cm}
+			
+			Este fato pode ser melhor estudado em que \\área da Teoria da Computação?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item Teoria dos Autômatos
+			\item Teoria da Computabilidade
+			\item Teoria da Complexidade
+			\item Nenhuma das anteriores	
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 003}	
+		\begin{block}{[Q003]}
+			Imagine que foi proposta uma nova forma de se gerenciar o ciclo de vida de software, como alternativa ao modelos clássicos existentes.
+			
+			\vspace*{0.3cm}
+			
+			Este fato pode ser melhor estudado em que \\área da Teoria da Computação?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item Teoria dos Autômatos
+			\item Teoria da Computabilidade
+			\item Teoria da Complexidade
+			\item Nenhuma das anteriores	
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 004}	
+		\begin{alertblock}{[Q004] Questão Cancelada}
+			Sejam $A$ e $B$ dois conjuntos. Se $|A|=12$ e $|B|= 8$, o que se pode dizer do valor de $|A \cup B|$?
+		\end{alertblock}
+		\begin{enumerate}[label=(\Alph*)]
+			\item É 12.
+			\item Está entre 8 e 12 (incluso).
+			\item É menor que 8 (incluso).
+			\item É 0.	
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 005}	
+		\begin{alertblock}{[Q005] Questão Cancelada}
+			Seja $A = \{0, \{1\}, 4, 6\}$. É {\bf incorreto} afirmar que
+		\end{alertblock}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $1 \in A$
+			\item $|P(A)| = 16$
+			\item É menor que 8 (incluso).
+			\item É 0.	
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 006}	
+		\begin{block}{[Q006 - UFJF 2000]}
+			A parte hachurada no diagrama que melhor
+			representa o conjunto $D = A \setminus (B \cap C)$ é
+		\end{block}
+		\includegraphics[width=\textwidth]{images/ufjf-venn}
+	\end{frame}
+
+	\begin{frame}{Questão 007}	
+		\begin{block}{[Q007]}
+			Sejam $\mathbb{N}$ e $\mathbb{R}$ o conjunto dos naturais e reais, respectivamente. Seja $A = \{0\}$. Qual das opções abaixo é um elemento de $\mathbb{N} \times \mathbb{R} \times A$?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $(0; 0; \pi)$
+			\item $(\pi; 0; 0)$
+			\item $(0; \pi; 1)$
+			\item $(1; \pi; 0)$	
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 008}	
+		\begin{block}{[PVMed - Q008]}
+			Uma empresa de táxi $E_1$ cobra R\$ 2,00 a ``bandeirada'', que é o valor inicial da corrida, e R\$ 2,00 por km rodado. Outra empresa $E_2$ fixa em R\$ 3,00 o km rodado e não cobra bandeirada. As duas tarifas estão melhor representadas, graficamente, em:
+		\end{block}
+		\includegraphics[width=.9\textwidth]{images/bandeirada}
+	\end{frame}
+
+	\begin{frame}{Questão 009}	
+		\begin{block}{[POSCOMP 2016 (Adaptado) - Q009]}
+			A matriz de um grafo $G = (V,A)$ contendo $n$ vértices é uma matriz $n \times n$ de bits, em
+			que $A[i,j]$ é 1 (ou verdadeiro, no caso de booleanos) se e somente se existir um arco do vértice $i$ para o vértice $j$. Essa definição é uma:
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item Matriz de adjacência para grafos não ponderados.
+			\item Matriz de recorrência para grafos não ponderados.
+			\item Matriz de incidência para grafos não ponderados.
+			\item Matriz de incidência para grafos ponderados.	
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 010}	
+		\begin{block}{[Q010]}
+			Dado a linguagem $A = \{ a, bab, aba, asa\}$, é {\bf incorreto} afirmar que...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $1 \leq |\omega| \leq 3$
+			\item Se $\omega \in A$, então $\omega^\mathcal{R} \in A$.
+			\item Se $\omega \in A$, então $ab$ é subcadeia de $\omega$.
+			\item $\epsilon \not\in A$	
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
