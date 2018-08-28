@@ -1,0 +1,70 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Jataí (UFJ)\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{23 de agosto de 2018}
+
+\title{\sc \huge Mini-Teste 1}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro mini-testes (MT), uma prova final (PF), exercícios-bônus (EB) e exercícios aplicados em sala de aula pelo método de Instrução pelos Colegas (IpC);
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & [(\sum_{i=1}^{4} max(MT_i, SMT_i ) + PF].0,2  + EB + IpC\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações, e
+		\item $SMT_i$ é a substitutiva do mini-teste $i$.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (1) Revisão de Fundamentos e (2) Autômatos Finitos Determinísticos.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Primeiro Teste}
+	
+	\item (5,0 pt) {\bf [Sipser 0.10]} Encontre o erro na seguinte prova de que 2=1.
+	\begin{flushleft}
+		Considere a equação $a=b$. Multiplique ambos os lados por $a$ para obter $a^2 = ab$. Subtraia $b^2$ de ambos os lados para obter $a^2 - b^2 = ab-b^2$. Agora fatore cada lado, obtendo $(a+b)(a-b) = b(a-b)$, e divida cada lado por $(a-b)$, para chegar em $a+b = b$. Finalmente, faça $a$ e $b$ iguais a 1, o que mostra que 2=1.
+	\end{flushleft}
+	
+	
+	\item (5,0 pt) Dê o diagrama de estados dos AFDS que reconhecem as seguintes linguagens. Admita em todos os itens que o alfabeto é  $\{a,b\}$.
+		\begin{enumerate}
+			\item {\bf [Sipser 1.4 (a)]} (1,0 pt) \\$\{\omega$ | $\omega$ tem pelo menos três {\sf a}s e pelo menos dois {\sf b}s$\}$
+			\item {\bf [Sipser 1.5 (g)]} (2,0 pt) $\{\omega$ | $\omega$ é qualquer cadeia que não contém exatamente dois {\sf a}s$\}$
+			\item {\bf [Sipser 1.6 (h)]} (2,0 pt) $\{\omega$ | é qualquer subcadeia exceto {\sf 11} e {\sf 111}$\}$
+		\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
