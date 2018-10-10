@@ -1,0 +1,187 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage[inline]{enumitem}
+
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Expressões Regulares} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+}
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{27 de setembro de 2018} }
+
+\logo{\includegraphics[width=1cm]{images/ufjLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\section{Instrução pelos Colegas}
+	
+	\begin{frame}{Questão 054}	
+		\begin{block}{[Q054]}
+			Seja $\Sigma = \{0,1\}$. Qual das cadeias abaixo a expressão regular $\Sigma^* 1 \Sigma^*$ \underline{não} gera?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item 0001
+			\item 1111
+			\item 0
+			\item 1
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 055}	
+		\begin{block}{[Q055]}
+			Seja $\Sigma = \{0,1\}$. Qual das cadeias abaixo a expressão regular $(\Sigma\Sigma\Sigma)^*$ \underline{não} gera?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item 010
+			\item 11011
+			\item 000
+			\item $\epsilon$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 056}	
+		\begin{block}{[Q056]}
+			Seja $\Sigma = \{0,1\}$. Qual é a linguagem que a expressão regular $1^*\emptyset$ descreve?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item A linguagem vazia.
+			\item Todas as cadeias que começam por qualquer quantidade de 1s.
+			\item Todas as cadeias com um número infinito de 1s.
+			\item Todas as cadeias de comprimento par.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 057}	
+		\begin{block}{[Q057]}
+			Seja $\Sigma = \{0,1\}$ e $R$ uma expressão regular qualquer. Qual das expressões regulares abaixo é equivalente à expressão regular $R \circ \epsilon$?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $\epsilon$
+			\item $\emptyset$
+			\item $R \circ \emptyset$
+			\item $R$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 058}	
+		\begin{block}{[Q058]}
+			Se uma linguagem é descrita por uma expressão regular, então ela é regular (Lema 1.55). Este lema é demonstrado pelo Sipser considerando
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item as transições $\epsilon$ existentes nas expressões regulares.
+			\item a construção de um autômato finito não-determinístico generalizado.
+			\item os seis casos da definição indutiva de expressão regular.
+			\item a construção de um autômato finito determinístico equivalente.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 059}	
+		\begin{block}{[Q059]}
+			\begin{columns}
+				\begin{column}{0.05\textwidth}\end{column}
+				\begin{column}{0.45\textwidth}
+					Se uma linguagem é descrita por uma expressão regular, então ela é regular (Lema 1.55). Qual expressão regular foi convertida para gerar o AFN ao lado (conforme algoritmo proposto pelo Sipser como parte da demonstração do lema)?
+				\end{column}
+				\begin{column}{0.45\textwidth}
+					\begin{center}
+						\includegraphics[width=1.0\textwidth]{images/afn}
+					\end{center}
+				\end{column}
+				\begin{column}{0.05\textwidth}\end{column}
+			\end{columns}
+		\end{block}
+	
+		\begin{enumerate}[label=(\Alph*)]
+			\item $(a \cup b)^*$
+			\item $a \cup b$
+			\item $(a \circ b)^*$
+			\item $a \circ b$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 060}	
+		\begin{block}{[Q060]}
+			Se uma linguagem é regular, então ela é descrita por uma expressão regular (Lema 1.60). Este lema é demonstrado pelo Sipser utilizando um autômato finito não-determinístico generalizado (AFNG). Sobre a função de transição do AFNG, é \underline{incorreto} afirmar que...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item tem como uma de suas entradas um estado do autômato (com exceção do estado inicial).
+			\item a saída é uma expressão regular.
+			\item a saída é membro do conjunto de símbolos $\Sigma$.
+			\item tem como entrada um conjunto de estados do autômato.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
