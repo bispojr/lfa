@@ -1,0 +1,192 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage{enumitem}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Autômato Finito Não-Determinístico} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+}
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{06 de setembro de 2018} }
+
+\logo{\includegraphics[width=1cm]{images/ufjLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\section{Instrução pelos Colegas}
+	
+	\begin{frame}{Questão 036}	
+		\begin{block}{[Q036]}
+			Seja o AFN $M$, conforme o diagrama de estados abaixo. 
+			\begin{center}
+				\includegraphics[width=.9\textwidth]{images/afn-n1}
+			\end{center}
+		Qual das cadeias abaixo \underline{não} é aceita por $M$?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item {\sc 0110}
+			\item {\sc 01011}
+			\item {\sc 1001}
+			\item {\sc 0101}
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 037}	
+		\begin{block}{[Q037]}
+			Sobre o um AFN $M$, é \underline{incorreto} afirmar que...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item para $M$ aceitar $\omega$, é necessário que todos os ramos de execução aceitem $\omega$.
+			\item a sua função $\delta$ tenha como saída um conjunto de estados.
+			\item a sua função de $\delta$ tem como uma de suas entradas um símbolo de $\Sigma_{\epsilon}$.
+			\item $M$ tem apenas um estado inicial.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 038}	
+		\begin{block}{[Q038]}
+			\begin{columns}
+				\begin{column}{0.05\textwidth}\end{column}
+				\begin{column}{0.35\textwidth}
+					Seja o AFD $M$, conforme o diagrama de estados ao lado. $M$ aceita qual cadeia, das alternativas abaixo?
+				\end{column}
+				\begin{column}{0.55\textwidth}
+					\begin{center}
+						\includegraphics[width=0.8\textwidth]{images/afn-n4}
+					\end{center}
+				\end{column}
+				\begin{column}{0.05\textwidth}\end{column}
+			\end{columns}
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item {\sc bb}
+			\item {\sc babba}
+			\item {\sc b}
+			\item {\sc ababa}
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Questão 039}	
+		\begin{block}{[Q039]}
+			Seja o AFN $M$, conforme o diagrama de estados abaixo. 
+			\begin{center}
+				\includegraphics[width=.9\textwidth]{images/afn-n1}
+			\end{center}
+			Qual é o valor para $\delta(q_1,$ {\sc 1})?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $q_2$
+			\item $\{q_1, q_2\}$
+			\item $\emptyset$
+			\item $\{q_1\}$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 040}	
+		\begin{block}{[Q040]}
+			Seja o AFN $M$, conforme o diagrama de estados abaixo. 
+			\begin{center}
+				\includegraphics[width=.9\textwidth]{images/afn-n1}
+			\end{center}
+			Qual é o valor para $\delta(q_3,$ {\sc 0})?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $q_4$
+			\item $\{q_3, q_4\}$
+			\item $\emptyset$
+			\item não pode ser definido.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 041}	
+		\begin{block}{[Q041]}
+			Na definição formal de computação para um AFN $N$, se $N$ aceita $\omega$, então existe uma sequência de estados $r_0, r_1, \ldots, r_m$ em que
+			\begin{itemize}
+				\item - $r_0 = q_0$;
+				\item - $\delta(r_i, \omega_{i+1}) \in r_{i+1}$, para $i=0, \ldots, m-1$, e
+				\item - $r_m \in F$.
+			\end{itemize}
+			O que o valor de $m$ representa?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item a quantidade de estados da sequência
+			\item o tamanho da cadeia $\omega$
+			\item a quantidade de entradas distintas de $\delta$
+			\item a quantidade de estados de $N$
+		\end{enumerate}
+	\end{frame}
+
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
