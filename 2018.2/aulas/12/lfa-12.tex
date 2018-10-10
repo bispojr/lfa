@@ -1,0 +1,183 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage[inline]{enumitem}
+
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Equivalência de AFNs e AFDs} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+}
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{13 de setembro de 2018} }
+
+\logo{\includegraphics[width=1cm]{images/ufjLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\section{Instrução pelos Colegas}
+	
+	\begin{frame}{Questão 042}	
+		\begin{block}{[Q042]}
+			É verdade que todo AFN tem um AFD equivalente. Na prova apresentada pelo Sipser, ele constroi um AFD $M$ a partir de um AFN $N$. Se $N$ tem 10 estados, quantos estados teria $M$?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item 10
+			\item 100
+			\item $2^{10}$
+			\item $10^2$
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Questão 043}	
+		\begin{block}{[Q043]}
+			É verdade que todo AFN tem um AFD equivalente. Na prova apresentada pelo Sipser, ele constroi um AFD $M = (Q', \Sigma, \delta', q_0', F')$ a partir de um AFN $N = (Q, \Sigma, \delta, q_0, F)$. 
+			
+			\vspace*{0.3cm}
+						
+			$Q' = \mathcal{P}(Q)$ porque...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item sempre um AFD tem mais estados que um AFN.
+			\item $\mathcal{P}(Q)$ é o contradomínio de $\delta$.
+			\item $\mathcal{P}(Q)$ é o conjunto de estados de $N$.
+			\item o conjunto vazio é subconjunto de qualquer conjunto.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 044}	
+		\begin{block}{[Q044]}
+			É verdade que todo AFN tem um AFD equivalente. Na prova apresentada pelo Sipser, ele constroi um AFD $M = (Q', \Sigma, \delta', q_0', F')$ a partir de um AFN $N = (Q, \Sigma, \delta, q_0, F)$. 
+			
+			\vspace*{0.3cm}
+						
+			$F' = \{R \in Q'$ | $R$ contém um estado de aceitação de $N\}$ porque...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item é possível que $Q' = Q$, então é necessário explicitar os estados finais.
+			\item se $R \in F'$ então todos os estados que estão em $R$ são finais.
+			\item $R$ representa o nível da árvore de execução de N em que pelo menos um dos estados é final.
+			\item $R$ necessita ser um estado de $Q$, e não um conjunto de estados de $Q$.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 045}	
+		\begin{block}{[Q045]}
+			É verdade que todo AFN tem um AFD equivalente. Na prova apresentada pelo Sipser, ele constroi um AFD $M = (Q', \Sigma, \delta', q_0', F')$ a partir de um AFN $N = (Q, \Sigma, \delta, q_0, F)$. 
+			
+			\vspace*{0.3cm}
+			
+			A função $\delta'(R,a) = \bigcup\limits_{r \in R} \delta(r,a)$ não está devidamente representada porque...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item não inclui os estados alcançados por possíveis transições $\epsilon$.
+			\item não considera todos os símbolos distintos de $\Sigma$.
+			\item utiliza $\bigcup\limits_{r \in R} \delta(r,a)$ ao invés de $\bigcap\limits_{r \in R} \delta(r,a)$.
+			\item porque $R$ não é um estado de $Q$.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Questão 046}	
+		\begin{block}{[Q046]}
+			É verdade que todo AFN tem um AFD equivalente. Na prova apresentada pelo Sipser, ele constroi um AFD $M = (Q', \Sigma, \delta', q_0', F')$ a partir de um AFN $N = (Q, \Sigma, \delta, q_0, F)$. 
+			
+			\vspace*{0.3cm}
+			
+			O estado inicial de M é $E(\{q_0\})$ porque...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item é necessário garantir que os estados que podem ser atingidos a partir de $q_0$ sejam especiais.
+			\item é necessário que $q_0$ não seja um conjunto e sim apenas um elemento.
+			\item é necessário que apenas $q_0$ seja um estado especial.
+			\item é necessário incluir também os estados que podem ser atingidos a partir de $q_0$ ao longo de 0 ou mais setas $\epsilon$.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Questão 047}	
+		\begin{block}{[Q047]}
+			Seja o AFD $D$, conforme o diagrama de estados abaixo. 
+			\begin{center}
+				\includegraphics[width=.7\textwidth]{images/afd-d}
+			\end{center}
+			É possível remover quantos estados de $D$ de forma que a linguagem por ele reconhecida permaneça a mesma?
+		\end{block}
+		\begin{enumerate*}[label=(\Alph*)]
+			\item 0 \mbox{ }
+			\item 1 \mbox{ }
+			\item 2 \mbox{ }
+			\item 3 \mbox{ }
+		\end{enumerate*}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
