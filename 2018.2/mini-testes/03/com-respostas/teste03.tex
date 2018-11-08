@@ -1,0 +1,106 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Jataí (UFJ)\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{11 de outubro de 2018}
+
+\title{\sc \huge Mini-Teste 3}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro mini-testes (MT), uma prova final (PF), exercícios-bônus (EB) e exercícios aplicados em sala de aula pelo método de Instrução pelos Colegas (IpC);
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & [(\sum_{i=1}^{4} max(MT_i, SMT_i ) + PF].0,2  + EB + IpC\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações, e
+		\item $SMT_i$ é a substitutiva do mini-teste $i$.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (3) Autômatos Finitos Não-determinísticos, (4) Expressões Regulares, e (5) Linguagens não-regulares.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Terceiro Mini-Teste}
+	
+	\item {\bf [Sipser 1.22]} Em algumas linguagens de programação, os comentários aparecem entre delimitadores tais como {\tt /\#} e {\tt \#/} . Seja $C$ a linguagem de todas as cadeias válidas de comentários delimitados. Um membro de $C$ deve começar com {\tt /\#} e terminar com {\tt \#/}. Por questões de simplicidade, diremos que os comentários propriamente ditos serão escritos apenas com os símbolos {\tt a} e {\tt b}. Logo, o alfabeto de $C$ é $\Sigma = \{${\tt a}, {\tt b}, {\tt /}, {\tt \#}$\}$. 
+	\begin{enumerate}
+		\item (2,5 pt) Dê um AFD que reconhece $C$.
+		
+		\vspace*{0.3cm}
+		
+		{\color{blue}
+			
+			\begin{tikzpicture}[->,>=stealth,shorten >=1pt,auto,node distance=2cm,
+			semithick]
+			\node[state,initial] 	(q1)   						{$q_1$}; 
+			\node[state] 			(q2)	[above=of q1]		{$q_2$};
+			\node[state] 			(q3)	[right=of q2]		{$q_3$};
+			\node[state] 			(q4)	[right=of q3]		{$q_4$};
+			\node[state, accepting]	(q5)	[below=of q4]		{$q_5$};
+			\node[state] 			(q6)	[below=of q3]		{$q_6$};
+			\path[->] 
+			(q1) 	edge [bend left]	node {\tt /} (q2)
+			edge [bend right]	node {\tt \#, a, b} (q6)
+			(q2) 	edge [bend left] 	node {\tt \#} (q3)
+			edge [bend right]	node {\tt /, a, b} (q6)
+			(q3) 	edge [loop above] 	node {\tt a, b} ()
+			edge [bend left]	node {\tt \#} (q4)
+			edge node {\tt /} (q6)
+			(q4) 	edge [bend left] 	node {\tt /} (q5)
+			edge [bend right]	node {\tt \#, a, b} (q6)
+			(q5) 	edge [bend left] 	node {$\Sigma$} (q6)
+			(q6) edge [loop below] 	node {$\Sigma$} ();
+			\end{tikzpicture}
+		}
+		\item (2,5 pt) Dê uma expressão regular que gera $C$.
+		
+		\vspace*{0.3cm}
+		
+		{\color{blue} {\bf R - }  {\tt /\#(a $\cup$ b)$^*$\#/} }
+	\end{enumerate}
+	
+	\vspace*{0.5cm}
+	
+	\item (5,0 pt) Seja a linguagem $A = \{\omega \omega \omega$ | $\omega \in \{a,b\}^*\}$. Mostre o por quê da cadeia $a^pa^{2p}$ não poder ser utilizada para provar que $A$ {\bf não} é regular (em que $p$ é o comprimento do bombeamento).
+	
+	\vspace*{0.3cm}
+	
+	{\color{blue} {\bf Resposta:} Esta cadeia não pode ser usada porque é possível dividi-la em subcadeias $x$, $y$ e $z$ de forma que a mesma satisfaça ao lema do bombeamento. Uma das possibilidades é admitir $p \geq 3$, $x=\epsilon$, $y=000$ e $z=0^{3p-3}$. Assim temos que $|000| \leq p$, $|000| \geq 0$ e $(000)^i0^{3p-3} \in A$ ($i=0, 1, \ldots$).
+	}
+
+\end{enumerate}
+
+\end{document}
