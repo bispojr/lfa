@@ -1,0 +1,200 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage[inline]{enumitem}
+\usepackage{mathtools}
+
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Gramáticas Livres-de-Contexto} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+}
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{18 de outubro de 2018} }
+
+\logo{\includegraphics[width=1cm]{images/ufjLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\section{Instrução pelos Colegas}
+	
+	\begin{frame}{Questão 066}	
+		\begin{block}{[Q066]}
+			Seja a gramática livre-do-contexto conforme a descrição abaixo
+			\begin{center}
+				\begin{itemize}
+					\item[] $A \rightarrow$ 0$A$1
+					\item[] $A \rightarrow B$
+					\item[] $B \rightarrow \#$
+				\end{itemize}
+			\end{center}
+			Qual das cadeias abaixo \underline{não} é gerada pela gramática?
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item \#
+			\item 0\#1
+			\item 01\#01
+			\item 00\#11
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 067}	
+		\begin{block}{[Q067]}
+			Seja a gramática livre-do-contexto conforme a descrição abaixo
+			\begin{center}
+				\begin{itemize}
+					\item[] $S \rightarrow$ a$S$b | $SS$ | $\epsilon$
+				\end{itemize}
+			\end{center}
+			Qual das cadeias abaixo \underline{não} é gerada pela gramática?
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item ab
+			\item aabb
+			\item abab
+			\item abba
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 068}	
+		\begin{block}{[Q068]}
+			Seja a gramática livre-do-contexto conforme a descrição abaixo
+			\begin{center}
+				\begin{itemize}
+					\item[] $\langle$EXPR$\rangle$ $\rightarrow$ $\langle$EXPR$\rangle$+$\langle$TERM$\rangle$ | $\langle$TERM$\rangle$
+					\item[] $\langle$TERM$\rangle$ $\rightarrow$ $\langle$TERM$\rangle$x$\langle$FACTOR$\rangle$ | $\langle$FACTOR$\rangle$
+					\item[] $\langle$FACTOR$\rangle$ $\rightarrow$ ($\langle$EXPR$\rangle$) | a
+				\end{itemize}
+			\end{center}
+			Qual das cadeias abaixo \underline{não} é gerada pela gramática?
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item a+axa
+			\item a+x+a
+			\item (a+a)xa
+			\item axaxa
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 069}	
+	\begin{block}{[Q069]}
+		A partir da gramática livre-do-contexto descrita abaixo
+		\begin{center}
+			\begin{itemize}
+				\item[] $\langle$EXPR$\rangle$ $\rightarrow$ $\langle$EXPR$\rangle$+$\langle$TERM$\rangle$ | $\langle$TERM$\rangle$
+				\item[] $\langle$TERM$\rangle$ $\rightarrow$ $\langle$TERM$\rangle$x$\langle$FACTOR$\rangle$ | $\langle$FACTOR$\rangle$
+				\item[] $\langle$FACTOR$\rangle$ $\rightarrow$ ($\langle$EXPR$\rangle$) | a
+			\end{itemize}
+		\end{center}
+		é \underline{incorreto} afirmar que...
+	\end{block}
+	
+	\begin{enumerate}[label=(\Alph*)]
+		\item $\langle$FACTOR$\rangle$ $\xRightarrow{\text{*}}$ axa
+		\item $\langle$FACTOR$\rangle$ $\xRightarrow{\text{*}}$ (axa)
+		\item $\langle$EXPR$\rangle$ $\Rightarrow$ a
+		\item $\langle$EXPR$\rangle$ $\xRightarrow{\text{*}}$ axa
+	\end{enumerate}
+\end{frame}
+	
+	\begin{frame}{Questão 070}	
+		\begin{block}{[Q070]}
+			Sejam duas gramáticas $G_1$ e $G_2$ que geram as linguagens $L_1$ e $L_2$ respectivamente. $G_1$ tem $m$ regras e $G_2$ tem $n$ regras. Reaproveitando as regras existentes em $G_1$ e $G_2$, quantas regras existiriam, no mínimo, na gramática $G$ de forma que $L(G) = L_1 \cup L_2$?
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item $m+n+1$
+			\item $2(m+n) + 1$
+			\item $m \times n + 1$
+			\item $m - n + 1$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 071}	
+		\begin{block}{[Q071]}
+			É \underline{incorreto} afirmar que...
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item a classe de linguagens livre-de-contexto é fechada sob a operação de concatenação.
+			\item toda linguagem regular é livre-de-contexto.
+			\item se uma GLC gera $\omega$, então $\omega$ tem uma única derivação possível.
+			\item a classe de linguagens livre-de-contexto é fechada sob a operação estrela.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
