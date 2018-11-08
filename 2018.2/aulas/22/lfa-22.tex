@@ -1,0 +1,187 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage[inline]{enumitem}
+\usepackage{mathtools}
+
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Ambiguidade e Forma Normal de Chomsky} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+}
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{19 de outubro de 2018} }
+
+\logo{\includegraphics[width=1cm]{images/ufjLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\section{Instrução pelos Colegas}
+	
+	\begin{frame}{Questão 072}	
+		\begin{block}{[Q072]}
+			Seja a GLC G conforme a descrição abaixo
+			\begin{center}
+				\small
+				\begin{itemize}
+					\item[] $\langle$EXPR$\rangle$ $\rightarrow$ $\langle$EXPR$\rangle$+$\langle$EXPR$\rangle$ | $\langle$EXPR$\rangle$x$\langle$EXPR$\rangle$ | ($\langle$EXPR$\rangle$) | a
+				\end{itemize}
+			\end{center}
+			\normalsize
+			$G$ é ambígua porque ela gera ao menos uma cadeia que...
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item tenha no mínimo duas árvores sintáticas distintas.
+			\item possa ser derivada de mais de uma forma diferente.
+			\item não possa ser formada pelos terminais definidos.
+			\item seja inerentemente ambígua.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 073}	
+		\begin{block}{[Q073]}
+			Seja a GLC G conforme a descrição abaixo
+			\begin{center}
+				\small
+				\begin{itemize}
+					\item[] $\langle$EXPR$\rangle$ $\rightarrow$ $\langle$EXPR$\rangle$+$\langle$EXPR$\rangle$ | $\langle$EXPR$\rangle$x$\langle$EXPR$\rangle$ | ($\langle$EXPR$\rangle$) | a
+				\end{itemize}
+			\end{center}
+			\normalsize
+			Qual das cadeias abaixo é gerada ambiguamente a partir de $G$?
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item a+a
+			\item a+(axa)
+			\item (axa)+a
+			\item axa+a
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 074}	
+		\begin{block}{[Q074]}
+			Seja a GLC G conforme a descrição abaixo
+			\begin{center}
+				\small
+				\begin{itemize}
+					\item[] $\langle$EXPR$\rangle$ $\rightarrow$ $\langle$EXPR$\rangle$+$\langle$EXPR$\rangle$ | $\langle$EXPR$\rangle$x$\langle$EXPR$\rangle$ | ($\langle$EXPR$\rangle$) | a
+				\end{itemize}
+			\end{center}
+			\normalsize
+			$G$ \underline{não} está na forma normal de Chomsky pois...
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item a primeira parte da 2ª regra, $\langle$EXPR$\rangle$, é formada apenas por uma única variável.
+			\item contém um número par de regras de substituição.
+			\item o comprimento da segunda parte da 1ª regra, $\langle$EXPR$\rangle$+$\langle$EXPR$\rangle$, é maior que dois.
+			\item a segunda parte da 4ª regra é formada por um terminal isolado.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 075}	
+		\begin{block}{[Q075]}
+			Seja a GLC G conforme a descrição abaixo
+			\begin{center}
+				\begin{itemize}
+					\item[] $S \rightarrow$ a$S$b | $SS$ | $\epsilon$
+				\end{itemize}
+			\end{center}
+			$G$ \underline{não} está na forma normal de Chomsky pois...
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item a primeira parte da 1ª regra é formada apenas por uma única variável.
+			\item a segunda parte da 2ª regra, $SS$, contém a variável inicial.
+			\item a segunda parte da 3ª regra é formada apenas por $\epsilon$.
+			\item ela tem uma quantidade ímpar de variáveis.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 076}	
+		\begin{block}{[Q076]}
+			Sobre a forma normal de Chomsky, é \underline{incorreto} afirmar que...
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item ela é útil quando se quer dar algoritmos para se trabalhar com GLCs.
+			\item qualquer GLC pode ser convertida em uma outra GLC na forma normal de Chomsky.
+			\item mesmo uma GLC na forma normal de Chomsky pode ser ambígua.
+			\item não pode ser aplicada a gramáticas que geram linguagens inerentemente ambíguas.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
