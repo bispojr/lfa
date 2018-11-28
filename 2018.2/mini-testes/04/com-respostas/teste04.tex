@@ -1,0 +1,128 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Jataí (UFJ)\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{22 de novembro de 2018}
+
+\title{\sc \huge Mini-Teste 4}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro mini-testes (MT), uma prova final (PF), exercícios-bônus (EB) e exercícios aplicados em sala de aula pelo método de Instrução pelos Colegas (IpC);
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & [(\sum_{i=1}^{4} max(MT_i, SMT_i ) + PF].0,2  + EB + IpC\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações, e
+		\item $SMT_i$ é a substitutiva do mini-teste $i$.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (6) Gramáticas Livres-do-Contexto, (7) Autômatos com Pilha, e (8) Linguagens Não-Livres-do-Contexto.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Quarto Mini-Teste}
+	
+	\item (5,0 pt) {\bf [Sipser 2.2 Adaptada]} 
+	\begin{enumerate}
+		\item (2,5 pt) Use as linguagens $A = \{a^m b^n c^n$ | $m, n \geq 0\}$ e $B = \{a^n b^n c^m$ | $m, n \geq 0\}$ juntamente com o fato de que $C = \{a^n b^n c^n$ | $n \geq 0\}$ não é LLC para mostrar que a classe das LLCs não é fechada sob interseção.
+		
+		\vspace*{0.3cm}
+		
+		{\color{blue} {\bf Resposta:} Primeiro, é necessário mostrar que $A$ e $B$ são LLCs. Para isto, construiremos as GLCs $G_A$ e $G_B$, respectivamente, conforme descritas a seguir:
+			
+		\fbox{Gramática $G_A$}
+			\begin{itemize}
+				\item[] $S \rightarrow TU$
+				\item[] $T \rightarrow aT$ | $\epsilon$
+				\item[] $U \rightarrow bUc$ | $\epsilon$
+			\end{itemize}
+		
+		\fbox{Gramática $G_B$}
+		\begin{itemize}
+			\item[] $S \rightarrow UT$
+			\item[] $U \rightarrow aUb$ | $\epsilon$
+			\item[] $T \rightarrow cT$ | $\epsilon$
+		\end{itemize}
+	
+		Segundo, é necessário perceber que $A \cap B = C$. Como $A$ e $B$ são LLCs e sabe-se que $C$ não é LLC, pode-se afirmar que a classe das LLCs não é fechada sob a operação de interseção $\blacksquare$
+		}
+	
+		\item (2,5 pt) Use a parte (a) e a lei de DeMorgan ($\overline{A \cap B} = \overline{A} \cup \overline{B}$) para mostrar que a classe de linguagens livres-do-contexto não é fechada sob complementação.
+		
+		\vspace*{0.3cm}
+		
+		{\color{blue} {\bf Resposta:} Ora se $\overline{A \cap B} = \overline{A} \cup \overline{B}$, então $A \cap B = \overline{\overline{A} \cup \overline{B}}$ Sabemos pela parte (a) que não podemos garantir que $A \cap B$ seja uma LLC, sabendo que $A$ e $B$ são LLCs. Logo, pela igualdade, não podemos garantir que $\overline{\overline{A} \cup \overline{B}}$ seja uma LLC. Como as LLCs são fechadas sob união, só resta admitir que as LLCs não são fechadas sob complementação $\blacksquare$
+		}
+	\end{enumerate}
+
+\newpage
+	
+	\item (5,0 pt) {\bf [Sipser 2.4 / 2.6]}  Dê gramáticas livres-do-contexto que gerem as seguintes linguagens. Em todos os itens o alfabeto $\Sigma$ é $\{0,1\}$.
+	\begin{enumerate}
+		\item (2,0 pt) $\{\omega$ | $\omega$ é um palíndromo $\}$
+		
+		\vspace*{0.3cm}
+		
+		{\color{blue} {\bf Resposta:} A gramática correspondente é dada abaixo.
+			\begin{itemize}
+				\item[] $S \rightarrow 0S0$ | $1S1$ | $A$
+				\item[] $A \rightarrow 0$ | $1$ | $\epsilon$
+			\end{itemize}
+		}
+		\item  O complemento da linguagem $\{0^n 1^n$ | $n \geq 0 \}$
+		
+		\vspace*{0.3cm}
+		
+		{\color{blue} {\bf Resposta:} Esta linguagem pode ser composta pela união de três outras linguagens: 
+			\begin{enumerate}
+				\item todas as cadeias que têm mais 0s do que 1s \\(representada pela variável $S$);
+				\item todas as cadeias que têm mais 1s do que 0s \\(representada pela variável $U$); e
+				\item todas as cadeias que contêm 10 como subcadeia \\(representada pela variável $X$).
+			\end{enumerate}
+			Assim, a gramática construída, dada abaixo, é a união das três linguagens dadas acima.
+			
+			\begin{itemize}
+				\item[] $R \rightarrow S$ | $U$ | $X$
+				\item[] $S \rightarrow T0T$
+				\item[] $T \rightarrow  TT$ | $0T1$ | $1T0$ | $0$ | $\epsilon$
+				\item[] $U \rightarrow V1V$
+				\item[] $V \rightarrow  VV$ | $0V1$ | $1V0$ | $1$ | $\epsilon$
+				\item[] $X \rightarrow Z10Z$
+				\item[] $Z \rightarrow 0Z$ | $1Z$ | $\epsilon$
+			\end{itemize}
+		}
+	\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
