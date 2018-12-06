@@ -1,0 +1,275 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage[inline]{enumitem}
+\usepackage{mathtools}
+
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Autômatos com Pilha} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+}
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{08 de novembro de 2018} }
+
+\logo{\includegraphics[width=1cm]{images/ufjLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\section{Instrução pelos Colegas}
+	
+	\begin{frame}{Questão 077}	
+		\begin{block}{[Q077]}
+			\begin{columns}
+				\begin{column}{0.05\textwidth}\end{column}
+				\begin{column}{0.35\textwidth}
+					Qual das cadeias abaixo este AP \underline{não} aceita?
+				\end{column}
+				\begin{column}{0.55\textwidth}
+					\begin{center}
+						\includegraphics[width=1.0\textwidth]{images/ap1}
+					\end{center}
+				\end{column}
+				\begin{column}{0.05\textwidth}\end{column}
+			\end{columns}
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item $\epsilon$
+			\item $01$
+			\item $01\$$
+			\item $0011$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 078}	
+		\begin{block}{[Q078]}
+			\begin{columns}
+				\begin{column}{0.05\textwidth}\end{column}
+				\begin{column}{0.30\textwidth}
+					Qual das cadeias abaixo este AP \underline{não} aceita?
+				\end{column}
+				\begin{column}{0.60\textwidth}
+					\begin{center}
+						\includegraphics[width=1.0\textwidth]{images/ap2}
+					\end{center}
+				\end{column}
+				\begin{column}{0.05\textwidth}\end{column}
+			\end{columns}
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item $\epsilon$
+			\item $ab$
+			\item $bc$
+			\item $abc$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 079}	
+		\begin{block}{[Q079]}
+			\begin{columns}
+				\begin{column}{0.05\textwidth}\end{column}
+				\begin{column}{0.30\textwidth}
+					Qual das cadeias abaixo este AP \underline{não} aceita?
+				\end{column}
+				\begin{column}{0.60\textwidth}
+					\begin{center}
+						\includegraphics[width=1.0\textwidth]{images/ap3}
+					\end{center}
+				\end{column}
+				\begin{column}{0.05\textwidth}\end{column}
+			\end{columns}
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item $\epsilon$
+			\item $00$
+			\item $11$
+			\item $010$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 080}	
+		\begin{block}{[Q080]}
+			Sobre APs e LLCs, é \underline{incorreto} afirmar que...
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item um AP determinístico é equivalente em poder a um \\AP não-determinístico.
+			\item se um AP reconhece alguma linguagem, então ela é LLC.
+			\item se uma linguagem é LLC, então um AP a reconhece.
+			\item toda linguagem regular é LLC.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 081}	
+		\begin{block}{[Q081]}
+			\begin{columns}
+				\begin{column}{0.05\textwidth}\end{column}
+				\begin{column}{0.35\textwidth}
+					O AP ao lado foi construído a partir de uma dada gramática G, conforme o Lema 2.21. Qual das regras de substituição abaixo \underline{não} está em G?
+				\end{column}
+				\begin{column}{0.55\textwidth}
+					\begin{center}
+						\includegraphics[width=1.0\textwidth]{images/ap4}
+					\end{center}
+				\end{column}
+				\begin{column}{0.05\textwidth}\end{column}
+			\end{columns}
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item $S \rightarrow aTb$
+			\item $T \rightarrow aT$
+			\item $T \rightarrow \epsilon$
+			\item $S \rightarrow b$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 073}	
+		\begin{block}{[Q073]}
+			Seja a GLC G conforme a descrição abaixo
+			\begin{center}
+				\small
+				\begin{itemize}
+					\item[] $\langle$EXPR$\rangle$ $\rightarrow$ $\langle$EXPR$\rangle$+$\langle$EXPR$\rangle$ | $\langle$EXPR$\rangle$x$\langle$EXPR$\rangle$ | ($\langle$EXPR$\rangle$) | a
+				\end{itemize}
+			\end{center}
+			\normalsize
+			Qual das cadeias abaixo é gerada ambiguamente a partir de $G$?
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item a+a
+			\item a+(axa)
+			\item (axa)+a
+			\item axa+a
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 074}	
+		\begin{block}{[Q074]}
+			Seja a GLC G conforme a descrição abaixo
+			\begin{center}
+				\small
+				\begin{itemize}
+					\item[] $\langle$EXPR$\rangle$ $\rightarrow$ $\langle$EXPR$\rangle$+$\langle$EXPR$\rangle$ | $\langle$EXPR$\rangle$x$\langle$EXPR$\rangle$ | ($\langle$EXPR$\rangle$) | a
+				\end{itemize}
+			\end{center}
+			\normalsize
+			$G$ \underline{não} está na forma normal de Chomsky pois...
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item a primeira parte da 2ª regra, $\langle$EXPR$\rangle$, é formada apenas por uma única variável.
+			\item contém um número par de regras de substituição.
+			\item o comprimento da segunda parte da 1ª regra, $\langle$EXPR$\rangle$+$\langle$EXPR$\rangle$, é maior que dois.
+			\item a segunda parte da 4ª regra é formada por um terminal isolado.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 075}	
+		\begin{block}{[Q075]}
+			Seja a GLC G conforme a descrição abaixo
+			\begin{center}
+				\begin{itemize}
+					\item[] $S \rightarrow$ a$S$b | $SS$ | $\epsilon$
+				\end{itemize}
+			\end{center}
+			$G$ \underline{não} está na forma normal de Chomsky pois...
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item a primeira parte da 1ª regra é formada apenas por uma única variável.
+			\item a segunda parte da 2ª regra, $SS$, contém a variável inicial.
+			\item a segunda parte da 3ª regra é formada apenas por $\epsilon$.
+			\item ela tem uma quantidade ímpar de variáveis.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 076}	
+		\begin{block}{[Q076]}
+			Sobre a forma normal de Chomsky, é \underline{incorreto} afirmar que...
+		\end{block}
+		
+		\begin{enumerate}[label=(\Alph*)]
+			\item ela é útil quando se quer dar algoritmos para se trabalhar com GLCs.
+			\item qualquer GLC pode ser convertida em uma outra GLC na forma normal de Chomsky.
+			\item mesmo uma GLC na forma normal de Chomsky pode ser ambígua.
+			\item não pode ser aplicada a gramáticas que geram linguagens inerentemente ambíguas.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
