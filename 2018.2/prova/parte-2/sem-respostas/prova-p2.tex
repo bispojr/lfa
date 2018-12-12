@@ -1,0 +1,86 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Jataí (UFJ)\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{07 de dezembro de 2018}
+
+\title{\sc \huge Prova (Parte 2)}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro mini-testes (MT), uma prova final (PF), exercícios-bônus (EB) e exercícios aplicados em sala de aula pelo método de Instrução pelos Colegas (IpC);
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & [(\sum_{i=1}^{4} max(MT_i, SMT_i ) + PF].0,2  + EB + IpC\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações, e
+		\item $SMT_i$ é a substitutiva do mini-teste $i$.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (3) Autômatos Finitos Não-determinísticos, (4) Expressões Regulares, (5) Linguagens não-regulares, (6) Gramáticas Li\-vres-do-Contexto, (7) Autômatos com Pilha, e (8) Linguagens Não-Livres-do-Contexto.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Mini-Teste 3}
+	
+	\item (5,0 pt) {\bf [Sipser 1.20]} Para cada uma das seguintes linguagens, dê duas cadeias que são membros e duas cadeias que não são membros - um total de quatro cadeias para cada linguagem. Assuma que o alfabeto é $\Sigma = \{a,b\}$ em todos os casos.
+	\begin{enumerate}
+		\item (2,0 pt) $aba \cup bab$ 
+		\item (3,0 pt) $(a \cup ba \cup bb)\Sigma^*$
+	\end{enumerate}
+	
+	\item (5,0 pt) {\bf [Sipser 1.29 (b)]} Use o lema do bombeamento para mostrar que $A = \{\omega \omega \omega$ | $\omega \in \{a, b\}^* \}$ não é regular.
+
+	\section*{Mini-Teste 4}
+
+	\item (5,0 pt) {\bf [Sipser 2.4]}  Dê gramáticas livres-do-contexto que gerem as seguintes linguagens. Em todos os itens o alfabeto $\Sigma$ é $\{0,1\}$.
+	\begin{enumerate}
+		\item (2,5 pt) $\{\omega$ | o comprimento de $\omega$ é ímpar $\}$
+		\item (2,5 pt) O conjunto vazio.
+	\end{enumerate}
+
+	\item (5,0 pt) {\bf [IpC - Q079]} Qual das cadeias abaixo este AP \underline{não} aceita? Justifique \underline{todas} as alternativas incorretas.
+	
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{images/ap3}
+	\end{center}
+
+\begin{enumerate}
+\item $\epsilon$
+\item $00$
+\item $11$
+\item $010$
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
