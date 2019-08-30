@@ -1,0 +1,175 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage{enumitem}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Autômato Finito Determinístico} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{29 de agosto de 2019} }
+
+\logo{\includegraphics[width=1cm]{images/ufjLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\section{Instrução pelos Colegas}
+
+	\begin{frame}{Questão 014}	
+		\begin{block}{[Q014]}
+			Em relação ao diagrama do autômato finito a seguir, assinale a alternativa que está \underline{incorreta}.
+			\begin{center}
+				\includegraphics[width=.7\textwidth]{images/afd-m1}
+			\end{center}
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $q_1$ é o estado inicial.
+			\item $q_2$ é o estado final.
+			\item O alfabeto é o conjunto $\{0, 1, 01\}$.
+			\item Este diagrama é chamado de diagrama de estados.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 015}	
+		\begin{block}{[Q015]}
+			Em relação ao diagrama do autômato finito $M_1$ a seguir, assinale a alternativa que está \underline{incorreta}.
+			\begin{center}
+				\includegraphics[width=.7\textwidth]{images/afd-m1}
+			\end{center}
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $M_1$ aceita 01.
+			\item $M_1$ aceita 11.
+			\item $M_1$ aceita 0100.
+			\item $M_1$ aceita 1010.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 016}	
+		\begin{block}{[Q016]}
+			Em relação ao diagrama do autômato finito $M_1$ a seguir, assinale a alternativa que está \underline{incorreta}.
+			\begin{center}
+				\includegraphics[width=.7\textwidth]{images/afd-m1}
+			\end{center}
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $M_1$ rejeita 10.
+			\item $M_1$ rejeita 11.
+			\item $M_1$ rejeita 010.
+			\item $M_1$ rejeita 110.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 017}	
+		\begin{block}{[Q017]}
+			Um autômato finito é definido por uma 5-upla $(Q, \Sigma, \delta, q_0, F)$. Em relação à definição, assinale a alternativa que está \underline{incorreta}.
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $Q$ é um conjunto infinito de estados.
+			\item $\Sigma$ é um conjunto finito chamado alfabeto.
+			\item $\delta$ é a função de transição.
+			\item $F$ é o conjunto de estados finais.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 018}	
+		\begin{block}{[Q018]}
+			Um autômato finito é definido por uma 5-upla $(Q, \Sigma, \delta, q_0, F)$. A função $\delta$ é definida como se segue
+			\begin{center}
+				$\delta:Q \times \Sigma \rightarrow Q$
+			\end{center}
+		Em relação à $\delta$, é \underline{correto} afirmar que...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item os estados do autômato são necessários apenas no domínio da função.
+			\item o contradomínio da função é o alfabeto.
+			\item as possibilidades de valores de entradas são infinitas.
+			\item é uma função que recebe duas entradas, sendo um estado e um símbolo do alfabeto.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 019}	
+		\begin{block}{[Q019]}
+			Em relação à linguagem de uma máquina $M$, é \underline{correto} afirmar que...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $L(M)$ é a notação utilizada para representar que $M$ está ligada.
+			\item $L(M)$ é o conjunto de todas as máquinas que têm\\ a linguagem $L$.
+			\item é o conjunto de todas as cadeias que a máquina $M$ aceita.
+			\item se $L(M) = A$, então $A$ é uma cadeia aceita por $M$.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}

@@ -1,0 +1,156 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage{enumitem}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Revisão de Fundamentos} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{28 de agosto de 2019} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\section{Instrução pelos Colegas}
+	
+	\begin{frame}{Questão 010}	
+		\begin{block}{[Q010]}
+			Logo abaixo há um argumento lógico para se dizer que 7 é ímpar.
+			\begin{itemize}
+				\item (1) Seja $p \in \mathbb{N}$.
+				\item (2) Sabe-se que $a$ é ímpar se: \\$a \in \mathbb{N}$ e $(a+1)/2 = k$.
+				\item (3) Ora, $5 \in \mathbb{N}$ e $(7+1)/2 = 4$.
+				\item (4) Como $4 \in \mathbb{N}$, logo 7 é ímpar.
+			\end{itemize}
+			Todo este argumento lógico pode ser melhor descrito como
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item lema
+			\item prova
+			\item enunciado
+			\item teorema
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 011}	
+		\begin{block}{[Q011]}
+			Uma das formas naturais de se provar um enunciado do tipo ``$P \Leftrightarrow Q$'' é
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item provar cada uma das duas partes $P \Rightarrow Q$ e $Q \Rightarrow P$.
+			\item utilizar a estratégia do contra-exemplo.
+			\item reescrever a expressão com as suas próprias palavras.
+			\item provar a direção reversa do enunciado.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 012}	
+		\begin{block}{[Q012]}
+			Logo abaixo há um argumento lógico para se dizer que não está chovendo agora.
+			\begin{itemize}
+				\item (1) Suponha que estivesse chovendo agora.
+				\item (2) Se isto fosse verdade, o chão do estacionamento estaria molhado.
+				\item (3) Mas o chão do estacionamento não está molhado.
+				\item (4) Logo, não está chovendo agora.
+			\end{itemize}
+			Este argumento lógico utiliza qual tipo de prova?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item Prova por construção
+			\item Prova por contradição
+			\item Prova por indução
+			\item Não utiliza nenhum tipo de prova.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}[shrink]{Questão 013}	
+		\begin{block}{[Q013]}
+			Logo abaixo há um argumento lógico para se dizer que todo circuito é 2-regular (todos os vértices têm grau 2).
+			\begin{itemize}
+				\item Para um circuito de 3 vértices, verifica-se que ele é 2-regular. Se um circuito de $n-1$ vértices $C_1$ for 2-regular, vamos mostrar que um circuito de $n$ vértices $C_2$ também o é. Seja $C_1$ o circuito $v_1 v_2 \ldots v_{n-1} v_1$. Vamos admitir que $C_1$ é 2-regular. É possível construir $C_2$ a partir de $C_1$: (i) adicionando um novo vértice $v_n$ vizinho de  $v_{n-1}$ e $v_1$ (logo $v_n$ tem grau 2), e (ii) removendo a aresta $v_{n-1}v_1$ (logo $v_{n-1}$ e $v_1$ voltam a ter grau 2). Desta forma, $C_2$ é 2-regular.
+			\end{itemize}
+			Este argumento lógico utiliza qual tipo de prova?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item Prova por construção
+			\item Prova por contradição
+			\item Prova por indução
+			\item Não utiliza nenhum tipo de prova.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
