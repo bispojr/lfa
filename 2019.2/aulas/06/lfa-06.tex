@@ -1,0 +1,190 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage{enumitem}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Autômato Finito Determinístico} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+}
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{05 de setembro de 2019} }
+
+\logo{\includegraphics[width=1cm]{images/ufjLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\section{Instrução pelos Colegas}
+
+	\begin{frame}{Questão 020}	
+		\begin{block}{[Q020]}
+			Seja a descrição formal de um autômato finito determinístico (AFD) $M = (\{q_1, q_2\}; \{0,1\}; \delta; q_1; \{q_2\})$.\\ Quantas entradas distintas a função $\delta$ pode receber?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item 2
+			\item 4
+			\item não se pode afirmar.
+			\item infinitas.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 021}	
+		\begin{block}{[Q021]}
+			Seja a descrição formal de um AFD $M = (\{q_1, q_2\}; \{0,1\}; \delta; q_1; \{q_2\})$.\\ Quantas saídas distintas a função $\delta$ pode retornar?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item 2
+			\item 4
+			\item não se pode afirmar.
+			\item infinitas.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Questão 022}	
+		\begin{block}{[Q022]}
+			Seja a descrição formal de um AFD $M = (\{q_1, q_2, q_3\}; \{0,1\}; \delta; q_1; \emptyset)$ em que $\delta$ é desconhecido. \\ A linguagem da máquina $M$ é...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item o conjunto de todas as cadeias possíveis.
+			\item o conjunto de todas as cadeias que terminam com 1.
+			\item vazia.
+			\item não é possível definir.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Questão 023}	
+		\begin{block}{[Q023]}
+			\begin{columns}
+				\begin{column}{0.05\textwidth}\end{column}
+				\begin{column}{0.40\textwidth}
+					Seja o AFD $M$, conforme o diagrama de estados ao lado. Se o estado inicial de $M$ fosse $q_2$, $L(M)$ seria composta pelo conjunto de todas as cadeias...
+				\end{column}
+				\begin{column}{0.50\textwidth}
+					\begin{center}
+						\includegraphics[width=.9\textwidth]{images/afd-m4}
+					\end{center}
+				\end{column}
+				\begin{column}{0.05\textwidth}\end{column}
+			\end{columns}
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item que começam e terminam com o mesmo símbolo.
+			\item que tem uma quantidade par de símbolos {\sc a}.
+			\item que terminam com símbolo {\sc b}.
+			\item que terminam com símbolo {\sc a}.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 024}	
+		\begin{block}{[Q024]}
+			\begin{columns}
+				\begin{column}{0.05\textwidth}\end{column}
+				\begin{column}{0.35\textwidth}
+					Seja o AFD $M$, conforme o diagrama de estados ao lado. O alfabeto $\Sigma$ de $M$ é...
+				\end{column}
+				\begin{column}{0.55\textwidth}
+					\begin{center}
+						\includegraphics[width=1.0\textwidth]{images/afd-m5}
+					\end{center}
+				\end{column}
+				\begin{column}{0.05\textwidth}\end{column}
+			\end{columns}
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $\{ 0, 1, 2, \langle\mbox{RESET}\rangle \}$
+			\item $\{ 0, 1, 2, \langle, \mbox{RESET}, \rangle \}$
+			\item $\{ 0, 1, 2, \langle,$ R, E, S, E, T, $\rangle \}$
+			\item $\{ 0, 1, 2 \}$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 025}	
+		\begin{block}{[Q025]}
+			Na definição formal de computação para um AFD $M$, se $M$ aceita $\omega$, então existe uma sequência de estados $r_0, r_1, \ldots, r_n$ em que
+			\begin{itemize}
+				\item - $r_0 = q_0$;
+				\item - $\delta(r_i, \omega_{i+1}) = r_{i+1}$, para $i=0, \ldots, n-1$, e
+				\item - $r_n \in F$.
+			\end{itemize}
+		O que o valor de $n$ representa
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item a quantidade de estados da sequência
+			\item o tamanho da cadeia $\omega$
+			\item a quantidade de entradas distintas de $\delta$
+			\item a quantidade de estados de $M$
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
