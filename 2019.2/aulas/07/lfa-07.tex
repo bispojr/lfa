@@ -1,0 +1,194 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage{enumitem}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Projetando Autômatos Finitos} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+}
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{11 de setembro de 2019} }
+
+\logo{\includegraphics[width=1cm]{images/ufjLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\section{Instrução pelos Colegas}
+	
+	\begin{frame}{Questão 026}	
+		\begin{block}{[Q026]}
+			Seja o AFD $M$, conforme o diagrama de estados abaixo. 
+			\begin{center}
+				\includegraphics[width=.9\textwidth]{images/afd-e2}
+			\end{center}
+		Qual seria uma das funções do estado $q_{00}$?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item registrar se as duas últimas leituras foi de símbolos {\sc 0}.
+			\item registrar se as duas primeiras leituras foi de símbolos {\sc 1}.
+			\item registrar se a cadeia contém, até então, três símbolos {\sc 0}.
+			\item  registrar se a cadeia tem, até então, {\sc 1} como último símbolo.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 027}	
+		\begin{block}{[Q027]}
+			\begin{columns}
+				\begin{column}{0.05\textwidth}\end{column}
+				\begin{column}{0.35\textwidth}
+					Seja o AFD $M$, conforme o diagrama de estados ao lado. Qual seria uma das funções do estado $q_2$?
+				\end{column}
+				\begin{column}{0.55\textwidth}
+					\begin{center}
+						\includegraphics[width=0.8\textwidth]{images/afd-m5}
+					\end{center}
+				\end{column}
+				\begin{column}{0.05\textwidth}\end{column}
+			\end{columns}
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item registrar se a soma de todos os símbolos depois do último $\langle$RESET$\rangle$ (se houver), até então, tem resto 0 ao dividir por 1.
+			\item registrar se a soma de todos os símbolos antes do primeiro $\langle$RESET$\rangle$ (se houver) tem resto 1 ao dividir por 3.
+			\item registrar se a soma de todos os símbolos depois do último $\langle$RESET$\rangle$ (se houver), até então, tem resto 2 ao dividir por 3.
+			\item nenhuma das anteriores.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Questão 028}	
+		\begin{block}{[Q028]}
+			\begin{columns}
+				\begin{column}{0.05\textwidth}\end{column}
+				\begin{column}{0.40\textwidth}
+					Seja o AFD $M$, conforme o diagrama de estados ao lado. Qual seria uma das funções do estado $r_1$?
+					\\(Admita que 0 é par)
+				\end{column}
+				\begin{column}{0.50\textwidth}
+					\begin{center}
+						\includegraphics[width=.9\textwidth]{images/afd-m4}
+					\end{center}
+				\end{column}
+				\begin{column}{0.05\textwidth}\end{column}
+			\end{columns}
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item registrar se a cadeia tem um número ímpar de {\sc a}s.
+			\item registrar se, até então, a cadeia tem um número par de {\sc a}s.
+			\item registrar se a cadeia tem um número ímpar de {\sc b}s.
+			\item registrar se o último símbolo, até então, é um {\sc b}.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 029}	
+		\begin{block}{[Q029]}
+			Seja o AFD $M$, conforme o diagrama de estados abaixo. 
+			\begin{center}
+				\includegraphics[width=.6\textwidth]{images/afd-m1}
+			\end{center}
+			Qual seria uma das funções do estado $q_{2}$?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item registrar se a cadeia começa com um símbolo  {\sc 1}.
+			\item registrar se a cadeia começa com um símbolo  {\sc 0}.
+			\item registrar todos os {\sc 0}s consecutivos no início da cadeia.
+			\item registrar infinitos {\sc 0}s do início da cadeia.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Questão 030}	
+		\begin{block}{[Q030]}
+			Considere o alfabeto $\Sigma = \{a,b\}$ para a linguagem \\$L =\{\omega$ | $\omega$ tem ao menos três {\sc a}s $\}$. Com quantos estados, no mínimo, seria possível construir um AFD que reconhecesse $L$?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item 2
+			\item 3
+			\item 4
+			\item 5
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Questão 031}	
+		\begin{block}{[Q031]}
+			Considere o alfabeto $\Sigma = \{a,b\}$ para a linguagem \\$L =\{\omega$ | $|\omega|$ = 1 $\}$. Com quantos estados, no mínimo, seria possível construir um AFD que reconhecesse $L$?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item 2
+			\item 3
+			\item 4
+			\item 5
+		\end{enumerate}
+	\end{frame}
+
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
