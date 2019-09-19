@@ -1,0 +1,135 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage[inline]{enumitem}
+
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Equivalência de AFNs e AFDs} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+}
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{18 de setembro de 2019} }
+
+\logo{\includegraphics[width=1cm]{images/ufjLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\section{Instrução pelos Colegas}
+	
+	\begin{frame}{Questão 038}	
+		\begin{block}{[Q038]}
+			É verdade que todo AFN tem um AFD equivalente. Na prova apresentada pelo Sipser, ele constroi um AFD $M$ a partir de um AFN $N$. Se $N$ tem 10 estados, quantos estados teria $M$?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item 10
+			\item 100
+			\item $2^{10}$
+			\item $10^2$
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Questão 039}	
+		\begin{block}{[Q039]}
+			É verdade que todo AFN tem um AFD equivalente. Na prova apresentada pelo Sipser, ele constroi um AFD $M = (Q', \Sigma, \delta', q_0', F')$ a partir de um AFN $N = (Q, \Sigma, \delta, q_0, F)$. 
+			
+			\vspace*{0.3cm}
+						
+			$Q' = \mathcal{P}(Q)$ porque...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item sempre um AFD tem mais estados que um AFN.
+			\item $\mathcal{P}(Q)$ é o contradomínio de $\delta$.
+			\item $\mathcal{P}(Q)$ é o conjunto de estados de $N$.
+			\item o conjunto vazio é subconjunto de qualquer conjunto.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 040}	
+		\begin{block}{[Q040]}
+			É verdade que todo AFN tem um AFD equivalente. Na prova apresentada pelo Sipser, ele constroi um AFD $M = (Q', \Sigma, \delta', q_0', F')$ a partir de um AFN $N = (Q, \Sigma, \delta, q_0, F)$. 
+			
+			\vspace*{0.3cm}
+						
+			$F' = \{R \in Q'$ | $R$ contém um estado de aceitação de $N\}$ porque...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item é possível que $Q' = Q$, então é necessário explicitar os estados finais.
+			\item se $R \in F'$ então todos os estados que estão em $R$ são finais.
+			\item $R$ representa o nível da árvore de execução de N em que pelo menos um dos estados é final.
+			\item $R$ necessita ser um estado de $Q$, e não um conjunto de estados de $Q$.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
