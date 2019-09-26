@@ -1,0 +1,181 @@
+ \documentclass[xcolor=dvipsnames,table]{beamer}
+%o
+%e
+
+\usepackage{latexsym}
+\usepackage [ansinew]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb} %Este e o AMS paquete
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage[inline]{enumitem}
+
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  %\definecolor{colortexto}{RGB}{153,100,0}
+  \definecolor{colortexto}{RGB}{0,0,0}
+  
+% \setbeamersize{sidebar width left=0.5cm}
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+%   \setbeamercolor{title}{fg=colortitulo!80!black,bg=blue!20!white}
+%   \setbeamercolor{title}{bg=colortitulo!20!black}
+%   \setbeamercolor{background canvas}{bg=colortitulo}
+%   \setbeamercolor{frametitle}{fg=red}
+
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+  %\logo{\includegraphics[width=2cm]{Images/ratonfuerte.jpg}}
+
+
+%   \usefonttheme[onlysmall]{structurebold}
+%   \usecolortheme{seahorse}
+%  \usecolortheme[named={YellowOrange}]{structure}
+%   \usecolortheme[named={Blue}]{structure}
+%   \usecolortheme{crane}
+%   \useoutertheme{default}
+}
+
+\title{Fecho sob Operações Regulares} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+}
+ \institute{
+  Linguagens Formais e Autômatos \\Bacharelado em Ciência da Computação}
+\date{\textbf{25 de setembro de 2019} }
+
+\logo{\includegraphics[width=1cm]{images/ufjLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}	
+	
+	\section{Instrução pelos Colegas}
+	
+	\begin{frame}{Questão 044}	
+		\begin{block}{[Q044]}
+			É verdade que a classe de linguagens regulares é fechada sob a operação de união. Na prova apresentada pelo Sipser, ele constroi um AFN $N$ a partir de dois AFNs: $N_1$ e $N_2$. A prova mostra que $L(N) = L(N_1) \cup L(N_2)$. 
+			
+			\vspace{0.3cm}
+			Se $N_1$ e $N_2$ têm 20 estados cada um, quantos estados tem $N$?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item 20
+			\item 41
+			\item $2^{20}$
+			\item $40^2$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 045}	
+		\begin{block}{[Q045]}
+			É verdade que a classe de linguagens regulares é fechada sob a operação de concatenação. Na prova apresentada pelo Sipser, ele constroi um AFN $N$ a partir de dois AFNs: $N_1$ e $N_2$. A prova mostra que $L(N) = L(N_1) \circ L(N_2)$. 
+			
+			\vspace{0.3cm}
+			Se $N_1$ e $N_2$ têm 30 estados cada um, quantos estados tem $N$?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item 15
+			\item 30
+			\item 60
+			\item $2^{30}$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 046}	
+		\begin{block}{[Q046]}
+			É verdade que a classe de linguagens regulares é fechada sob a operação de estrela. Na prova apresentada pelo Sipser, ele constroi um AFN $N$ a partir do AFN $N_1$. A prova mostra que $L(N) = L(N_1)^*$. 
+			
+			\vspace{0.3cm}
+			Se $N_1$ tem 10 estados, quantos estados tem $N$?
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item 5
+			\item 9
+			\item 10
+			\item 11
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 047}	
+		\begin{block}{[Q047]}
+			É verdade que a classe de linguagens regulares é fechada sob a operação de união. Na prova apresentada pelo Sipser, ele constroi um AFN $N  = (Q, \Sigma, \delta, q_0, F)$ a partir de dois AFNs: $N_1 = (Q_1, \Sigma, \delta_1, q_1, F_1)$ e $N_2 = (Q_2, \Sigma, \delta_2, q_2, F_2)$. A prova mostra que $L(N) = L(N_1) \cup L(N_2)$. 
+			
+			\vspace{0.3cm}
+			Podemos dizer que o valor de $\delta(q_0, \epsilon)$ é...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $\emptyset$
+			\item $\{q_1, q_2\}$
+			\item $\delta_1(q_0, \epsilon)$
+			\item $\delta_2(q_0, \epsilon)$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 048}	
+		\begin{block}{[Q048]}
+			É verdade que a classe de linguagens regulares é fechada sob a operação de concatenação. Na prova apresentada pelo Sipser, ele constroi um AFN $N  = (Q, \Sigma, \delta, q_1, F)$ a partir de dois AFNs: $N_1 = (Q_1, \Sigma, \delta_1, q_1, F_1)$ e $N_2 = (Q_2, \Sigma, \delta_2, q_2, F_2)$. A prova mostra que $L(N) = L(N_1) \circ L(N_2)$. 
+			
+			\vspace{0.3cm}
+			Se $q \in F_1$, então podemos dizer que o valor de $\delta(q, \epsilon)$ é...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $\delta_1(q, \epsilon)$
+			\item $\delta_2(q, \epsilon)$
+			\item $\delta_1(q, \epsilon) \cup \{q_2\}$
+			\item $\delta_2(q, \epsilon) \cup \{q_2\}$
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Questão 049}	
+		\begin{block}{[Q049]}
+			É verdade que a classe de linguagens regulares é fechada sob a operação de estrela. Na prova apresentada pelo Sipser, ele constroi um AFN $N  = (Q, \Sigma, \delta, q_0, F)$ a partir do AFN $N_1 = (Q_1, \Sigma, \delta_1, q_1, F_1)$. A prova mostra que $L(N) = L(N_1)^*$. 
+			
+			\vspace{0.3cm}
+			Se $q \in F_1$ e $a \not= \epsilon$, então podemos dizer que o valor de $\delta(q, a)$ é...
+		\end{block}
+		\begin{enumerate}[label=(\Alph*)]
+			\item $\delta_1(q, a)$
+			\item $\delta_2(q, a)$
+			\item $\delta_1(q, a) \cup \{q_1\}$
+			\item $\delta_2(q, a) \cup \{q_1\}$
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
