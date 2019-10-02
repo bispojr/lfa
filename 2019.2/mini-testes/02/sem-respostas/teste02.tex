@@ -1,0 +1,72 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Jataí (UFJ)\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{19 de setembro de 2019}
+
+\title{\sc \huge Mini-Teste 2}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro mini-testes (MT), uma prova final (PF) e exercícios aplicados em sala de aula pelo método de Instrução pelos Colegas (IpC);
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & [(\sum_{i=1}^{4} max(MT_i, SMT_i ) + PF].0,2  + IpC\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações, e
+		\item $SMT_i$ é a substitutiva do mini-teste $i$.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (2) Autômatos Finitos Determinísticos, e (3) Autômatos Finitos Não-determinísticos.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Segundo Teste}
+	
+	\item (5,0 pt) Dê o diagrama de estados das máquinas que reconhecem as seguintes linguagens. Admita em todos os itens que o alfabeto é  $\{0,1\}$.
+	\begin{enumerate}
+		\item {\bf [Sipser 1.6 (h)]} (2,5 pt) |Construir um AFD| \\$\{\omega$ | é qualquer subcadeia exceto {\sf 11} e {\sf 111}$\}$
+		\item {\bf [Sipser 1.7 (c)]} (2,5 pt) |Construir um AFN| 
+		\\a linguagem $\{\omega$ | $\omega$ contém um número par de 0s ou contém exatamente dois 1s$\}$ com seis estados.
+	\end{enumerate}
+	
+	
+	\item (5,0 pt) {\bf [IpC - Q033]} Sobre um AFN $M$, marque a alternativa \underline{incorreta} e \underline{justifique} a sua resposta.
+	\begin{enumerate}
+		\item para $M$ aceitar $\omega$, é necessário que todos os ramos de execução aceitem $\omega$.		
+		\item a sua função $\delta$ tem como saída um conjunto de estados.		
+		\item a sua função de $\delta$ tem como uma de suas entradas um símbolo de $\Sigma_{\epsilon}$.		
+		\item $M$ tem apenas um estado inicial.
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}
