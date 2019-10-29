@@ -1,0 +1,65 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Jataí (UFJ)\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{10 de outubro de 2019}
+
+\title{\sc \huge Mini-Teste 3}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro mini-testes (MT), uma prova final (PF) e exercícios aplicados em sala de aula pelo método de Instrução pelos Colegas (IpC);
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & [(\sum_{i=1}^{4} max(MT_i, SMT_i ) + PF].0,2  + IpC\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações, e
+		\item $SMT_i$ é a substitutiva do mini-teste $i$.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (2) Autômatos Finitos Determinísticos, e (3) Autômatos Finitos Não-determinísticos, (4) Expressões Regulares e (5) Linguagens Não-Regulares.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Terceiro Teste}
+	
+	\item (5,0 pt) Utilizando expressão regular, mostre que a classe de linguagens regulares é fechada sobre a operação de concatenação.
+	
+	\item (5,0 pt) Aponte o erro (e justifique o motivo) no seguinte argumento que tenta afirmar que $0^*1^*$ não é regular:
+	\begin{quote}
+		A prova é por contradição. Suponha que $0^*1^*$ seja regular. Seja $p$ o comprimento do bombeamento para $0^*1^*$ dado pelo lema do bombeamento. Escolha para $s$ a cadeia $0^p1^p$. Você sabe que $s$ é um membro de $0^*1^*$, mas $s$ não pode ser bombeada. Assim, temos uma contradição. Logo, $0^*1^*$ não é regular.
+	\end{quote}
+	Vale lembrar que $0^*1^*$ é regular.
+	
+\end{enumerate}
+
+\end{document}
