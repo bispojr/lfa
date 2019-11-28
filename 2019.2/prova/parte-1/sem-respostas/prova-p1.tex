@@ -1,0 +1,119 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Jataí (UFJ)\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{27 de novembro de 2019}
+
+\title{\sc \huge Prova (Parte 1)}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro mini-testes (MT), uma prova final (PF), exercícios-bônus (EB) e exercícios aplicados em sala de aula pelo método de Instrução pelos Colegas (IpC);
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & [(\sum_{i=1}^{4} max(MT_i, SMT_i ) + PF].0,2  + EB + IpC\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações, e
+		\item $SMT_i$ é a substitutiva do mini-teste $i$.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (1) Revisão de Fundamento, (2) Autômatos Finitos Determinísticos, (3) Autômatos Finitos Não-determinísticos.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Mini-Teste 1}
+	
+	\item (5,0 pt) {\bf [Sipser 0.6 Adaptada] } Seja $X$ o conjunto $\{1,2,3,4,5\}$ e $Y$ o conjunto $\{6,7,8,9,10\}$. A função unária
+	$f : X \rightarrow Y$ e a função binária $g: X \times Y \rightarrow Y$ são descritas nas tabelas seguintes.
+	
+	\begin{multicols}{2}
+		
+		\begin{tabular}{c|c}
+			$n$	&	$f(n)$	\\
+			\hline
+			1 	&	6	\\			
+			2 	&	7	\\
+			3 	&	6	\\
+			4 	&	7	\\
+			5 	&	6	\\
+			\hline
+		\end{tabular}
+		
+		\columnbreak
+		
+		\begin{tabular}{c|ccccc}
+			$g$	& 	6	& 	7	& 	8	& 	9	&	10 \\
+			\hline
+			1	&	10	&	10	&	10	&	10	&	10 \\
+			2	& 	7	& 	8	& 	9	& 	10	& 	6 \\	
+			3	& 	7	& 	7	& 	8	& 	8	& 	9 \\
+			4	& 	9	& 	8	& 	7	& 	6	& 	10 \\
+			5	& 	6	& 	6	& 	6	& 	6	& 	6 \\
+			\hline
+		\end{tabular}
+		
+	\end{multicols}
+	
+	\begin{enumerate}
+		\item (2,5 pt) Quais são o contradomínio e o domínio de $f$?
+		\item (2,5 pt) Qual é o valor de $g(4,f(4))$?
+	\end{enumerate}
+
+	\item (5,0 pt) {\bf [Sipser 0.5]} Se $C$ é um conjunto com $n$ elementos, quantos elementos estão no conjunto das partes de $C$? Explique sua resposta.
+
+	\section*{Mini-Teste 2}
+
+\item (5,0 pt) Dê o diagrama de estados das máquinas que reconhecem as seguintes linguagens. Admita em todos os itens que o alfabeto é  $\{0,1\}$.
+\begin{enumerate}
+	\item {\bf [Sipser 1.6 (i)]} (2,5 pt) |Construir um AFD| \\$\{\omega$ | toda posição ímpar de $\omega$ é um 1$\}$
+	\item {\bf [Sipser 1.7 (e)]} (2,5 pt) |Construir um AFN| 
+	\\a linguagem $0^*1^*0^+$ com três estados.
+\end{enumerate}
+
+\item (5,0 pt) {\bf [IpC]}
+Um autômato finito é definido por uma 5-upla $(Q, \Sigma, \delta, q_0, F)$. A função $\delta$ é definida como se segue
+\begin{center}
+	$\delta:Q \times \Sigma \rightarrow Q$
+\end{center}
+Em relação à $\delta$, marque a alternativa \underline{correta} e \underline{justifique} o motivo das demais serem falsas.
+
+\begin{enumerate}
+	\item os estados do autômato são necessários apenas no domínio da função.
+	\item o contradomínio da função é o alfabeto.
+	\item as possibilidades de valores de entradas são infinitas.
+	\item é uma função que recebe duas entradas, sendo um estado e um símbolo do alfabeto.
+\end{enumerate}
+
+
+\end{enumerate}
+
+\end{document}
