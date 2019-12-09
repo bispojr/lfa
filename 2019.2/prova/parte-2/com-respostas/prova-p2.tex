@@ -1,0 +1,170 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+\usepackage{soul}
+
+\author{\\Universidade Federal de Jataí (UFJ)\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{04 de dezembro de 2019}
+
+\title{\sc \huge Prova (Parte 2)}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro mini-testes (MT), uma prova final (PF), exercícios-bônus (EB) e exercícios aplicados em sala de aula pelo método de Instrução pelos Colegas (IpC);
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & [(\sum_{i=1}^{4} max(MT_i, SMT_i ) + PF].0,2  + EB + IpC\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações, e
+		\item $SMT_i$ é a substitutiva do mini-teste $i$.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (2) Autômatos Finitos Determinísticos,
+	(3) Autômatos Finitos Não-determinísticos, (4) Expressões Regulares, (5) Linguagens Não-Regulares, (6) Gramáticas Livres-de-Contexto e (7) Autômatos com Pilha.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Mini-Teste 3}
+	
+	\item {\bf [Sipser 1.22]} Em algumas linguagens de programação, os comentários aparecem entre delimitadores tais como {\tt /\#} e {\tt \#/} . Seja $C$ a linguagem de todas as cadeias válidas de comentários delimitados. Um membro de $C$ deve começar com {\tt /\#} e terminar com {\tt \#/}. Por questões de simplicidade, diremos que os comentários propriamente ditos serão escritos apenas com os símbolos {\tt a} e {\tt b}. Logo, o alfabeto de $C$ é $\Sigma = \{${\tt a}, {\tt b}, {\tt /}, {\tt \#}$\}$. 
+	\begin{enumerate}
+		\item (2,5 pt) Dê um AFD que reconhece $C$.
+		
+		\vspace*{0.3cm}
+		
+		{\color{blue}
+			
+			\begin{tikzpicture}[->,>=stealth,shorten >=1pt,auto,node distance=2cm,
+			semithick]
+			\node[state,initial] 	(q1)   						{$q_1$}; 
+			\node[state] 			(q2)	[above=of q1]		{$q_2$};
+			\node[state] 			(q3)	[right=of q2]		{$q_3$};
+			\node[state] 			(q4)	[right=of q3]		{$q_4$};
+			\node[state, accepting]	(q5)	[below=of q4]		{$q_5$};
+			\node[state] 			(q6)	[below=of q3]		{$q_6$};
+			\path[->] 
+			(q1) 	edge [bend left]	node {\tt /} (q2)
+			edge [bend right]	node {\tt \#, a, b} (q6)
+			(q2) 	edge [bend left] 	node {\tt \#} (q3)
+			edge [bend right]	node {\tt /, a, b} (q6)
+			(q3) 	edge [loop above] 	node {\tt a, b} ()
+			edge [bend left]	node {\tt \#} (q4)
+			edge node {\tt /} (q6)
+			(q4) 	edge [bend left] 	node {\tt /} (q5)
+			edge [bend right]	node {\tt \#, a, b} (q6)
+			(q5) 	edge [bend left] 	node {$\Sigma$} (q6)
+			(q6) edge [loop below] 	node {$\Sigma$} ();
+			\end{tikzpicture}
+		}
+	
+		\item (2,5 pt) Dê uma expressão regular que gera $C$.
+		
+		\vspace*{0.3cm}
+		
+		{\color{blue} {\bf R - }  {\tt /\#(a $\cup$ b)$^*$\#/} }
+		
+	\end{enumerate}
+	
+	\vspace*{0.5cm}
+	
+	\item (5,0 pt) Seja a linguagem $A = \{\omega \omega \omega$ | $\omega \in \{a,b\}^*\}$. Mostre o por quê da cadeia \st{$0^p0^{2p}$} $a^pa^{2p}$ não poder ser utilizada para provar que $A$ {\bf não} é regular (em que $p$ é o comprimento do bombeamento).
+	
+		\vspace*{0.3cm}
+	
+	{\color{blue} {\bf Resposta:} Esta cadeia não pode ser usada porque é possível dividi-la em subcadeias $x$, $y$ e $z$ de forma que a mesma satisfaça ao lema do bombeamento. Uma das possibilidades é admitir $p \geq 3$, $x=\epsilon$, $y=aaa$ e $z=a^{3p-3}$. Assim temos que $|aaa| \leq p$, $|aaa| \geq 0$ e $(aaa)^ia^{3p-3} \in A$ ($i=0, 1, \ldots$).
+		
+	\vspace*{0.2cm}
+		
+	P.S.: Se você admitir a cadeia $0^p0^{2p}$, basta argumentar na direção de que $0^p0^{2p} \not\in A$.
+	}
+
+	\section*{Mini-Teste 4}
+
+	\item (5,0 pt) {\bf [Sipser 2.4 / 2.6]}  Dê gramáticas livres-do-contexto que gerem as seguintes linguagens. Em todos os itens o alfabeto $\Sigma$ é $\{0,1\}$.
+	\begin{enumerate}
+		\item (2,0 pt) $\{\omega$ | $\omega$ é um palíndromo $\}$
+		
+		\vspace*{0.3cm}
+		
+		{\color{blue} {\bf Resposta:} A gramática correspondente é dada abaixo.
+			\begin{itemize}
+				\item[] $S \rightarrow 0S0$ | $1S1$ | $A$
+				\item[] $A \rightarrow 0$ | $1$ | $\epsilon$
+			\end{itemize}
+		}
+	
+		\item (3,0 pt) O complemento da linguagem $\{0^n 1^n$ | $n \geq 0 \}$
+		
+			\vspace*{0.3cm}
+		
+		{\color{blue} {\bf Resposta:} Esta linguagem pode ser composta pela união de três outras linguagens: 
+			\begin{enumerate}
+				\item todas as cadeias que têm mais 0s do que 1s \\(representada pela variável $S$);
+				\item todas as cadeias que têm mais 1s do que 0s \\(representada pela variável $U$); e
+				\item todas as cadeias que contêm 10 como subcadeia \\(representada pela variável $X$).
+			\end{enumerate}
+			Assim, a gramática construída, dada abaixo, é a união das três linguagens dadas acima.
+			
+			\begin{itemize}
+				\item[] $R \rightarrow S$ | $U$ | $X$
+				\item[] $S \rightarrow T0T$
+				\item[] $T \rightarrow  TT$ | $0T1$ | $1T0$ | $0$ | $\epsilon$
+				\item[] $U \rightarrow V1V$
+				\item[] $V \rightarrow  VV$ | $0V1$ | $1V0$ | $1$ | $\epsilon$
+				\item[] $X \rightarrow Z10Z$
+				\item[] $Z \rightarrow 0Z$ | $1Z$ | $\epsilon$
+			\end{itemize}
+		}
+	\end{enumerate}
+
+	\newpage
+
+	\item (5,0) Mostre que a classe de linguagens livres-de-contexto é fechada sob a operação de união.
+	
+		\vspace*{0.3cm}
+	
+	{\color{blue} {\bf Resposta:} Sejam duas linguagens livres-de-contexto quaisquer $A$ e $B$. Se $A$ e $B$ são livres-de-contexto, então existem gramáticas que a geram (e.g. $G_A = (V_A, \Sigma_A, R_A, S_A)$ e $G_B = (V_A, \Sigma_A, R_A, S_A)$, respectivamente). Iremos construir uma gramática $G_{A \cup B} = (V, \Sigma, R, S)$, a partir de $G_A$ e $G_B$, que gera a linguagem $A \cup B$. Os elementos de $G_{A \cup B}$ são descritos a seguir:
+		\begin{itemize}
+			\item $V = V_A \cup V_B \cup S$;
+			\item $\Sigma = \Sigma_A \cup \Sigma_B$;
+			\item $R = R_A \cup R_B \cup \{S \rightarrow S_A , S \rightarrow S_B\}$;
+			\item $S$ é a variável inicial.
+		\end{itemize}
+		Como foi possível construir $G_{A \cup B}$, logo a classe de linguagens livres-de-contexto é fechada sob a operação de união $\blacksquare$
+	}
+
+
+\end{enumerate}
+
+\end{document}

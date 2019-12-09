@@ -1,0 +1,79 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+
+\author{\\Universidade Federal de Jataí (UFJ)\\Bacharelado em Ciência da Computação \\Linguagens Formais e Autômatos \\Esdras Lins Bispo Jr.}
+
+\date{04 de dezembro de 2019}
+
+\title{\sc \huge Prova (Parte 2)}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\small
+ 
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro mini-testes (MT), uma prova final (PF), exercícios-bônus (EB) e exercícios aplicados em sala de aula pelo método de Instrução pelos Colegas (IpC);
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & [(\sum_{i=1}^{4} max(MT_i, SMT_i ) + PF].0,2  + EB + IpC\nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações, e
+		\item $SMT_i$ é a substitutiva do mini-teste $i$.
+	\end{itemize}
+	\item O conteúdo exigido desta avaliação compreende o seguinte ponto apresentado no Plano de Ensino da disciplina: (2) Autômatos Finitos Determinísticos,
+	(3) Autômatos Finitos Não-determinísticos, (4) Expressões Regulares, (5) Linguagens Não-Regulares, (6) Gramáticas Livres-de-Contexto e (7) Autômatos com Pilha.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+	
+	\section*{Mini-Teste 3}
+	
+	\item {\bf [Sipser 1.22]} Em algumas linguagens de programação, os comentários aparecem entre delimitadores tais como {\tt /\#} e {\tt \#/} . Seja $C$ a linguagem de todas as cadeias válidas de comentários delimitados. Um membro de $C$ deve começar com {\tt /\#} e terminar com {\tt \#/}. Por questões de simplicidade, diremos que os comentários propriamente ditos serão escritos apenas com os símbolos {\tt a} e {\tt b}. Logo, o alfabeto de $C$ é $\Sigma = \{${\tt a}, {\tt b}, {\tt /}, {\tt \#}$\}$. 
+	\begin{enumerate}
+		\item (2,5 pt) Dê um AFD que reconhece $C$.
+		\item (2,5 pt) Dê uma expressão regular que gera $C$.
+	\end{enumerate}
+	
+	\vspace*{0.5cm}
+	
+	\item (5,0 pt) Seja a linguagem $A = \{\omega \omega \omega$ | $\omega \in \{a,b\}^*\}$. Mostre o por quê da cadeia $0^p0^{2p}$ não poder ser utilizada para provar que $A$ {\bf não} é regular (em que $p$ é o comprimento do bombeamento).
+
+	\section*{Mini-Teste 4}
+
+	\item (5,0 pt) {\bf [Sipser 2.4 / 2.6]}  Dê gramáticas livres-do-contexto que gerem as seguintes linguagens. Em todos os itens o alfabeto $\Sigma$ é $\{0,1\}$.
+	\begin{enumerate}
+		\item (2,0 pt) $\{\omega$ | $\omega$ é um palíndromo $\}$
+		\item (3,0 pt) O complemento da linguagem $\{0^n 1^n$ | $n \geq 0 \}$
+	\end{enumerate}
+
+	\item (5,0) Mostre que a classe de linguagens livres-de-contexto é fechada sob a operação de união.
+
+
+\end{enumerate}
+
+\end{document}
